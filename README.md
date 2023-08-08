@@ -1,4 +1,4 @@
-# (BohdanHoliachenko)
+# BohdanHoliachenko
 ![Header] (тут буде посилання на зображення фону профілю)
 
 ## About me

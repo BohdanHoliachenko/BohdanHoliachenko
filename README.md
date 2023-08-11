@@ -15,8 +15,8 @@
   [Eletrick Trains](https://docs.google.com/spreadsheets/d/1zKUO_lOJ7iL64NeBwVHZLoNAxAP7QcQ3CPpWqFBF3hQ/edit?usp=sharing),  [Farming Fever](https://docs.google.com/spreadsheets/d/1JrhlRICtrFnfxfqvmgFKxFjcpHXyGPIjNI2NiWljdpk/edit?usp=sharing),  [War Number](https://docs.google.com/spreadsheets/d/18lWR1o0I0-ALpt5MeIUnOaxz7ejfHL0jY8bPiGqdszw/edit?usp=sharing),  [Gallery](https://docs.google.com/spreadsheets/d/1FdkxT4V3Z3Do1B2u4axB71LDwkv5sUDRDZ6LElL8M6M/edit?usp=sharing),  [Free](https://docs.google.com/spreadsheets/d/1HtYA0mbeoFLapw05nyACCrUcJYMUHWoe_4p0HgTqDso/edit?usp=sharing),  [Texas Massacre](https://docs.google.com/spreadsheets/d/128_rANYaIOEhUnicZBWntZqtM5bsZzVzWBdfVAVrHgk/edit?usp=sharing),  [Base Defences](https://docs.google.com/spreadsheets/d/1P-aU-p4jR0mW74i8LjYlWeDg9ecRAzKn2B1xzYB2pDQ/edit?usp=sharing),  [World Race](https://docs.google.com/spreadsheets/d/1YyECkHMKEZMzHPlKBtC1zUKVWwpcFBskgyReMgu5nWw/edit?usp=sharing),  [Little Shooter](https://docs.google.com/spreadsheets/d/1GDa4ycYwQfgw-hwjxzDiWhpHKE3-3gJfLV-DOXJfJh0/edit?usp=sharing),  [Chop Chop](https://docs.google.com/spreadsheets/d/1oE__g2fDVuTjx4ih2PxaMR1LLeqcMTI6JkMAZhhpz0k/edit?usp=sharing)
 
 ### Test plans 
-- Applications: [Texas Massacre](),  [AgeOfMystery](),  [Chop chop](),
-  [Little Shooter](),  [World Race]()
+- Applications: [Electric Trains](https://docs.google.com/document/d/1drI1sCm_4h9YpLNg-VXNmhgnHSpviIy5N0P5Hjxgx5Y/edit?usp=sharing),  [How To Dice Mushrooms](https://docs.google.com/document/d/1i_WS4rOtmu0n8aYihOoVelTbzDdL9oaS92rG6rmowEg/edit?usp=sharing),  [Farming Fever](https://docs.google.com/document/d/1ljRpn6SkAxCQtfJfdg6P5GgGRozN-mA5kljYimrPjCE/edit?usp=sharing),
+  [Hyper Tear](https://docs.google.com/document/d/1_yzB02LKNFB1s-qROEZXamZob5LgjLPJvDpNj0-v8RU/edit?usp=sharing),  [Age Of Mystery](https://docs.google.com/document/d/1bVYkV7jHyxS0J-77F2IAHKTWUYx27bKYbVLifkDafQ8/edit?usp=sharing)
 
 
 ## Languages and Tools
@@ -43,6 +43,6 @@
 
 
 ## Follow Me
-[ ![Telegram](https://img.shields.io/badge/-Telegram-30A5D8?style=for-the-badge&logo=Telegram&logoColor=F6F9FA) ](здесь ссылку на ваш Telegram)
-[ ![Instagam](https://img.shields.io/badge/-Instagram-A601CD?style=for-the-badge&logo=Instagram&logoColor=D6A639) ](здесь ссылку на ваш Instagam )
-[ ![Linkedin](https://img.shields.io/badge/-Linkedin-0A66C2?style=for-the-badge&logo=Linkedin&logoColor=FFFFFF) ](здесь ссылку на ваш Linkedin)
+[ ![Telegram](https://img.shields.io/badge/-Telegram-30A5D8?style=for-the-badge&logo=Telegram&logoColor=F6F9FA) ](https://t.me/BohdanHoliachenko)
+[ ![Instagam](https://img.shields.io/badge/-Instagram-A601CD?style=for-the-badge&logo=Instagram&logoColor=D6A639) ](https://www.instagram.com/bohdanholiachenko/)
+[ ![Linkedin](https://img.shields.io/badge/-Linkedin-0A66C2?style=for-the-badge&logo=Linkedin&logoColor=FFFFFF) ]()

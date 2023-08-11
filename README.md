@@ -11,8 +11,8 @@
 - Mobile application - [Base Defence](https://trello.com/b/2rHBDLqs/base-defence), [Farming Fever](https://trello.com/b/W2Nk7Klm/farming-fever)
 
 ### Check-lists
-- Applications: [12](),  [BeastTraversing](),  [Demo](),
-  [DemonsDespai](),  [Electric Trains](),  [GMTKGameJam](),  [HowToDiceMushrooms](),  [Hyper Tear Demo](),  [The Adventures Of Leep And Bownd](),  [Toziuha Night - Order of the Alchemists](),  [Upscaled_V0.2]()
+- Applications: [Age Of Mystery](https://docs.google.com/spreadsheets/d/1XeNGn4GeHVZ6e5FcxbF1y7InOrCGgi6rilckFUBl-nc/edit?usp=sharing),  [How To Dice Mushrooms](https://docs.google.com/spreadsheets/d/1xx_cFoam_PpiviaZZrAJSWZ3QZmrvW6YW7tzTEymozM/edit?usp=sharing),  [Hyper Tear](https://docs.google.com/spreadsheets/d/1tQHbIKkg4T-ZVWpQ85SH7aY3yHdDDd8sCw5rX6zsGMs/edit?usp=sharing),
+  [Eletrick Trains](https://docs.google.com/spreadsheets/d/1zKUO_lOJ7iL64NeBwVHZLoNAxAP7QcQ3CPpWqFBF3hQ/edit?usp=sharing),  [Farming Fever](https://docs.google.com/spreadsheets/d/1JrhlRICtrFnfxfqvmgFKxFjcpHXyGPIjNI2NiWljdpk/edit?usp=sharing),  [War Number](https://docs.google.com/spreadsheets/d/18lWR1o0I0-ALpt5MeIUnOaxz7ejfHL0jY8bPiGqdszw/edit?usp=sharing),  [Gallery](https://docs.google.com/spreadsheets/d/1FdkxT4V3Z3Do1B2u4axB71LDwkv5sUDRDZ6LElL8M6M/edit?usp=sharing),  [Free](https://docs.google.com/spreadsheets/d/1HtYA0mbeoFLapw05nyACCrUcJYMUHWoe_4p0HgTqDso/edit?usp=sharing),  [Texas Massacre](https://docs.google.com/spreadsheets/d/128_rANYaIOEhUnicZBWntZqtM5bsZzVzWBdfVAVrHgk/edit?usp=sharing),  [Base Defences](https://docs.google.com/spreadsheets/d/1P-aU-p4jR0mW74i8LjYlWeDg9ecRAzKn2B1xzYB2pDQ/edit?usp=sharing),  [World Race](https://docs.google.com/spreadsheets/d/1YyECkHMKEZMzHPlKBtC1zUKVWwpcFBskgyReMgu5nWw/edit?usp=sharing),  [Little Shooter](https://docs.google.com/spreadsheets/d/1GDa4ycYwQfgw-hwjxzDiWhpHKE3-3gJfLV-DOXJfJh0/edit?usp=sharing),  [Chop Chop](https://docs.google.com/spreadsheets/d/1oE__g2fDVuTjx4ih2PxaMR1LLeqcMTI6JkMAZhhpz0k/edit?usp=sharing)
 
 ### Test plans 
 - Applications: [Texas Massacre](),  [AgeOfMystery](),  [Chop chop](),

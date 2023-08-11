@@ -7,8 +7,8 @@
 ## Portfolio 
 
 ### Bug reports 
-- PC application - [HowToDiceMushrooms](https://trello.com/invite/b/g6YA33Al/ATTIe60ae9b711fd9ae6cb6f16b8b05eedc49CBFCE4A/texas-massacre), [AgeOfMystery](), [Chop chop]()
-- Mobile application - [Little Shooter](), [World Race]()
+- PC application - [HowToDiceMushrooms](https://trello.com/invite/b/g6YA33Al/ATTIe60ae9b711fd9ae6cb6f16b8b05eedc49CBFCE4A/texas-massacre), [AgeOfMystery](https://trello.com/b/6r5zG00E/age-of-mystery), [Chop chop](https://trello.com/b/4NZ5JXuG/shop-shop), [World Race](https://trello.com/b/cHKrURoV/world-race)
+- Mobile application - [Base Defence](https://trello.com/b/2rHBDLqs/base-defence) 
 
 ### Check-lists
 - Applications: [12](),  [BeastTraversing](),  [Demo](),

@@ -1,6 +1,6 @@
 # BohdanHoliachenko
-BohdanHoliachenko (![card Holiachenko](https://github.com/BohdanHoliachenko/BohdanHoliachenko/assets/141743979/3ff22f6e-8623-4b58-b68b-6d31da78d61d)
-)
+BohdanHoliachenko ![card Holiachenko](https://github.com/BohdanHoliachenko/BohdanHoliachenko/assets/141743979/3ff22f6e-8623-4b58-b68b-6d31da78d61d)
+
 
 ## About me
 Привет! Я Богдан, QA Engineer, исследую программное обеспечение в поиске дефектов и несовершенств. Моя миссия - гарантировать, что каждая линия кода соответствует высочайшим стандартам качества перед тем, как она достигнет пользователей. Когда я не в мире тестирования, я занимаюсь спортом или читаю книги - это мой способ поддерживать баланс между структурой и творчеством.

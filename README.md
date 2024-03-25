@@ -3,7 +3,13 @@ BohdanHoliachenko ![card Holiachenko](https://github.com/BohdanHoliachenko/Bohda
 
 
 ## About me
-Привет! Я Богдан, QA Engineer, исследую программное обеспечение в поиске дефектов и несовершенств. Моя миссия - гарантировать, что каждая линия кода соответствует высочайшим стандартам качества перед тем, как она достигнет пользователей. Когда я не в мире тестирования, я занимаюсь спортом или читаю книги - это мой способ поддерживать баланс между структурой и творчеством.
+A hawk-eyed bug hunter, relentlessly pursuing any defects in software. As a manual tester, I'm the ruthless enemy of bugs and glitches.
+
+I methodically and persistently test every single feature of an application: from the user interface to highly specialized capabilities. I thrive on complex challenges and unusual use cases. My mission is to catch every bug left behind by developers.
+
+I have experience testing desktop, web, and mobile apps across various industries. I can clearly document steps to reproduce issues and craft quality defect reports. I'm geared towards close collaboration with the DevOps team.
+
+Continuously honing my skills in writing effective test cases and adopting new testing techniques. I value the Agile atmosphere and love a good challenge. Ready to dedicate my utmost attention and diligence to ensuring the quality of your product. Put me to the test!
 
 ## Portfolio 
 

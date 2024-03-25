@@ -39,6 +39,7 @@ BohdanHoliachenko ![card Holiachenko](https://github.com/BohdanHoliachenko/Bohda
 ![Git](https://img.shields.io/badge/-Git-181617?style=for-the-badge&logo=Git&logoColor=F0F0F0)
 ![HTML5](https://img.shields.io/badge/-HTML5-3A3B3D?style=for-the-badge&logo=HTML5&logoColor=64C18)
 ![CSS3](https://img.shields.io/badge/-CSS3-254ADC?style=for-the-badge&logo=CSS3&logoColor=2094EF)
+![Visual Studio Code]([https://img.shields.io/badge/-CSS3-254ADC?style=for-the-badge&logo=CSS3&logoColor=2094EF](https://logowik.com/visual-studio-code-vector-logo-1-5273.html#google_vignette))
 
 
 

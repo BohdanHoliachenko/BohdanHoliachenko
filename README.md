@@ -1,6 +1,6 @@
 # BohdanHoliachenko
-BohdanHoliachenko ![card Holiachenko]((https://github.com/BohdanHoliachenko/BohdanHoliachenko/blob/main/завантаження.png)
-)
+BohdanHoliachenko ![card Holiachenko](https://github.com/BohdanHoliachenko/BohdanHoliachenko/blob/main/завантаження.png)
+
 
 
 ## About me

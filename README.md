@@ -4,7 +4,7 @@ BohdanHoliachenko ![card Holiachenko](https://github.com/BohdanHoliachenko/Bohda
 
 
 ## About me
-Hi
+Hi!
 I am full of energy and ready to accept new offers from interesting companies. My goal is to make your product even better and create a great experience for users. I am constantly looking for new ideas and solutions to move forward and also appreciate teamwork. In my free time, I work out in the gym. From time to time I love watching good TV shows and movies. On big weekends, I like to travel, I consider it the best way to relax and get inspiration to start something new.
 
 ## Portfolio 

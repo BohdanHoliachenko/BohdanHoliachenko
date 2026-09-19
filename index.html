@@ -6,10 +6,10 @@
 <title>Тарілка — облік калорій</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #F3E8D8;
+    --bg: #E8D2B8;
     --surface: #FFFDF8;
     --ink: #3B2D24;
     --ink-soft: #806F60;
@@ -29,22 +29,65 @@
   * { box-sizing: border-box; }
   body {
     margin: 0;
-    background: var(--bg);
+    background:
+      linear-gradient(90deg, rgba(166, 111, 73, 0.2), transparent 22%, transparent 78%, rgba(166, 111, 73, 0.2)),
+      linear-gradient(180deg, #D4B18E 0, var(--bg) 30%, var(--bg) 70%, #DCC09F 100%);
     color: var(--ink);
     font-family: 'Inter', -apple-system, sans-serif;
     min-height: 100%;
     -webkit-font-smoothing: antialiased;
   }
+  body::before,
+  body::after {
+    content: '';
+    position: fixed;
+    top: 25%;
+    z-index: 0;
+    width: 52px;
+    height: 240px;
+    border-top: 1px solid var(--gold);
+    border-bottom: 1px solid var(--gold);
+    opacity: 0.45;
+    pointer-events: none;
+  }
+  body::before {
+    left: max(20px, calc((100vw - 680px) / 2));
+    border-left: 1px solid var(--gold);
+    background:
+      linear-gradient(var(--gold), var(--gold)) 14px 18px / 1px 72px no-repeat,
+      radial-gradient(circle at 38px 184px, var(--gold) 0 3px, transparent 4px),
+      linear-gradient(135deg, transparent 48%, var(--gold) 49% 51%, transparent 52%) 25px 112px / 28px 28px no-repeat;
+  }
+  body::after {
+    right: max(20px, calc((100vw - 680px) / 2));
+    border-right: 1px solid var(--gold);
+    background:
+      linear-gradient(var(--gold), var(--gold)) calc(100% - 14px) calc(100% - 18px) / 1px 72px no-repeat,
+      radial-gradient(circle at 14px 54px, var(--gold) 0 3px, transparent 4px),
+      linear-gradient(315deg, transparent 48%, var(--gold) 49% 51%, transparent 52%) 0 112px / 28px 28px no-repeat;
+  }
   .wrap {
     max-width: 480px;
     margin: 0 auto;
     padding: 32px 20px 60px;
+    position: relative;
+    z-index: 1;
   }
   header.top {
     margin-bottom: 6px;
+    position: relative;
+  }
+  header.top::after {
+    content: '';
+    display: block;
+    width: 58px;
+    height: 4px;
+    margin-top: 17px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--accent) 0 48%, var(--gold) 48% 72%, var(--line) 72% 100%);
   }
   .brand {
-    font-family: 'Fraunces', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 24px;
     font-weight: 600;
     letter-spacing: -0.01em;
@@ -112,14 +155,26 @@
 
   /* today view */
   .hero {
+    position: relative;
+    overflow: hidden;
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: var(--radius);
     padding: 28px 24px;
     margin-bottom: 18px;
   }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 24px;
+    width: 42px;
+    height: 4px;
+    border-radius: 0 0 4px 4px;
+    background: var(--accent);
+  }
   .hero-number {
-    font-family: 'Fraunces', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 56px;
     font-weight: 500;
     line-height: 1;
@@ -263,6 +318,15 @@
     color: var(--ink-soft);
     margin: 4px 2px 10px;
   }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin: 0 7px 1px 0;
+    border-radius: 50%;
+    background: var(--gold);
+  }
 
   ul.entries {
     list-style: none;
@@ -347,9 +411,21 @@
     margin-bottom: 12px;
   }
   .leaderboard-title {
-    font-family: 'Fraunces', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 22px;
     font-weight: 600;
+  }
+  .leaderboard-title::before,
+  .nutrition-title::before,
+  .facts-title::before {
+    content: '';
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    margin: 0 9px 2px 0;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    vertical-align: middle;
   }
   .leaderboard-caption {
     color: var(--ink-soft);
@@ -418,7 +494,7 @@
   }
   .profile-dialog h2 {
     margin: 0;
-    font-family: 'Fraunces', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 28px;
     font-weight: 600;
   }
@@ -446,7 +522,7 @@
   .profile-streak {
     display: block;
     color: var(--ink);
-    font-family: 'Fraunces', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 36px;
     line-height: 1;
     margin-bottom: 8px;
@@ -455,7 +531,7 @@
     margin-top: 30px;
   }
   .nutrition-title {
-    font-family: 'Fraunces', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 22px;
     font-weight: 600;
   }
@@ -479,7 +555,7 @@
   }
   .nutrition-value {
     overflow-wrap: anywhere;
-    font-family: 'Fraunces', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 22px;
     line-height: 1.1;
   }
@@ -489,6 +565,31 @@
     line-height: 1.3;
     margin-top: 5px;
   }
+  .dashboard-filters {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .dashboard-filters select {
+    min-width: 0;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 11px 30px 11px 12px;
+    appearance: none;
+    background-color: var(--surface);
+    background-image: linear-gradient(45deg, transparent 50%, var(--ink-soft) 50%), linear-gradient(135deg, var(--ink-soft) 50%, transparent 50%);
+    background-position: calc(100% - 15px) 50%, calc(100% - 10px) 50%;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    color: var(--ink);
+    font: 13px 'Inter', sans-serif;
+    cursor: pointer;
+  }
+  .dashboard-filters select:focus { outline: none; border-color: var(--accent); }
+  .nutrition-dashboard {
+    margin-top: 30px;
+  }
   .facts {
     margin-top: 30px;
     padding: 20px 18px 18px;
@@ -497,7 +598,7 @@
     background: var(--surface);
   }
   .facts-title {
-    font-family: 'Fraunces', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 22px;
     font-weight: 600;
   }
@@ -528,6 +629,131 @@
     font-variant-numeric: tabular-nums;
     font-weight: 600;
   }
+  .training {
+    margin-top: 30px;
+    padding: 20px 18px 18px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  .training-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .training-caption {
+    color: var(--ink-soft);
+    font-size: 12px;
+    margin-top: 3px;
+  }
+  .training-form {
+    display: grid;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .training-form select,
+  .training-form input,
+  .training-form textarea {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 11px 12px;
+    background: var(--bg);
+    color: var(--ink);
+    font: 14px 'Inter', sans-serif;
+  }
+  .training-form select,
+  .training-form input { height: 44px; }
+  .training-form textarea {
+    min-height: 72px;
+    resize: vertical;
+  }
+  .training-form select:focus,
+  .training-form input:focus,
+  .training-form textarea:focus { outline: none; border-color: var(--accent); }
+  .training-form input::placeholder,
+  .training-form textarea::placeholder { color: var(--ink-soft); }
+  .training-row {
+    display: grid;
+    grid-template-columns: 1.25fr 0.7fr 1fr;
+    gap: 8px;
+  }
+  .training-label {
+    color: var(--ink-soft);
+    font-size: 12px;
+    margin: 2px 0 -4px;
+  }
+  .training-days {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .training-day { position: relative; }
+  .training-day input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .training-day span {
+    display: block;
+    min-width: 36px;
+    padding: 8px 6px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--ink-soft);
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .training-day input:checked + span {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .training-submit {
+    border: none;
+    border-radius: 10px;
+    padding: 12px 16px;
+    background: var(--accent);
+    color: var(--surface);
+    font: 500 14px 'Inter', sans-serif;
+    cursor: pointer;
+  }
+  .training-submit:active { transform: translateY(1px); }
+  .training-list {
+    display: grid;
+    gap: 8px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .training-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--bg);
+  }
+  .training-item-title { font-weight: 600; }
+  .training-item-meta,
+  .training-item-exercises {
+    color: var(--ink-soft);
+    font-size: 12px;
+    line-height: 1.4;
+    margin-top: 4px;
+  }
+  .training-delete {
+    align-self: start;
+    border: none;
+    background: transparent;
+    color: var(--ink-soft);
+    font-size: 18px;
+    cursor: pointer;
+  }
+  .training-delete:hover { color: var(--warn); }
 
   /* dashboard view */
   .stat-grid {
@@ -543,7 +769,7 @@
     padding: 14px 12px;
   }
   .stat-value {
-    font-family: 'Fraunces', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 24px;
     font-weight: 500;
     letter-spacing: -0.01em;
@@ -606,11 +832,15 @@
   .chart-day.today { color: var(--ink); font-weight: 600; }
 
   @media (max-width: 380px) {
+    body::before,
+    body::after { display: none; }
     form.add-form { flex-wrap: wrap; }
     .add-form .f-name { flex: 1 1 calc(100% - 120px); }
     .select-control.f-category-control { flex: 1 1 112px; }
     .add-form .f-kcal { flex: 1 1 84px; }
     .add-form button { flex: 1 1 90px; }
+    .training-row { grid-template-columns: 1fr 1fr; }
+    .training-row select:last-child { grid-column: 1 / -1; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -630,12 +860,25 @@
     </header>
 
     <div class="tabs">
-      <button class="tab-btn active" data-tab="today" data-i18n="today">Сьогодні</button>
-      <button class="tab-btn" data-tab="week" data-i18n="week">Тиждень</button>
+      <button class="tab-btn active" data-tab="nutrition" data-i18n="nutrition">Харчування</button>
+      <button class="tab-btn" data-tab="training" data-i18n="training">Тренування</button>
     </div>
 
     <!-- TODAY VIEW -->
-    <section class="view active" id="view-today">
+    <section class="view active" id="view-nutrition">
+      <div class="dashboard-filters" aria-label="Фільтри харчування">
+        <select id="nutritionPeriod" data-i18n-aria="periodFilter" aria-label="Період">
+          <option value="today" data-i18n="periodToday">Сьогодні</option>
+          <option value="week" data-i18n="periodWeek">Останні 7 днів</option>
+        </select>
+        <select id="nutritionCategory" data-i18n-aria="categoryFilter" aria-label="Категорія">
+          <option value="all" data-i18n="allCategories">Усі категорії</option>
+          <option value="Сніданок" data-i18n="breakfast">Сніданок</option>
+          <option value="Обід" data-i18n="lunch">Обід</option>
+          <option value="Вечеря" data-i18n="dinner">Вечеря</option>
+          <option value="Перекус" data-i18n="snack">Перекус</option>
+        </select>
+      </div>
       <div class="hero">
         <div class="hero-number" id="remainingNumber">0</div>
         <div class="hero-label" id="remainingLabel">ккал залишилось на сьогодні</div>
@@ -711,6 +954,20 @@
         </div>
       </section>
 
+      <section class="nutrition-dashboard" aria-labelledby="dashboardTitle">
+        <div class="nutrition-title" id="dashboardTitle" data-i18n="dashboard">Дашборд</div>
+        <div class="nutrition-caption" id="dashboardCaption" data-i18n="dashboardToday">Дані за сьогодні</div>
+        <div class="stat-grid">
+          <div class="stat-card"><div class="stat-value" id="statAvg">0</div><div class="stat-label" data-i18n="average">середнє за день, ккал</div></div>
+          <div class="stat-card"><div class="stat-value gold" id="statStreak">0</div><div class="stat-label" data-i18n="streakLabel">днів поспіль у межах цілі</div></div>
+          <div class="stat-card"><div class="stat-value" id="statBest">—</div><div class="stat-label" data-i18n="bestDay">найкращий день</div></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title" data-i18n="nutritionChart">Калорії за період</div>
+          <div class="chart-bars" id="chartBars"></div>
+        </div>
+      </section>
+
       <section class="facts" aria-labelledby="factsTitle">
         <div class="facts-title" id="factsTitle" data-i18n="factsTitle">10 фактів про харчування</div>
         <ol class="facts-list">
@@ -741,28 +998,44 @@
       </div>
     </section>
 
-    <!-- WEEK VIEW -->
-    <section class="view" id="view-week">
-      <div class="stat-grid">
-        <div class="stat-card">
-          <div class="stat-value" id="statAvg">0</div>
-          <div class="stat-label" data-i18n="average">середнє за день, ккал</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value gold" id="statStreak">0</div>
-          <div class="stat-label" data-i18n="streakLabel">днів поспіль у межах цілі</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" id="statBest">—</div>
-          <div class="stat-label" data-i18n="bestDay">найкращий день</div>
-        </div>
-      </div>
-
-      <div class="chart-card">
-        <div class="chart-title" data-i18n="last7">Останні 7 днів</div>
-        <div class="chart-bars" id="chartBars"></div>
-      </div>
+    <!-- TRAINING VIEW -->
+    <section class="view" id="view-training">
+      <section class="training" aria-labelledby="trainingTitle">
+        <div class="training-title" id="trainingTitle" data-i18n="training">Тренування</div>
+        <div class="training-caption" data-i18n="trainingCaption">Плануй активність на тиждень</div>
+        <form class="training-form" id="trainingForm">
+          <div class="training-row">
+            <select id="trainingType" data-i18n-aria="trainingType" aria-label="Тип тренування" required>
+              <option value="strength" data-i18n="strength">Силове</option>
+              <option value="cardio" data-i18n="cardio">Кардіо</option>
+              <option value="yoga" data-i18n="yoga">Йога</option>
+              <option value="stretching" data-i18n="stretching">Розтяжка</option>
+            </select>
+            <input id="trainingQuantity" type="number" min="1" step="1" data-i18n-placeholder="quantity" placeholder="Кількість" required>
+            <select id="trainingUnit" data-i18n-aria="unitLabel" aria-label="Одиниця">
+              <option value="minutes" data-i18n="minutes">хв</option>
+              <option value="sets" data-i18n="sets">підх.</option>
+              <option value="sessions" data-i18n="sessions">разів</option>
+            </select>
+          </div>
+          <div class="training-label" data-i18n="daysLabel">Дні</div>
+          <div class="training-days">
+            <label class="training-day"><input type="checkbox" name="trainingDay" value="mon"><span data-i18n="mon">Пн</span></label>
+            <label class="training-day"><input type="checkbox" name="trainingDay" value="tue"><span data-i18n="tue">Вт</span></label>
+            <label class="training-day"><input type="checkbox" name="trainingDay" value="wed"><span data-i18n="wed">Ср</span></label>
+            <label class="training-day"><input type="checkbox" name="trainingDay" value="thu"><span data-i18n="thu">Чт</span></label>
+            <label class="training-day"><input type="checkbox" name="trainingDay" value="fri"><span data-i18n="fri">Пт</span></label>
+            <label class="training-day"><input type="checkbox" name="trainingDay" value="sat"><span data-i18n="sat">Сб</span></label>
+            <label class="training-day"><input type="checkbox" name="trainingDay" value="sun"><span data-i18n="sun">Нд</span></label>
+          </div>
+          <textarea id="trainingExercises" data-i18n-placeholder="exercisesPlaceholder" placeholder="Вправи: присідання, планка, віджимання..." required></textarea>
+          <textarea id="trainingNotes" data-i18n-placeholder="notesPlaceholder" placeholder="Нотатка (необов'язково)"></textarea>
+          <button class="training-submit" type="submit" data-i18n="addTraining">Додати тренування</button>
+        </form>
+        <ul class="training-list" id="trainingList"></ul>
+      </section>
     </section>
+
   </div>
 
 <script>
@@ -770,7 +1043,7 @@
   const STORAGE_KEY = 'calorie-tracker-v2';
   const translations = {
     uk: {
-      languageLabel: 'Мова', openSelect: 'Відкрити список', unit: 'ккал', currentUser: 'Ти', olena: 'Олена', andrii: 'Андрій', sofia: 'Софія', nutrition: 'Харчування', last7Nutrition: 'за останні 7 днів', weeklyKcal: 'всього ккал', mealCount: 'прийомів їжі', favoriteMeal: 'найчастіше', factsTitle: '10 фактів про харчування', noData: '—', tagline: 'Проста фіксація їжі на день', today: 'Сьогодні', week: 'Тиждень', goal: 'ціль',
+      languageLabel: 'Мова', openSelect: 'Відкрити список', periodFilter: 'Період', categoryFilter: 'Категорія', periodToday: 'Сьогодні', periodWeek: 'Останні 7 днів', allCategories: 'Усі категорії', dashboard: 'Дашборд', dashboardToday: 'Дані за сьогодні', dashboardWeek: 'Дані за останні 7 днів', nutritionChart: 'Калорії за період', unit: 'ккал', currentUser: 'Ти', olena: 'Олена', andrii: 'Андрій', sofia: 'Софія', nutrition: 'Харчування', last7Nutrition: 'за останні 7 днів', weeklyKcal: 'всього ккал', mealCount: 'прийомів їжі', favoriteMeal: 'найчастіше', factsTitle: '10 фактів про харчування', training: 'Тренування', trainingCaption: 'Плануй активність на тиждень', trainingType: 'Тип тренування', unitLabel: 'Одиниця', quantity: 'Кількість', daysLabel: 'Дні', exercisesPlaceholder: 'Вправи: присідання, планка, віджимання...', notesPlaceholder: "Нотатка (необов'язково)", addTraining: 'Додати тренування', strength: 'Силове', cardio: 'Кардіо', yoga: 'Йога', stretching: 'Розтяжка', minutes: 'хв', sets: 'підх.', sessions: 'разів', mon: 'Пн', tue: 'Вт', wed: 'Ср', thu: 'Чт', fri: 'Пт', sat: 'Сб', sun: 'Нд', noTraining: 'Ще немає запланованих тренувань', exercisesLabel: 'Вправи', noteLabel: 'Нотатка', deleteTraining: 'Видалити тренування', noData: '—', tagline: 'Проста фіксація їжі на день', today: 'Сьогодні', week: 'Тиждень', goal: 'ціль',
       foodPlaceholder: "Що з'їли?", chooseDish: 'Оберіть...', categoryLabel: 'Категорія прийому їжі', breakfast: 'Сніданок',
       lunch: 'Обід', dinner: 'Вечеря', snack: 'Перекус', record: 'Записати', todayEntries: 'Сьогоднішні записи',
       resetToday: 'Скинути сьогоднішній день', leaderboard: 'Лідерборд', thisWeek: 'цього тижня',
@@ -781,7 +1054,7 @@
       otherProfile: 'Стабільний тиждень у межах особистої калорійної цілі', other: 'Інше', profileOpen: 'Відкрити профіль'
     },
     en: {
-      languageLabel: 'Language', openSelect: 'Open list', unit: 'kcal', currentUser: 'You', olena: 'Olena', andrii: 'Andrii', sofia: 'Sofia', nutrition: 'Nutrition', last7Nutrition: 'over the last 7 days', weeklyKcal: 'total kcal', mealCount: 'meals logged', favoriteMeal: 'most frequent', factsTitle: '10 food facts', noData: '—', tagline: 'Simple daily food tracking', today: 'Today', week: 'Week', goal: 'goal',
+      languageLabel: 'Language', openSelect: 'Open list', periodFilter: 'Period', categoryFilter: 'Category', periodToday: 'Today', periodWeek: 'Last 7 days', allCategories: 'All categories', dashboard: 'Dashboard', dashboardToday: 'Data for today', dashboardWeek: 'Data for the last 7 days', nutritionChart: 'Calories for the period', unit: 'kcal', currentUser: 'You', olena: 'Olena', andrii: 'Andrii', sofia: 'Sofia', nutrition: 'Nutrition', last7Nutrition: 'over the last 7 days', weeklyKcal: 'total kcal', mealCount: 'meals logged', favoriteMeal: 'most frequent', factsTitle: '10 food facts', training: 'Workouts', trainingCaption: 'Plan your weekly activity', trainingType: 'Workout type', unitLabel: 'Unit', quantity: 'Quantity', daysLabel: 'Days', exercisesPlaceholder: 'Exercises: squats, plank, push-ups...', notesPlaceholder: 'Note (optional)', addTraining: 'Add workout', strength: 'Strength', cardio: 'Cardio', yoga: 'Yoga', stretching: 'Stretching', minutes: 'min', sets: 'sets', sessions: 'times', mon: 'Mon', tue: 'Tue', wed: 'Wed', thu: 'Thu', fri: 'Fri', sat: 'Sat', sun: 'Sun', noTraining: 'No workouts planned yet', exercisesLabel: 'Exercises', noteLabel: 'Note', deleteTraining: 'Delete workout', noData: '—', tagline: 'Simple daily food tracking', today: 'Today', week: 'Week', goal: 'goal',
       foodPlaceholder: 'What did you eat?', chooseDish: 'Choose...', categoryLabel: 'Meal category', breakfast: 'Breakfast',
       lunch: 'Lunch', dinner: 'Dinner', snack: 'Snack', record: 'Log food', todayEntries: "Today's entries",
       resetToday: 'Reset today', leaderboard: 'Leaderboard', thisWeek: 'this week', average: 'daily average, kcal',
@@ -808,13 +1081,14 @@
         return {
           goal: typeof parsed.goal === 'number' ? parsed.goal : 2000,
           history: parsed.history && typeof parsed.history === 'object' ? parsed.history : {},
-          language: parsed.language === 'en' ? 'en' : 'uk'
+          language: parsed.language === 'en' ? 'en' : 'uk',
+          training: Array.isArray(parsed.training) ? parsed.training : []
         };
       }
     } catch (e) {
       console.warn('Storage read failed', e);
     }
-    return { goal: 2000, history: {}, language: 'uk' };
+    return { goal: 2000, history: {}, language: 'uk', training: [] };
   }
 
   function saveState(state) {
@@ -883,8 +1157,21 @@
   const nutritionKcal = document.getElementById('nutritionKcal');
   const nutritionMeals = document.getElementById('nutritionMeals');
   const nutritionFavorite = document.getElementById('nutritionFavorite');
+  const nutritionPeriod = document.getElementById('nutritionPeriod');
+  const nutritionCategory = document.getElementById('nutritionCategory');
+  const dashboardCaption = document.getElementById('dashboardCaption');
+  const trainingForm = document.getElementById('trainingForm');
+  const trainingType = document.getElementById('trainingType');
+  const trainingQuantity = document.getElementById('trainingQuantity');
+  const trainingUnit = document.getElementById('trainingUnit');
+  const trainingExercises = document.getElementById('trainingExercises');
+  const trainingNotes = document.getElementById('trainingNotes');
+  const trainingList = document.getElementById('trainingList');
   const tabBtns = document.querySelectorAll('.tab-btn');
-  const views = { today: document.getElementById('view-today'), week: document.getElementById('view-week') };
+  const views = {
+    nutrition: document.getElementById('view-nutrition'),
+    training: document.getElementById('view-training')
+  };
   const statAvg = document.getElementById('statAvg');
   const statStreak = document.getElementById('statStreak');
   const statBest = document.getElementById('statBest');
@@ -972,8 +1259,10 @@
   }
 
   function renderWeek() {
-    const days = last7Days();
-    const totals = days.map((k) => dayTotal(k));
+    const days = nutritionPeriod.value === 'today' ? [todayKey()] : last7Days();
+    const filterCategory = nutritionCategory.value;
+    const filteredDayEntries = (key) => dayEntries(key).filter((entry) => filterCategory === 'all' || entry.category === filterCategory);
+    const totals = days.map((key) => filteredDayEntries(key).reduce((sum, entry) => sum + entry.kcal, 0));
     const daysWithData = totals.filter((t) => t > 0);
 
     const avg = daysWithData.length > 0
@@ -981,7 +1270,6 @@
       : 0;
     statAvg.textContent = avg.toLocaleString(state.language === 'uk' ? 'uk-UA' : 'en-US');
 
-    // streak: consecutive days (from today backwards) within goal, counting only days with entries
     let streak = 0;
     for (let i = days.length - 1; i >= 0; i--) {
       const t = totals[i];
@@ -1001,7 +1289,7 @@
       statBest.textContent = '—';
     } else {
       const d = new Date();
-      d.setDate(d.getDate() - (6 - bestIdx));
+      d.setDate(d.getDate() - (days.length - 1 - bestIdx));
       statBest.textContent = new Intl.DateTimeFormat(state.language === 'uk' ? 'uk-UA' : 'en-US', { weekday: 'short' }).format(d);
     }
 
@@ -1028,13 +1316,14 @@
       const label = document.createElement('div');
       label.className = 'chart-day' + (isToday ? ' today' : '');
       const d = new Date();
-      d.setDate(d.getDate() - (6 - i));
+      d.setDate(d.getDate() - (days.length - 1 - i));
       label.textContent = new Intl.DateTimeFormat(state.language === 'uk' ? 'uk-UA' : 'en-US', { weekday: 'short' }).format(d);
 
       col.appendChild(bar);
       col.appendChild(label);
       chartBars.appendChild(col);
     });
+    dashboardCaption.textContent = nutritionPeriod.value === 'today' ? t('dashboardToday') : t('dashboardWeek');
   }
 
   function renderLeaderboard() {
@@ -1100,7 +1389,9 @@
   }
 
   function renderNutrition() {
-    const entries = last7Days().flatMap((key) => dayEntries(key));
+    const days = nutritionPeriod.value === 'today' ? [todayKey()] : last7Days();
+    const filterCategory = nutritionCategory.value;
+    const entries = days.flatMap((key) => dayEntries(key)).filter((entry) => filterCategory === 'all' || entry.category === filterCategory);
     const total = entries.reduce((sum, entry) => sum + entry.kcal, 0);
     const categoryCounts = {};
     entries.forEach((entry) => {
@@ -1113,6 +1404,54 @@
     nutritionKcal.textContent = total.toLocaleString(locale) + ' ' + t('unit');
     nutritionMeals.textContent = entries.length.toLocaleString(locale);
     nutritionFavorite.textContent = favorite ? categoryLabel(favorite) : t('noData');
+  }
+
+  function renderTraining() {
+    trainingList.innerHTML = '';
+    if (state.training.length === 0) {
+      const empty = document.createElement('li');
+      empty.className = 'training-item';
+      empty.textContent = t('noTraining');
+      trainingList.appendChild(empty);
+      return;
+    }
+
+    state.training.forEach((plan) => {
+      const item = document.createElement('li');
+      item.className = 'training-item';
+
+      const info = document.createElement('div');
+      const title = document.createElement('div');
+      title.className = 'training-item-title';
+      title.textContent = `${t(plan.type)} · ${plan.quantity} ${t(plan.unit)}`;
+
+      const meta = document.createElement('div');
+      meta.className = 'training-item-meta';
+      meta.textContent = `${t('daysLabel')}: ${plan.days.map((day) => t(day)).join(', ')}`;
+
+      const exercises = document.createElement('div');
+      exercises.className = 'training-item-exercises';
+      exercises.textContent = `${t('exercisesLabel')}: ${plan.exercises}${plan.notes ? ` · ${t('noteLabel')}: ${plan.notes}` : ''}`;
+
+      info.appendChild(title);
+      info.appendChild(meta);
+      info.appendChild(exercises);
+
+      const del = document.createElement('button');
+      del.className = 'training-delete';
+      del.type = 'button';
+      del.textContent = '×';
+      del.setAttribute('aria-label', t('deleteTraining'));
+      del.addEventListener('click', () => {
+        state.training = state.training.filter((entry) => entry.id !== plan.id);
+        saveState(state);
+        renderTraining();
+      });
+
+      item.appendChild(info);
+      item.appendChild(del);
+      trainingList.appendChild(item);
+    });
   }
 
   profileClose.addEventListener('click', closeProfile);
@@ -1130,6 +1469,7 @@
     renderWeek();
     renderLeaderboard();
     renderNutrition();
+    renderTraining();
   }
 
   addForm.addEventListener('submit', function (ev) {
@@ -1150,6 +1490,27 @@
     foodName.value = '';
     foodKcal.value = '';
     foodName.focus();
+  });
+
+  trainingForm.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    const days = Array.from(document.querySelectorAll('input[name="trainingDay"]:checked')).map((input) => input.value);
+    const quantity = parseInt(trainingQuantity.value, 10);
+    const exercises = trainingExercises.value.trim();
+    if (!days.length || !Number.isFinite(quantity) || quantity < 1 || !exercises) return;
+
+    state.training.push({
+      id: Date.now() + '-' + Math.random().toString(36).slice(2, 7),
+      type: trainingType.value,
+      quantity,
+      unit: trainingUnit.value,
+      days,
+      exercises,
+      notes: trainingNotes.value.trim()
+    });
+    saveState(state);
+    trainingForm.reset();
+    renderTraining();
   });
 
   foodName.addEventListener('change', function () {
@@ -1187,6 +1548,9 @@
     saveState(state);
     renderAll();
   });
+
+  nutritionPeriod.addEventListener('change', renderAll);
+  nutritionCategory.addEventListener('change', renderAll);
 
   tabBtns.forEach((btn) => {
     btn.addEventListener('click', () => {

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Тарілка — облік калорій</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F2EA;
+    --surface: #FFFFFF;
+    --ink: #24261E;
+    --ink-soft: #6B6B5E;
+    --line: #DCD7C6;
+    --accent: #2E5339;
+    --accent-soft: #E4EBE1;
+    --warn: #A8492A;
+    --warn-soft: #F3E4DD;
+    --radius: 14px;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17190F;
+      --surface: #20231A;
+      --ink: #EDEAE0;
+      --ink-soft: #9C9C8D;
+      --line: #363B2C;
+      --accent: #7FAF8B;
+      --accent-soft: #263426;
+      --warn: #D98866;
+      --warn-soft: #3A2620;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17190F;
+    --surface: #20231A;
+    --ink: #EDEAE0;
+    --ink-soft: #9C9C8D;
+    --line: #363B2C;
+    --accent: #7FAF8B;
+    --accent-soft: #263426;
+    --warn: #D98866;
+    --warn-soft: #3A2620;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, sans-serif;
+    min-height: 100%;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+  header.top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 22px;
+  }
+  .brand {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .date {
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .hero {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    margin-bottom: 18px;
+  }
+  .hero-number {
+    font-family: 'Fraunces', serif;
+    font-size: 56px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .hero-number.over { color: var(--warn); }
+  .hero-label {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-top: 6px;
+  }
+  .bar-track {
+    margin-top: 18px;
+    height: 8px;
+    border-radius: 99px;
+    background: var(--accent-soft);
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 99px;
+    transition: width 0.35s ease;
+  }
+  .bar-fill.over { background: var(--warn); }
+  .hero-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .goal-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .goal-row input {
+    width: 76px;
+    border: none;
+    background: transparent;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+    border-bottom: 1px dashed var(--line);
+    padding: 2px 0;
+  }
+  .goal-row input:focus {
+    outline: none;
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+  }
+
+  form.add-form {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+  .add-form input {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--surface);
+    color: var(--ink);
+  }
+  .add-form input::placeholder { color: var(--ink-soft); }
+  .add-form input:focus { outline: none; border-color: var(--accent); }
+  .add-form .f-name { flex: 1; min-width: 0; }
+  .add-form .f-kcal { width: 84px; }
+  .add-form button {
+    border: none;
+    background: var(--accent);
+    color: var(--surface);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 12px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .add-form button:active { transform: translateY(1px); }
+
+  .section-label {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 4px 2px 10px;
+  }
+
+  ul.entries {
+    list-style: none;
+    margin: 0 0 28px;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+  ul.entries li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 2px;
+    border-bottom: 1px solid var(--line);
+  }
+  .e-name {
+    flex: 1;
+    font-size: 15px;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .e-kcal {
+    font-variant-numeric: tabular-nums;
+    font-size: 15px;
+    color: var(--ink-soft);
+  }
+  .e-del {
+    border: none;
+    background: none;
+    color: var(--ink-soft);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px 2px;
+  }
+  .e-del:hover { color: var(--warn); }
+
+  .empty {
+    padding: 30px 2px;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .reset-row {
+    display: flex;
+    justify-content: center;
+  }
+  .reset-btn {
+    border: none;
+    background: none;
+    color: var(--ink-soft);
+    font-size: 13px;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .reset-btn:hover { color: var(--warn); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bar-fill { transition: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand">Тарілка</div>
+      <div class="date" id="dateLabel"></div>
+    </header>
+
+    <div class="hero">
+      <div class="hero-number" id="remainingNumber">0</div>
+      <div class="hero-label" id="remainingLabel">ккал залишилось</div>
+
+      <div class="bar-track"><div class="bar-fill" id="barFill" style="width:0%"></div></div>
+      <div class="hero-stats">
+        <span id="consumedLabel">з'їдено: 0 ккал</span>
+        <span class="goal-row">
+          ціль:
+          <input id="goalInput" type="number" inputmode="numeric" min="0" step="10" value="2000">
+          ккал
+        </span>
+      </div>
+    </div>
+
+    <form class="add-form" id="addForm">
+      <input class="f-name" id="foodName" type="text" placeholder="Що з'їли?" autocomplete="off" required>
+      <input class="f-kcal" id="foodKcal" type="number" inputmode="numeric" placeholder="ккал" min="0" step="1" required>
+      <button type="submit">Додати</button>
+    </form>
+
+    <div class="section-label">Сьогодні</div>
+    <ul class="entries" id="entriesList"></ul>
+
+    <div class="reset-row">
+      <button class="reset-btn" id="resetBtn" type="button">Почати день заново</button>
+    </div>
+  </div>
+
+<script>
+(function () {
+  const STORAGE_KEY = 'calorie-tracker-day';
+
+  function todayKey() {
+    const d = new Date();
+    return d.toISOString().slice(0, 10);
+  }
+
+  function loadState() {
+    const key = todayKey();
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && parsed.day === key) {
+          return { day: key, goal: parsed.goal || 2000, entries: Array.isArray(parsed.entries) ? parsed.entries : [] };
+        }
+        // new day: carry over the goal only
+        return { day: key, goal: parsed.goal || 2000, entries: [] };
+      }
+    } catch (e) {
+      console.warn('Storage read failed', e);
+    }
+    return { day: key, goal: 2000, entries: [] };
+  }
+
+  function saveState(state) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (e) {
+      console.warn('Storage write failed', e);
+    }
+  }
+
+  let state = loadState();
+
+  const dateLabel = document.getElementById('dateLabel');
+  const remainingNumber = document.getElementById('remainingNumber');
+  const remainingLabel = document.getElementById('remainingLabel');
+  const consumedLabel = document.getElementById('consumedLabel');
+  const barFill = document.getElementById('barFill');
+  const goalInput = document.getElementById('goalInput');
+  const entriesList = document.getElementById('entriesList');
+  const addForm = document.getElementById('addForm');
+  const foodName = document.getElementById('foodName');
+  const foodKcal = document.getElementById('foodKcal');
+  const resetBtn = document.getElementById('resetBtn');
+
+  const formatter = new Intl.DateTimeFormat('uk-UA', { day: 'numeric', month: 'long' });
+  dateLabel.textContent = formatter.format(new Date());
+
+  function render() {
+    const consumed = state.entries.reduce((sum, e) => sum + e.kcal, 0);
+    const remaining = state.goal - consumed;
+    const over = remaining < 0;
+
+    remainingNumber.textContent = Math.abs(remaining).toLocaleString('uk-UA');
+    remainingNumber.classList.toggle('over', over);
+    remainingLabel.textContent = over ? 'ккал понад ціль' : 'ккал залишилось';
+
+    consumedLabel.textContent = `з'їдено: ${consumed.toLocaleString('uk-UA')} ккал`;
+
+    const pct = state.goal > 0 ? Math.min(100, (consumed / state.goal) * 100) : 0;
+    barFill.style.width = pct + '%';
+    barFill.classList.toggle('over', over);
+
+    goalInput.value = state.goal;
+
+    entriesList.innerHTML = '';
+    if (state.entries.length === 0) {
+      const empty = document.createElement('li');
+      empty.className = 'empty';
+      empty.textContent = 'Поки що порожньо — додайте перший прийом їжі';
+      empty.style.listStyle = 'none';
+      empty.style.borderBottom = '1px solid var(--line)';
+      entriesList.appendChild(empty);
+      return;
+    }
+
+    state.entries.slice().reverse().forEach((entry) => {
+      const li = document.createElement('li');
+
+      const name = document.createElement('span');
+      name.className = 'e-name';
+      name.textContent = entry.name;
+
+      const kcal = document.createElement('span');
+      kcal.className = 'e-kcal';
+      kcal.textContent = entry.kcal.toLocaleString('uk-UA') + ' ккал';
+
+      const del = document.createElement('button');
+      del.className = 'e-del';
+      del.type = 'button';
+      del.setAttribute('aria-label', 'Видалити запис');
+      del.textContent = '×';
+      del.addEventListener('click', () => {
+        state.entries = state.entries.filter((e) => e.id !== entry.id);
+        saveState(state);
+        render();
+      });
+
+      li.appendChild(name);
+      li.appendChild(kcal);
+      li.appendChild(del);
+      entriesList.appendChild(li);
+    });
+  }
+
+  addForm.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    const name = foodName.value.trim();
+    const kcal = parseInt(foodKcal.value, 10);
+    if (!name || !Number.isFinite(kcal) || kcal < 0) return;
+
+    state.entries.push({ id: Date.now() + '-' + Math.random().toString(36).slice(2, 7), name, kcal });
+    saveState(state);
+    render();
+
+    foodName.value = '';
+    foodKcal.value = '';
+    foodName.focus();
+  });
+
+  goalInput.addEventListener('change', function () {
+    const val = parseInt(goalInput.value, 10);
+    state.goal = Number.isFinite(val) && val >= 0 ? val : state.goal;
+    saveState(state);
+    render();
+  });
+
+  resetBtn.addEventListener('click', function () {
+    state = { day: todayKey(), goal: state.goal, entries: [] };
+    saveState(state);
+    render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

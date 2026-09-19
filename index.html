@@ -66,6 +66,18 @@
     font: 500 12px 'Inter', sans-serif;
     cursor: pointer;
   }
+  .language-select {
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--ink-soft) 50%), linear-gradient(135deg, var(--ink-soft) 50%, transparent 50%);
+    background-position: calc(100% - 15px) 50%, calc(100% - 10px) 50%;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    padding-right: 30px;
+  }
+  .add-form select {
+    appearance: none;
+    padding-right: 24px;
+  }
   .language-select:focus { outline: none; border-color: var(--accent); }
 
   /* tabs */
@@ -177,10 +189,39 @@
     background: var(--surface);
     color: var(--ink);
   }
-  .add-form input::placeholder { color: var(--ink-soft); }
+  .add-form input {
+    text-align: center;
+  }
+  .add-form input::placeholder {
+    color: var(--ink-soft);
+    text-align: center;
+  }
   .add-form input:focus,
   .add-form select:focus { outline: none; border-color: var(--accent); }
   .add-form select { cursor: pointer; }
+  .select-control {
+    position: relative;
+    min-width: 0;
+  }
+  .select-control.f-name-control { flex: 1; }
+  .select-control.f-category-control { width: 112px; }
+  .select-control select { width: 100%; }
+  .select-open {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    width: 16px;
+    height: 18px;
+    transform: translateY(calc(-50% - 4px));
+    border: none;
+    padding: 0;
+    background: transparent;
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .select-open:hover { color: var(--accent); }
   .add-form select:focus { outline: none; border-color: var(--accent); }
   .add-form .f-name { flex: 1; min-width: 0; }
   .add-form .f-name {
@@ -190,7 +231,7 @@
     padding-right: 28px;
   }
   .add-form .f-kcal { width: 84px; }
-  .add-form .f-category { width: 112px; }
+  .add-form .f-category { width: 100%; }
   .add-form button {
     border: none;
     background: var(--accent);
@@ -203,6 +244,19 @@
     cursor: pointer;
   }
   .add-form button:active { transform: translateY(1px); }
+  .add-form .select-open {
+    width: 16px;
+    height: 18px;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: var(--ink-soft);
+    font-size: 15px;
+    font-weight: 400;
+    transform: translateY(calc(-50% - 4px));
+  }
+  .add-form .select-open:hover { background: transparent; color: var(--accent); }
 
   .section-label {
     font-size: 13px;
@@ -397,6 +451,83 @@
     line-height: 1;
     margin-bottom: 8px;
   }
+  .nutrition {
+    margin-top: 30px;
+  }
+  .nutrition-title {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .nutrition-caption {
+    color: var(--ink-soft);
+    font-size: 12px;
+    margin-top: 3px;
+  }
+  .nutrition-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .nutrition-card {
+    min-width: 0;
+    padding: 13px 11px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+  }
+  .nutrition-value {
+    overflow-wrap: anywhere;
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    line-height: 1.1;
+  }
+  .nutrition-label {
+    color: var(--ink-soft);
+    font-size: 11px;
+    line-height: 1.3;
+    margin-top: 5px;
+  }
+  .facts {
+    margin-top: 30px;
+    padding: 20px 18px 18px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  .facts-title {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .facts-list {
+    display: grid;
+    gap: 8px;
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: facts;
+  }
+  .facts-list li {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 10px;
+    padding: 12px 11px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--ink-soft);
+    font-size: 13px;
+    line-height: 1.45;
+    counter-increment: facts;
+  }
+  .facts-list li::before {
+    content: counter(facts, decimal-leading-zero);
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+  }
 
   /* dashboard view */
   .stat-grid {
@@ -477,7 +608,7 @@
   @media (max-width: 380px) {
     form.add-form { flex-wrap: wrap; }
     .add-form .f-name { flex: 1 1 calc(100% - 120px); }
-    .add-form .f-category { flex: 1 1 112px; }
+    .select-control.f-category-control { flex: 1 1 112px; }
     .add-form .f-kcal { flex: 1 1 84px; }
     .add-form button { flex: 1 1 90px; }
   }
@@ -521,21 +652,27 @@
       </div>
 
       <form class="add-form" id="addForm">
-        <select class="f-name" id="foodName" data-i18n-aria="foodPlaceholder" aria-label="Що з'їли?" required>
-          <option value="" data-i18n="chooseDish" selected disabled>Оберіть страву</option>
-          <option value="oatmeal" data-food-uk="Вівсянка з фруктами" data-food-en="Oatmeal with fruit" data-kcal="320">Вівсянка з фруктами</option>
-          <option value="omelet" data-food-uk="Омлет з овочами" data-food-en="Vegetable omelet" data-kcal="280">Омлет з овочами</option>
-          <option value="chicken" data-food-uk="Курка з рисом" data-food-en="Chicken with rice" data-kcal="540">Курка з рисом</option>
-          <option value="pasta" data-food-uk="Паста з томатами" data-food-en="Tomato pasta" data-kcal="460">Паста з томатами</option>
-          <option value="salad" data-food-uk="Салат з тунцем" data-food-en="Tuna salad" data-kcal="260">Салат з тунцем</option>
-          <option value="yogurt" data-food-uk="Йогурт з горіхами" data-food-en="Yogurt with nuts" data-kcal="230">Йогурт з горіхами</option>
-        </select>
-        <select class="f-category" id="foodCategory" data-i18n-aria="categoryLabel" aria-label="Категорія прийому їжі">
-          <option value="Сніданок" data-i18n="breakfast">Сніданок</option>
-          <option value="Обід" data-i18n="lunch">Обід</option>
-          <option value="Вечеря" data-i18n="dinner">Вечеря</option>
-          <option value="Перекус" data-i18n="snack">Перекус</option>
-        </select>
+        <div class="select-control f-name-control">
+          <select class="f-name" id="foodName" data-i18n-aria="foodPlaceholder" aria-label="Що з'їли?" required>
+            <option value="" data-i18n="chooseDish" selected disabled>Оберіть страву</option>
+            <option value="oatmeal" data-food-uk="Вівсянка з фруктами" data-food-en="Oatmeal with fruit" data-kcal="320">Вівсянка з фруктами</option>
+            <option value="omelet" data-food-uk="Омлет з овочами" data-food-en="Vegetable omelet" data-kcal="280">Омлет з овочами</option>
+            <option value="chicken" data-food-uk="Курка з рисом" data-food-en="Chicken with rice" data-kcal="540">Курка з рисом</option>
+            <option value="pasta" data-food-uk="Паста з томатами" data-food-en="Tomato pasta" data-kcal="460">Паста з томатами</option>
+            <option value="salad" data-food-uk="Салат з тунцем" data-food-en="Tuna salad" data-kcal="260">Салат з тунцем</option>
+            <option value="yogurt" data-food-uk="Йогурт з горіхами" data-food-en="Yogurt with nuts" data-kcal="230">Йогурт з горіхами</option>
+          </select>
+          <button class="select-open" type="button" data-select-target="foodName" data-i18n-aria="openSelect" aria-label="Відкрити список">⌄</button>
+        </div>
+        <div class="select-control f-category-control">
+          <select class="f-category" id="foodCategory" data-i18n-aria="categoryLabel" aria-label="Категорія прийому їжі">
+            <option value="Сніданок" data-i18n="breakfast">Сніданок</option>
+            <option value="Обід" data-i18n="lunch">Обід</option>
+            <option value="Вечеря" data-i18n="dinner">Вечеря</option>
+            <option value="Перекус" data-i18n="snack">Перекус</option>
+          </select>
+          <button class="select-open" type="button" data-select-target="foodCategory" data-i18n-aria="openSelect" aria-label="Відкрити список">⌄</button>
+        </div>
         <input class="f-kcal" id="foodKcal" type="number" inputmode="numeric" data-i18n-placeholder="unit" placeholder="ккал" min="0" step="1" required>
         <button type="submit" data-i18n="record">Записати</button>
       </form>
@@ -553,6 +690,41 @@
           <div class="leaderboard-caption" data-i18n="thisWeek">цього тижня</div>
         </div>
         <ol class="leaderboard-list" id="leaderboardList"></ol>
+      </section>
+
+      <section class="nutrition" aria-labelledby="nutritionTitle">
+        <div class="nutrition-title" id="nutritionTitle" data-i18n="nutrition">Харчування</div>
+        <div class="nutrition-caption" data-i18n="last7Nutrition">за останні 7 днів</div>
+        <div class="nutrition-grid">
+          <div class="nutrition-card">
+            <div class="nutrition-value" id="nutritionKcal">0</div>
+            <div class="nutrition-label" data-i18n="weeklyKcal">всього ккал</div>
+          </div>
+          <div class="nutrition-card">
+            <div class="nutrition-value" id="nutritionMeals">0</div>
+            <div class="nutrition-label" data-i18n="mealCount">прийомів їжі</div>
+          </div>
+          <div class="nutrition-card">
+            <div class="nutrition-value" id="nutritionFavorite">—</div>
+            <div class="nutrition-label" data-i18n="favoriteMeal">найчастіше</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="facts" aria-labelledby="factsTitle">
+        <div class="facts-title" id="factsTitle" data-i18n="factsTitle">10 фактів про харчування</div>
+        <ol class="facts-list">
+          <li data-fact-uk="Клітковина допомагає довше відчувати ситість і підтримує нормальну роботу травлення." data-fact-en="Fiber can help you feel full for longer and supports healthy digestion.">Клітковина допомагає довше відчувати ситість і підтримує нормальну роботу травлення.</li>
+          <li data-fact-uk="Білок потрібен не лише спортсменам: він бере участь у відновленні тканин і підтримці м'язів." data-fact-en="Protein is not only for athletes: it helps maintain muscles and repair body tissues.">Білок потрібен не лише спортсменам: він бере участь у відновленні тканин і підтримці м'язів.</li>
+          <li data-fact-uk="Одна й та сама страва може мати різну калорійність залежно від порції та способу приготування." data-fact-en="The same dish can have different calories depending on the portion and cooking method.">Одна й та сама страва може мати різну калорійність залежно від порції та способу приготування.</li>
+          <li data-fact-uk="Вода не містить калорій, але регулярне пиття важливе для нормальної роботи організму." data-fact-en="Water has no calories, but regular hydration is important for normal body function.">Вода не містить калорій, але регулярне пиття важливе для нормальної роботи організму.</li>
+          <li data-fact-uk="Цільнозернові продукти зазвичай містять більше клітковини, ніж очищені зернові." data-fact-en="Whole-grain foods usually contain more fiber than refined grains.">Цільнозернові продукти зазвичай містять більше клітковини, ніж очищені зернові.</li>
+          <li data-fact-uk="Овочі та фрукти додають до раціону вітаміни, мінерали й різні види клітковини." data-fact-en="Vegetables and fruit add vitamins, minerals, and different types of fiber to your diet.">Овочі та фрукти додають до раціону вітаміни, мінерали й різні види клітковини.</li>
+          <li data-fact-uk="Жири є джерелом енергії та допомагають засвоювати жиророзчинні вітаміни." data-fact-en="Fats provide energy and help the body absorb fat-soluble vitamins.">Жири є джерелом енергії та допомагають засвоювати жиророзчинні вітаміни.</li>
+          <li data-fact-uk="Повільніше харчування дає організму більше часу помітити відчуття ситості." data-fact-en="Eating more slowly gives your body more time to notice feelings of fullness.">Повільніше харчування дає організму більше часу помітити відчуття ситості.</li>
+          <li data-fact-uk="Калорії — це лише один показник: склад їжі та поживна цінність теж мають значення." data-fact-en="Calories are only one measure: food composition and nutritional value matter too.">Калорії — це лише один показник: склад їжі та поживна цінність теж мають значення.</li>
+          <li data-fact-uk="Регулярність і різноманітність раціону часто важливіші за ідеальність одного прийому їжі." data-fact-en="Consistency and variety often matter more than making one meal perfect.">Регулярність і різноманітність раціону часто важливіші за ідеальність одного прийому їжі.</li>
+        </ol>
       </section>
 
       <div class="profile-modal" id="profileModal" hidden>
@@ -598,7 +770,7 @@
   const STORAGE_KEY = 'calorie-tracker-v2';
   const translations = {
     uk: {
-      languageLabel: 'Мова', unit: 'ккал', currentUser: 'Ти', tagline: 'Проста фіксація їжі на день', today: 'Сьогодні', week: 'Тиждень', goal: 'ціль',
+      languageLabel: 'Мова', openSelect: 'Відкрити список', unit: 'ккал', currentUser: 'Ти', olena: 'Олена', andrii: 'Андрій', sofia: 'Софія', nutrition: 'Харчування', last7Nutrition: 'за останні 7 днів', weeklyKcal: 'всього ккал', mealCount: 'прийомів їжі', favoriteMeal: 'найчастіше', factsTitle: '10 фактів про харчування', noData: '—', tagline: 'Проста фіксація їжі на день', today: 'Сьогодні', week: 'Тиждень', goal: 'ціль',
       foodPlaceholder: "Що з'їли?", chooseDish: 'Оберіть...', categoryLabel: 'Категорія прийому їжі', breakfast: 'Сніданок',
       lunch: 'Обід', dinner: 'Вечеря', snack: 'Перекус', record: 'Записати', todayEntries: 'Сьогоднішні записи',
       resetToday: 'Скинути сьогоднішній день', leaderboard: 'Лідерборд', thisWeek: 'цього тижня',
@@ -609,7 +781,7 @@
       otherProfile: 'Стабільний тиждень у межах особистої калорійної цілі', other: 'Інше', profileOpen: 'Відкрити профіль'
     },
     en: {
-      languageLabel: 'Language', unit: 'kcal', currentUser: 'You', tagline: 'Simple daily food tracking', today: 'Today', week: 'Week', goal: 'goal',
+      languageLabel: 'Language', openSelect: 'Open list', unit: 'kcal', currentUser: 'You', olena: 'Olena', andrii: 'Andrii', sofia: 'Sofia', nutrition: 'Nutrition', last7Nutrition: 'over the last 7 days', weeklyKcal: 'total kcal', mealCount: 'meals logged', favoriteMeal: 'most frequent', factsTitle: '10 food facts', noData: '—', tagline: 'Simple daily food tracking', today: 'Today', week: 'Week', goal: 'goal',
       foodPlaceholder: 'What did you eat?', chooseDish: 'Choose...', categoryLabel: 'Meal category', breakfast: 'Breakfast',
       lunch: 'Lunch', dinner: 'Dinner', snack: 'Snack', record: 'Log food', todayEntries: "Today's entries",
       resetToday: 'Reset today', leaderboard: 'Leaderboard', thisWeek: 'this week', average: 'daily average, kcal',
@@ -677,6 +849,9 @@
     document.querySelectorAll('[data-food-uk]').forEach((element) => {
       element.textContent = state.language === 'en' ? element.dataset.foodEn : element.dataset.foodUk;
     });
+    document.querySelectorAll('[data-fact-uk]').forEach((element) => {
+      element.textContent = state.language === 'en' ? element.dataset.factEn : element.dataset.factUk;
+    });
   }
 
   function dayEntries(key) {
@@ -705,6 +880,9 @@
   const profileRank = document.getElementById('profileRank');
   const profileDetail = document.getElementById('profileDetail');
   const languageSelect = document.getElementById('languageSelect');
+  const nutritionKcal = document.getElementById('nutritionKcal');
+  const nutritionMeals = document.getElementById('nutritionMeals');
+  const nutritionFavorite = document.getElementById('nutritionFavorite');
   const tabBtns = document.querySelectorAll('.tab-btn');
   const views = { today: document.getElementById('view-today'), week: document.getElementById('view-week') };
   const statAvg = document.getElementById('statAvg');
@@ -861,9 +1039,9 @@
 
   function renderLeaderboard() {
     const demoPlayers = [
-      { name: 'Олена', streak: 14 },
-      { name: 'Андрій', streak: 11 },
-      { name: 'Софія', streak: 8 }
+      { nameKey: 'olena', streak: 14 },
+      { nameKey: 'andrii', streak: 11 },
+      { nameKey: 'sofia', streak: 8 }
     ];
     const days = last7Days();
     let currentStreak = 0;
@@ -877,18 +1055,19 @@
       .sort((a, b) => b.streak - a.streak);
     leaderboardList.innerHTML = '';
     players.forEach((player, index) => {
+      const playerName = player.nameKey ? t(player.nameKey) : player.name;
       const row = document.createElement('li');
       row.className = 'leaderboard-row' + (player.current ? ' current' : '');
       row.tabIndex = 0;
       row.setAttribute('role', 'button');
-      row.setAttribute('aria-label', `${t('profileOpen')}: ${player.name}`);
+      row.setAttribute('aria-label', `${t('profileOpen')}: ${playerName}`);
 
       const rank = document.createElement('span');
       rank.className = 'leaderboard-rank';
       rank.textContent = (index + 1).toLocaleString(state.language === 'uk' ? 'uk-UA' : 'en-US');
 
       const name = document.createElement('span');
-      name.textContent = player.name;
+      name.textContent = playerName;
 
       const score = document.createElement('span');
       score.className = 'leaderboard-score';
@@ -900,7 +1079,7 @@
       leaderboardList.appendChild(row);
 
       const openProfile = () => {
-        profileTitle.textContent = player.name;
+        profileTitle.textContent = playerName;
         profileRank.textContent = `${index + 1} ${t('place')}`;
         profileDetail.innerHTML = `<span class="profile-streak">${player.streak} ${t('days')}</span>${player.current ? t('currentProfile') : t('otherProfile')}.`;
         profileModal.hidden = false;
@@ -920,6 +1099,22 @@
     profileModal.hidden = true;
   }
 
+  function renderNutrition() {
+    const entries = last7Days().flatMap((key) => dayEntries(key));
+    const total = entries.reduce((sum, entry) => sum + entry.kcal, 0);
+    const categoryCounts = {};
+    entries.forEach((entry) => {
+      const category = entry.category || 'Інше';
+      categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+    });
+    const favorite = Object.keys(categoryCounts).sort((a, b) => categoryCounts[b] - categoryCounts[a])[0];
+    const locale = state.language === 'uk' ? 'uk-UA' : 'en-US';
+
+    nutritionKcal.textContent = total.toLocaleString(locale) + ' ' + t('unit');
+    nutritionMeals.textContent = entries.length.toLocaleString(locale);
+    nutritionFavorite.textContent = favorite ? categoryLabel(favorite) : t('noData');
+  }
+
   profileClose.addEventListener('click', closeProfile);
   profileModal.addEventListener('click', (event) => {
     if (event.target === profileModal) closeProfile();
@@ -934,6 +1129,7 @@
     renderToday();
     renderWeek();
     renderLeaderboard();
+    renderNutrition();
   }
 
   addForm.addEventListener('submit', function (ev) {
@@ -959,6 +1155,17 @@
   foodName.addEventListener('change', function () {
     const selectedFood = foodName.options[foodName.selectedIndex];
     if (selectedFood && selectedFood.dataset.kcal) foodKcal.value = selectedFood.dataset.kcal;
+  });
+
+  document.querySelectorAll('.select-open').forEach((button) => {
+    button.addEventListener('click', () => {
+      const select = document.getElementById(button.dataset.selectTarget);
+      if (select.showPicker) {
+        select.showPicker();
+      } else {
+        select.focus();
+      }
+    });
   });
 
   goalInput.addEventListener('change', function () {

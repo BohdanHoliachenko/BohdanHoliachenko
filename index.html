@@ -9,43 +9,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #F5F2EA;
-    --surface: #FFFFFF;
-    --ink: #24261E;
-    --ink-soft: #6B6B5E;
-    --line: #DCD7C6;
-    --accent: #2E5339;
-    --accent-soft: #E4EBE1;
-    --warn: #A8492A;
-    --warn-soft: #F3E4DD;
+    --bg: #F3E8D8;
+    --surface: #FFFDF8;
+    --ink: #3B2D24;
+    --ink-soft: #806F60;
+    --line: #E1D1BE;
+    --accent: #A5653E;
+    --accent-soft: #F0DED0;
+    --gold: #B47D38;
+    --gold-soft: #F4E5C9;
+    --warn: #B6533C;
+    --warn-soft: #F4DDD5;
     --radius: 14px;
     box-sizing: border-box;
     padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #17190F;
-      --surface: #20231A;
-      --ink: #EDEAE0;
-      --ink-soft: #9C9C8D;
-      --line: #363B2C;
-      --accent: #7FAF8B;
-      --accent-soft: #263426;
-      --warn: #D98866;
-      --warn-soft: #3A2620;
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #17190F;
-    --surface: #20231A;
-    --ink: #EDEAE0;
-    --ink-soft: #9C9C8D;
-    --line: #363B2C;
-    --accent: #7FAF8B;
-    --accent-soft: #263426;
-    --warn: #D98866;
-    --warn-soft: #3A2620;
   }
   html { scroll-padding-top: env(safe-area-inset-top, 0px); }
   * { box-sizing: border-box; }
@@ -63,21 +41,64 @@
     padding: 32px 20px 60px;
   }
   header.top {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: 22px;
+    margin-bottom: 6px;
   }
   .brand {
     font-family: 'Fraunces', serif;
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 600;
     letter-spacing: -0.01em;
   }
-  .date {
+  .tagline {
     font-size: 13px;
     color: var(--ink-soft);
+    margin-top: 2px;
   }
+  .language-select {
+    float: right;
+    margin-top: -27px;
+    min-width: 76px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 9px;
+    background: var(--surface);
+    color: var(--ink-soft);
+    font: 500 12px 'Inter', sans-serif;
+    cursor: pointer;
+  }
+  .language-select:focus { outline: none; border-color: var(--accent); }
+
+  /* tabs */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--accent-soft);
+    padding: 4px;
+    border-radius: 999px;
+    margin: 22px 0 20px;
+  }
+  .tab-btn {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: var(--ink-soft);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 9px 0;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .tab-btn.active {
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  }
+
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* today view */
   .hero {
     background: var(--surface);
     border: 1px solid var(--line);
@@ -102,14 +123,14 @@
   .bar-track {
     margin-top: 18px;
     height: 8px;
-    border-radius: 99px;
+    border-radius: 999px;
     background: var(--accent-soft);
     overflow: hidden;
   }
   .bar-fill {
     height: 100%;
     background: var(--accent);
-    border-radius: 99px;
+    border-radius: 999px;
     transition: width 0.35s ease;
   }
   .bar-fill.over { background: var(--warn); }
@@ -124,7 +145,6 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-top: 4px;
   }
   .goal-row input {
     width: 76px;
@@ -147,7 +167,8 @@
     gap: 8px;
     margin-bottom: 22px;
   }
-  .add-form input {
+  .add-form input,
+  .add-form select {
     font-family: 'Inter', sans-serif;
     font-size: 15px;
     padding: 12px 14px;
@@ -157,9 +178,19 @@
     color: var(--ink);
   }
   .add-form input::placeholder { color: var(--ink-soft); }
-  .add-form input:focus { outline: none; border-color: var(--accent); }
+  .add-form input:focus,
+  .add-form select:focus { outline: none; border-color: var(--accent); }
+  .add-form select { cursor: pointer; }
+  .add-form select:focus { outline: none; border-color: var(--accent); }
   .add-form .f-name { flex: 1; min-width: 0; }
+  .add-form .f-name {
+    text-align: center;
+    text-align-last: center;
+    padding-left: 8px;
+    padding-right: 28px;
+  }
   .add-form .f-kcal { width: 84px; }
+  .add-form .f-category { width: 112px; }
   .add-form button {
     border: none;
     background: var(--accent);
@@ -197,6 +228,17 @@
     font-size: 15px;
     min-width: 0;
     overflow-wrap: anywhere;
+  }
+  .e-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .e-info .e-name { display: block; }
+  .e-category {
+    display: block;
+    color: var(--ink-soft);
+    font-size: 11px;
+    margin-top: 3px;
   }
   .e-kcal {
     font-variant-numeric: tabular-nums;
@@ -238,8 +280,210 @@
   }
   .reset-btn:hover { color: var(--warn); }
 
+  .leaderboard {
+    margin-top: 42px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+  }
+  .leaderboard-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .leaderboard-title {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .leaderboard-caption {
+    color: var(--ink-soft);
+    font-size: 12px;
+  }
+  .leaderboard-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .leaderboard-row {
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .leaderboard-row:hover { background: var(--gold-soft); }
+  .leaderboard-row:last-child { border-bottom: none; }
+  .leaderboard-row.current {
+    background: var(--accent-soft);
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .leaderboard-rank {
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+  .leaderboard-score {
+    color: var(--ink-soft);
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  .profile-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: rgba(59, 45, 36, 0.28);
+  }
+  .profile-modal[hidden] { display: none; }
+  .profile-dialog {
+    width: min(100%, 360px);
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: 0 18px 50px rgba(59, 45, 36, 0.16);
+  }
+  .profile-dialog-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .profile-dialog h2 {
+    margin: 0;
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 600;
+  }
+  .profile-close {
+    border: none;
+    background: none;
+    color: var(--ink-soft);
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 2px;
+  }
+  .profile-close:hover { color: var(--ink); }
+  .profile-rank {
+    color: var(--accent);
+    font-size: 13px;
+    margin-top: 4px;
+  }
+  .profile-detail {
+    margin: 22px 0 0;
+    color: var(--ink-soft);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .profile-streak {
+    display: block;
+    color: var(--ink);
+    font-family: 'Fraunces', serif;
+    font-size: 36px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  /* dashboard view */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 12px;
+  }
+  .stat-value {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-value.gold { color: var(--gold); }
+  .stat-label {
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    margin-top: 3px;
+    line-height: 1.3;
+  }
+
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px 18px 16px;
+  }
+  .chart-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .chart-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 120px;
+  }
+  .chart-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+  }
+  .chart-bar {
+    width: 100%;
+    border-radius: 6px 6px 3px 3px;
+    background: var(--accent-soft);
+    position: relative;
+    min-height: 4px;
+  }
+  .chart-bar-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 6px 6px 3px 3px;
+    background: var(--accent);
+  }
+  .chart-bar-fill.over { background: var(--warn); }
+  .chart-day {
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-top: 8px;
+  }
+  .chart-day.today { color: var(--ink); font-weight: 600; }
+
+  @media (max-width: 380px) {
+    form.add-form { flex-wrap: wrap; }
+    .add-form .f-name { flex: 1 1 calc(100% - 120px); }
+    .add-form .f-category { flex: 1 1 112px; }
+    .add-form .f-kcal { flex: 1 1 84px; }
+    .add-form button { flex: 1 1 90px; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .bar-fill { transition: none; }
+    .bar-fill, .chart-bar-fill { transition: none; }
   }
 </style>
 </head>
@@ -247,63 +491,158 @@
   <div class="wrap">
     <header class="top">
       <div class="brand">Тарілка</div>
-      <div class="date" id="dateLabel"></div>
+      <div class="tagline" data-i18n="tagline">Проста фіксація їжі на день</div>
+      <select class="language-select" id="languageSelect" data-i18n-aria="languageLabel" aria-label="Мова">
+        <option value="uk">🇺🇦 UA</option>
+        <option value="en">🇬🇧 EN</option>
+      </select>
     </header>
 
-    <div class="hero">
-      <div class="hero-number" id="remainingNumber">0</div>
-      <div class="hero-label" id="remainingLabel">ккал залишилось</div>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="today" data-i18n="today">Сьогодні</button>
+      <button class="tab-btn" data-tab="week" data-i18n="week">Тиждень</button>
+    </div>
 
-      <div class="bar-track"><div class="bar-fill" id="barFill" style="width:0%"></div></div>
-      <div class="hero-stats">
-        <span id="consumedLabel">з'їдено: 0 ккал</span>
-        <span class="goal-row">
-          ціль:
-          <input id="goalInput" type="number" inputmode="numeric" min="0" step="10" value="2000">
-          ккал
-        </span>
+    <!-- TODAY VIEW -->
+    <section class="view active" id="view-today">
+      <div class="hero">
+        <div class="hero-number" id="remainingNumber">0</div>
+        <div class="hero-label" id="remainingLabel">ккал залишилось на сьогодні</div>
+
+        <div class="bar-track"><div class="bar-fill" id="barFill" style="width:0%"></div></div>
+        <div class="hero-stats">
+          <span id="consumedLabel">з'їдено: 0 ккал</span>
+          <span class="goal-row">
+            <span data-i18n="goal">ціль</span>:
+            <input id="goalInput" type="number" inputmode="numeric" min="0" step="10" value="2000">
+            <span data-i18n="unit">ккал</span>
+          </span>
+        </div>
       </div>
-    </div>
 
-    <form class="add-form" id="addForm">
-      <input class="f-name" id="foodName" type="text" placeholder="Що з'їли?" autocomplete="off" required>
-      <input class="f-kcal" id="foodKcal" type="number" inputmode="numeric" placeholder="ккал" min="0" step="1" required>
-      <button type="submit">Додати</button>
-    </form>
+      <form class="add-form" id="addForm">
+        <select class="f-name" id="foodName" data-i18n-aria="foodPlaceholder" aria-label="Що з'їли?" required>
+          <option value="" data-i18n="chooseDish" selected disabled>Оберіть страву</option>
+          <option value="oatmeal" data-food-uk="Вівсянка з фруктами" data-food-en="Oatmeal with fruit" data-kcal="320">Вівсянка з фруктами</option>
+          <option value="omelet" data-food-uk="Омлет з овочами" data-food-en="Vegetable omelet" data-kcal="280">Омлет з овочами</option>
+          <option value="chicken" data-food-uk="Курка з рисом" data-food-en="Chicken with rice" data-kcal="540">Курка з рисом</option>
+          <option value="pasta" data-food-uk="Паста з томатами" data-food-en="Tomato pasta" data-kcal="460">Паста з томатами</option>
+          <option value="salad" data-food-uk="Салат з тунцем" data-food-en="Tuna salad" data-kcal="260">Салат з тунцем</option>
+          <option value="yogurt" data-food-uk="Йогурт з горіхами" data-food-en="Yogurt with nuts" data-kcal="230">Йогурт з горіхами</option>
+        </select>
+        <select class="f-category" id="foodCategory" data-i18n-aria="categoryLabel" aria-label="Категорія прийому їжі">
+          <option value="Сніданок" data-i18n="breakfast">Сніданок</option>
+          <option value="Обід" data-i18n="lunch">Обід</option>
+          <option value="Вечеря" data-i18n="dinner">Вечеря</option>
+          <option value="Перекус" data-i18n="snack">Перекус</option>
+        </select>
+        <input class="f-kcal" id="foodKcal" type="number" inputmode="numeric" data-i18n-placeholder="unit" placeholder="ккал" min="0" step="1" required>
+        <button type="submit" data-i18n="record">Записати</button>
+      </form>
 
-    <div class="section-label">Сьогодні</div>
-    <ul class="entries" id="entriesList"></ul>
+      <div class="section-label" data-i18n="todayEntries">Сьогоднішні записи</div>
+      <ul class="entries" id="entriesList"></ul>
 
-    <div class="reset-row">
-      <button class="reset-btn" id="resetBtn" type="button">Почати день заново</button>
-    </div>
+      <div class="reset-row">
+        <button class="reset-btn" id="resetBtn" type="button" data-i18n="resetToday">Скинути сьогоднішній день</button>
+      </div>
+
+      <section class="leaderboard" aria-labelledby="leaderboardTitle">
+        <div class="leaderboard-heading">
+          <div class="leaderboard-title" id="leaderboardTitle" data-i18n="leaderboard">Лідерборд</div>
+          <div class="leaderboard-caption" data-i18n="thisWeek">цього тижня</div>
+        </div>
+        <ol class="leaderboard-list" id="leaderboardList"></ol>
+      </section>
+
+      <div class="profile-modal" id="profileModal" hidden>
+        <div class="profile-dialog" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
+          <div class="profile-dialog-header">
+            <div>
+              <h2 id="profileTitle"></h2>
+              <div class="profile-rank" id="profileRank"></div>
+            </div>
+              <button class="profile-close" id="profileClose" type="button" data-i18n-aria="close" aria-label="Закрити">×</button>
+          </div>
+          <p class="profile-detail" id="profileDetail"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WEEK VIEW -->
+    <section class="view" id="view-week">
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="statAvg">0</div>
+          <div class="stat-label" data-i18n="average">середнє за день, ккал</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value gold" id="statStreak">0</div>
+          <div class="stat-label" data-i18n="streakLabel">днів поспіль у межах цілі</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statBest">—</div>
+          <div class="stat-label" data-i18n="bestDay">найкращий день</div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-title" data-i18n="last7">Останні 7 днів</div>
+        <div class="chart-bars" id="chartBars"></div>
+      </div>
+    </section>
   </div>
 
 <script>
 (function () {
-  const STORAGE_KEY = 'calorie-tracker-day';
+  const STORAGE_KEY = 'calorie-tracker-v2';
+  const translations = {
+    uk: {
+      languageLabel: 'Мова', unit: 'ккал', currentUser: 'Ти', tagline: 'Проста фіксація їжі на день', today: 'Сьогодні', week: 'Тиждень', goal: 'ціль',
+      foodPlaceholder: "Що з'їли?", chooseDish: 'Оберіть...', categoryLabel: 'Категорія прийому їжі', breakfast: 'Сніданок',
+      lunch: 'Обід', dinner: 'Вечеря', snack: 'Перекус', record: 'Записати', todayEntries: 'Сьогоднішні записи',
+      resetToday: 'Скинути сьогоднішній день', leaderboard: 'Лідерборд', thisWeek: 'цього тижня',
+      average: 'середнє за день, ккал', streakLabel: 'днів поспіль у межах цілі', bestDay: 'найкращий день',
+      last7: 'Останні 7 днів', remaining: 'ккал залишилось на сьогодні', over: 'ккал понад ціль на сьогодні',
+      consumed: "з'їдено", empty: "Ще нічого не додано — почни зі сніданку чи перекусу", delete: 'Видалити запис',
+      close: 'Закрити', place: 'місце в лідерборді', days: 'днів', currentProfile: 'Твоя поточна серія в межах тижневої цілі.',
+      otherProfile: 'Стабільний тиждень у межах особистої калорійної цілі', other: 'Інше', profileOpen: 'Відкрити профіль'
+    },
+    en: {
+      languageLabel: 'Language', unit: 'kcal', currentUser: 'You', tagline: 'Simple daily food tracking', today: 'Today', week: 'Week', goal: 'goal',
+      foodPlaceholder: 'What did you eat?', chooseDish: 'Choose...', categoryLabel: 'Meal category', breakfast: 'Breakfast',
+      lunch: 'Lunch', dinner: 'Dinner', snack: 'Snack', record: 'Log food', todayEntries: "Today's entries",
+      resetToday: 'Reset today', leaderboard: 'Leaderboard', thisWeek: 'this week', average: 'daily average, kcal',
+      streakLabel: 'days within your goal', bestDay: 'best day', last7: 'Last 7 days', remaining: 'kcal left today',
+      over: 'kcal over today\'s goal', consumed: 'consumed', empty: 'Nothing logged yet — start with breakfast or a snack',
+      delete: 'Delete entry', close: 'Close', place: 'place on the leaderboard', days: 'days',
+      currentProfile: 'Your current streak within this week\'s goal.',
+      otherProfile: 'A consistent week within a personal calorie goal', other: 'Other', profileOpen: 'Open profile'
+    }
+  };
 
-  function todayKey() {
-    const d = new Date();
+  function dateKey(d) {
     return d.toISOString().slice(0, 10);
+  }
+  function todayKey() {
+    return dateKey(new Date());
   }
 
   function loadState() {
-    const key = todayKey();
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw);
-        if (parsed && parsed.day === key) {
-          return { day: key, goal: parsed.goal || 2000, entries: Array.isArray(parsed.entries) ? parsed.entries : [] };
-        }
-        // new day: carry over the goal only
-        return { day: key, goal: parsed.goal || 2000, entries: [] };
+        return {
+          goal: typeof parsed.goal === 'number' ? parsed.goal : 2000,
+          history: parsed.history && typeof parsed.history === 'object' ? parsed.history : {},
+          language: parsed.language === 'en' ? 'en' : 'uk'
+        };
       }
     } catch (e) {
       console.warn('Storage read failed', e);
     }
-    return { day: key, goal: 2000, entries: [] };
+    return { goal: 2000, history: {}, language: 'uk' };
   }
 
   function saveState(state) {
@@ -316,7 +655,38 @@
 
   let state = loadState();
 
-  const dateLabel = document.getElementById('dateLabel');
+  function t(key) {
+    return translations[state.language][key] || translations.uk[key] || key;
+  }
+
+  function categoryLabel(category) {
+    const categoryKeys = { 'Сніданок': 'breakfast', 'Обід': 'lunch', 'Вечеря': 'dinner', 'Перекус': 'snack' };
+    return categoryKeys[category] ? t(categoryKeys[category]) : t('other');
+  }
+
+  function applyTranslations() {
+    document.querySelectorAll('[data-i18n]').forEach((element) => {
+      element.textContent = t(element.dataset.i18n);
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach((element) => {
+      element.placeholder = t(element.dataset.i18nPlaceholder);
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach((element) => {
+      element.setAttribute('aria-label', t(element.dataset.i18nAria));
+    });
+    document.querySelectorAll('[data-food-uk]').forEach((element) => {
+      element.textContent = state.language === 'en' ? element.dataset.foodEn : element.dataset.foodUk;
+    });
+  }
+
+  function dayEntries(key) {
+    return (state.history[key] && Array.isArray(state.history[key].entries)) ? state.history[key].entries : [];
+  }
+  function dayTotal(key) {
+    return dayEntries(key).reduce((sum, e) => sum + e.kcal, 0);
+  }
+
+  // --- elements ---
   const remainingNumber = document.getElementById('remainingNumber');
   const remainingLabel = document.getElementById('remainingLabel');
   const consumedLabel = document.getElementById('consumedLabel');
@@ -325,22 +695,37 @@
   const entriesList = document.getElementById('entriesList');
   const addForm = document.getElementById('addForm');
   const foodName = document.getElementById('foodName');
+  const foodCategory = document.getElementById('foodCategory');
   const foodKcal = document.getElementById('foodKcal');
   const resetBtn = document.getElementById('resetBtn');
+  const leaderboardList = document.getElementById('leaderboardList');
+  const profileModal = document.getElementById('profileModal');
+  const profileClose = document.getElementById('profileClose');
+  const profileTitle = document.getElementById('profileTitle');
+  const profileRank = document.getElementById('profileRank');
+  const profileDetail = document.getElementById('profileDetail');
+  const languageSelect = document.getElementById('languageSelect');
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const views = { today: document.getElementById('view-today'), week: document.getElementById('view-week') };
+  const statAvg = document.getElementById('statAvg');
+  const statStreak = document.getElementById('statStreak');
+  const statBest = document.getElementById('statBest');
+  const chartBars = document.getElementById('chartBars');
 
-  const formatter = new Intl.DateTimeFormat('uk-UA', { day: 'numeric', month: 'long' });
-  dateLabel.textContent = formatter.format(new Date());
+  const weekdayFmt = new Intl.DateTimeFormat('uk-UA', { weekday: 'short' });
 
-  function render() {
-    const consumed = state.entries.reduce((sum, e) => sum + e.kcal, 0);
+  function renderToday() {
+    const key = todayKey();
+    const entries = dayEntries(key);
+    const consumed = entries.reduce((sum, e) => sum + e.kcal, 0);
     const remaining = state.goal - consumed;
     const over = remaining < 0;
 
     remainingNumber.textContent = Math.abs(remaining).toLocaleString('uk-UA');
     remainingNumber.classList.toggle('over', over);
-    remainingLabel.textContent = over ? 'ккал понад ціль' : 'ккал залишилось';
+    remainingLabel.textContent = over ? t('over') : t('remaining');
 
-    consumedLabel.textContent = `з'їдено: ${consumed.toLocaleString('uk-UA')} ккал`;
+    consumedLabel.textContent = `${t('consumed')}: ${consumed.toLocaleString(state.language === 'uk' ? 'uk-UA' : 'en-US')} ${t('unit')}`;
 
     const pct = state.goal > 0 ? Math.min(100, (consumed / state.goal) * 100) : 0;
     barFill.style.width = pct + '%';
@@ -349,74 +734,263 @@
     goalInput.value = state.goal;
 
     entriesList.innerHTML = '';
-    if (state.entries.length === 0) {
+    if (entries.length === 0) {
       const empty = document.createElement('li');
       empty.className = 'empty';
-      empty.textContent = 'Поки що порожньо — додайте перший прийом їжі';
+      empty.textContent = t('empty');
       empty.style.listStyle = 'none';
       empty.style.borderBottom = '1px solid var(--line)';
       entriesList.appendChild(empty);
       return;
     }
 
-    state.entries.slice().reverse().forEach((entry) => {
+    entries.slice().reverse().forEach((entry) => {
       const li = document.createElement('li');
+
+      const info = document.createElement('div');
+      info.className = 'e-info';
 
       const name = document.createElement('span');
       name.className = 'e-name';
       name.textContent = entry.name;
 
+      const category = document.createElement('span');
+      category.className = 'e-category';
+      category.textContent = categoryLabel(entry.category);
+      info.appendChild(name);
+      info.appendChild(category);
+
       const kcal = document.createElement('span');
       kcal.className = 'e-kcal';
-      kcal.textContent = entry.kcal.toLocaleString('uk-UA') + ' ккал';
+      kcal.textContent = entry.kcal.toLocaleString(state.language === 'uk' ? 'uk-UA' : 'en-US') + ' ' + t('unit');
 
       const del = document.createElement('button');
       del.className = 'e-del';
       del.type = 'button';
-      del.setAttribute('aria-label', 'Видалити запис');
+      del.setAttribute('aria-label', t('delete'));
       del.textContent = '×';
       del.addEventListener('click', () => {
-        state.entries = state.entries.filter((e) => e.id !== entry.id);
+        const list = dayEntries(key).filter((e) => e.id !== entry.id);
+        state.history[key] = { entries: list };
         saveState(state);
-        render();
+        renderAll();
       });
 
-      li.appendChild(name);
+      li.appendChild(info);
       li.appendChild(kcal);
       li.appendChild(del);
       entriesList.appendChild(li);
     });
   }
 
+  function last7Days() {
+    const days = [];
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      days.push(dateKey(d));
+    }
+    return days;
+  }
+
+  function renderWeek() {
+    const days = last7Days();
+    const totals = days.map((k) => dayTotal(k));
+    const daysWithData = totals.filter((t) => t > 0);
+
+    const avg = daysWithData.length > 0
+      ? Math.round(daysWithData.reduce((a, b) => a + b, 0) / daysWithData.length)
+      : 0;
+    statAvg.textContent = avg.toLocaleString(state.language === 'uk' ? 'uk-UA' : 'en-US');
+
+    // streak: consecutive days (from today backwards) within goal, counting only days with entries
+    let streak = 0;
+    for (let i = days.length - 1; i >= 0; i--) {
+      const t = totals[i];
+      if (t === 0) break;
+      if (t <= state.goal) { streak++; } else { break; }
+    }
+    statStreak.textContent = streak.toLocaleString(state.language === 'uk' ? 'uk-UA' : 'en-US');
+
+    let bestIdx = -1;
+    let bestDiff = Infinity;
+    totals.forEach((t, i) => {
+      if (t === 0) return;
+      const diff = Math.abs(t - state.goal);
+      if (diff < bestDiff) { bestDiff = diff; bestIdx = i; }
+    });
+    if (bestIdx === -1) {
+      statBest.textContent = '—';
+    } else {
+      const d = new Date();
+      d.setDate(d.getDate() - (6 - bestIdx));
+      statBest.textContent = new Intl.DateTimeFormat(state.language === 'uk' ? 'uk-UA' : 'en-US', { weekday: 'short' }).format(d);
+    }
+
+    const maxVal = Math.max(state.goal, ...totals, 1);
+    chartBars.innerHTML = '';
+    days.forEach((key, i) => {
+      const total = totals[i];
+      const isToday = key === todayKey();
+      const over = total > state.goal;
+      const heightPct = Math.max(total > 0 ? (total / maxVal) * 100 : 0, total > 0 ? 6 : 0);
+
+      const col = document.createElement('div');
+      col.className = 'chart-col';
+
+      const bar = document.createElement('div');
+      bar.className = 'chart-bar';
+      bar.style.height = '100%';
+
+      const fill = document.createElement('div');
+      fill.className = 'chart-bar-fill' + (over ? ' over' : '');
+      fill.style.height = heightPct + '%';
+      bar.appendChild(fill);
+
+      const label = document.createElement('div');
+      label.className = 'chart-day' + (isToday ? ' today' : '');
+      const d = new Date();
+      d.setDate(d.getDate() - (6 - i));
+      label.textContent = new Intl.DateTimeFormat(state.language === 'uk' ? 'uk-UA' : 'en-US', { weekday: 'short' }).format(d);
+
+      col.appendChild(bar);
+      col.appendChild(label);
+      chartBars.appendChild(col);
+    });
+  }
+
+  function renderLeaderboard() {
+    const demoPlayers = [
+      { name: 'Олена', streak: 14 },
+      { name: 'Андрій', streak: 11 },
+      { name: 'Софія', streak: 8 }
+    ];
+    const days = last7Days();
+    let currentStreak = 0;
+    for (let i = days.length - 1; i >= 0; i--) {
+      const total = dayTotal(days[i]);
+      if (total === 0 || total > state.goal) break;
+      currentStreak++;
+    }
+
+    const players = demoPlayers.concat({ name: t('currentUser'), streak: currentStreak, current: true })
+      .sort((a, b) => b.streak - a.streak);
+    leaderboardList.innerHTML = '';
+    players.forEach((player, index) => {
+      const row = document.createElement('li');
+      row.className = 'leaderboard-row' + (player.current ? ' current' : '');
+      row.tabIndex = 0;
+      row.setAttribute('role', 'button');
+      row.setAttribute('aria-label', `${t('profileOpen')}: ${player.name}`);
+
+      const rank = document.createElement('span');
+      rank.className = 'leaderboard-rank';
+      rank.textContent = (index + 1).toLocaleString(state.language === 'uk' ? 'uk-UA' : 'en-US');
+
+      const name = document.createElement('span');
+      name.textContent = player.name;
+
+      const score = document.createElement('span');
+      score.className = 'leaderboard-score';
+      score.textContent = `${player.streak} ${t('days')}`;
+
+      row.appendChild(rank);
+      row.appendChild(name);
+      row.appendChild(score);
+      leaderboardList.appendChild(row);
+
+      const openProfile = () => {
+        profileTitle.textContent = player.name;
+        profileRank.textContent = `${index + 1} ${t('place')}`;
+        profileDetail.innerHTML = `<span class="profile-streak">${player.streak} ${t('days')}</span>${player.current ? t('currentProfile') : t('otherProfile')}.`;
+        profileModal.hidden = false;
+        profileClose.focus();
+      };
+      row.addEventListener('click', openProfile);
+      row.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openProfile();
+        }
+      });
+    });
+  }
+
+  function closeProfile() {
+    profileModal.hidden = true;
+  }
+
+  profileClose.addEventListener('click', closeProfile);
+  profileModal.addEventListener('click', (event) => {
+    if (event.target === profileModal) closeProfile();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !profileModal.hidden) closeProfile();
+  });
+
+  function renderAll() {
+    applyTranslations();
+    languageSelect.value = state.language;
+    renderToday();
+    renderWeek();
+    renderLeaderboard();
+  }
+
   addForm.addEventListener('submit', function (ev) {
     ev.preventDefault();
-    const name = foodName.value.trim();
+    const selectedFood = foodName.options[foodName.selectedIndex];
+    const name = selectedFood ? (state.language === 'en' ? selectedFood.dataset.foodEn : selectedFood.dataset.foodUk) : '';
+    const category = foodCategory.value;
     const kcal = parseInt(foodKcal.value, 10);
     if (!name || !Number.isFinite(kcal) || kcal < 0) return;
 
-    state.entries.push({ id: Date.now() + '-' + Math.random().toString(36).slice(2, 7), name, kcal });
+    const key = todayKey();
+    const list = dayEntries(key);
+    list.push({ id: Date.now() + '-' + Math.random().toString(36).slice(2, 7), name, category, kcal });
+    state.history[key] = { entries: list };
     saveState(state);
-    render();
+    renderAll();
 
     foodName.value = '';
     foodKcal.value = '';
     foodName.focus();
   });
 
+  foodName.addEventListener('change', function () {
+    const selectedFood = foodName.options[foodName.selectedIndex];
+    if (selectedFood && selectedFood.dataset.kcal) foodKcal.value = selectedFood.dataset.kcal;
+  });
+
   goalInput.addEventListener('change', function () {
     const val = parseInt(goalInput.value, 10);
     state.goal = Number.isFinite(val) && val >= 0 ? val : state.goal;
     saveState(state);
-    render();
+    renderAll();
   });
 
   resetBtn.addEventListener('click', function () {
-    state = { day: todayKey(), goal: state.goal, entries: [] };
+    const key = todayKey();
+    state.history[key] = { entries: [] };
     saveState(state);
-    render();
+    renderAll();
   });
 
-  render();
+  languageSelect.addEventListener('change', function () {
+    state.language = languageSelect.value === 'en' ? 'en' : 'uk';
+    saveState(state);
+    renderAll();
+  });
+
+  tabBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      Object.values(views).forEach((v) => v.classList.remove('active'));
+      views[btn.dataset.tab].classList.add('active');
+    });
+  });
+
+  renderAll();
 })();
 </script>
 </body>

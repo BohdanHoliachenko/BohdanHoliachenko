@@ -1076,6 +1076,101 @@
     cursor: pointer;
   }
   .training-delete:hover { color: var(--warn); }
+  .programs {
+    margin-top: 30px;
+    padding: 20px 18px 18px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  .programs-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .programs-caption {
+    color: var(--ink-soft);
+    font-size: 12px;
+    margin-top: 3px;
+  }
+  .program-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .program-card {
+    display: flex;
+    flex-direction: column;
+    padding: 18px 16px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--bg);
+  }
+  .program-card.type-strength { --card-color: #4F78A8; --card-soft: #DCE8F5; }
+  .program-card.type-cardio { --card-color: #B66A4B; --card-soft: #F3DFD5; }
+  .program-card.type-yoga { --card-color: #C49338; --card-soft: #F6E9C8; }
+  .program-card.type-stretching { --card-color: #6C8F72; --card-soft: #E1ECE1; }
+  .program-icon {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    font-size: 24px;
+    border-radius: 14px;
+    background: var(--card-soft);
+    margin-bottom: 12px;
+  }
+  .program-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .program-desc {
+    margin: 6px 0 0;
+    color: var(--ink-soft);
+    font-size: 12.5px;
+    line-height: 1.5;
+    flex: 1;
+  }
+  .program-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .program-price-old {
+    color: var(--ink-soft);
+    font-size: 13px;
+    text-decoration: line-through;
+  }
+  .program-price-new {
+    color: var(--card-color);
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .program-discount {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: var(--card-soft);
+    color: var(--card-color);
+    font-size: 11px;
+    font-weight: 600;
+    width: fit-content;
+  }
+  .program-buy {
+    margin-top: 14px;
+    border: none;
+    border-radius: 10px;
+    padding: 11px 14px;
+    background: var(--card-color);
+    color: #fff;
+    font: 500 13px 'Inter', sans-serif;
+    cursor: pointer;
+  }
+  .program-buy:active { transform: translateY(1px); }
   .training-confirm-modal {
     position: fixed;
     inset: 0;
@@ -1622,6 +1717,7 @@
       <button class="tab-btn active" data-tab="nutrition" data-i18n="nutrition">Харчування</button>
       <button class="tab-btn" data-tab="training" data-i18n="training">Тренування</button>
       <button class="tab-btn" data-tab="profile" data-i18n="profile">Профіль</button>
+      <button class="tab-btn" data-tab="programs" data-i18n="programsNav">Програми</button>
       <div class="sidebar-deco" aria-hidden="true">
         <div class="sidebar-deco-dots"><span></span><span></span><span></span></div>
       </div>
@@ -1912,6 +2008,60 @@
       </section>
     </section>
 
+    <!-- PROGRAMS VIEW -->
+    <section class="view" id="view-programs">
+      <section class="programs" aria-labelledby="programsTitle">
+        <div class="programs-title" id="programsTitle" data-i18n="programsTitle">Програми тренувань від фахівців</div>
+        <div class="programs-caption" data-i18n="programsCaption">Кожну програму індивідуально розписує сертифікований спеціаліст під твій рівень і ціль</div>
+        <div class="program-grid">
+          <div class="program-card type-strength">
+            <div class="program-icon" aria-hidden="true">🏋️</div>
+            <div class="program-name" data-i18n="programStrengthName">Силове тренування</div>
+            <p class="program-desc" data-i18n="programStrengthDesc">Персональний план силових тренувань з прогресією навантаження, розписаний тренером під твої цілі та обладнання.</p>
+            <div class="program-price-row">
+              <span class="program-price-old">$19.99</span>
+              <span class="program-price-new">$13.99</span>
+            </div>
+            <div class="program-discount" data-i18n="programDiscount">−30% для нових користувачів</div>
+            <button class="program-buy" type="button" data-i18n="programBuy">Купити програму</button>
+          </div>
+          <div class="program-card type-cardio">
+            <div class="program-icon" aria-hidden="true">🏃</div>
+            <div class="program-name" data-i18n="programCardioName">Кардіо</div>
+            <p class="program-desc" data-i18n="programCardioDesc">Програма для витривалості та схуднення, яку спеціаліст адаптує під твій поточний рівень підготовки.</p>
+            <div class="program-price-row">
+              <span class="program-price-old">$19.99</span>
+              <span class="program-price-new">$13.99</span>
+            </div>
+            <div class="program-discount" data-i18n="programDiscount">−30% для нових користувачів</div>
+            <button class="program-buy" type="button" data-i18n="programBuy">Купити програму</button>
+          </div>
+          <div class="program-card type-yoga">
+            <div class="program-icon" aria-hidden="true">🧘</div>
+            <div class="program-name" data-i18n="programYogaName">Йога</div>
+            <p class="program-desc" data-i18n="programYogaDesc">Індивідуальна послідовність асан і дихальних практик від інструктора з урахуванням твого рівня гнучкості.</p>
+            <div class="program-price-row">
+              <span class="program-price-old">$19.99</span>
+              <span class="program-price-new">$13.99</span>
+            </div>
+            <div class="program-discount" data-i18n="programDiscount">−30% для нових користувачів</div>
+            <button class="program-buy" type="button" data-i18n="programBuy">Купити програму</button>
+          </div>
+          <div class="program-card type-stretching">
+            <div class="program-icon" aria-hidden="true">🤸</div>
+            <div class="program-name" data-i18n="programStretchingName">Розтяжка</div>
+            <p class="program-desc" data-i18n="programStretchingDesc">План розвитку гнучкості та мобільності суглобів, складений спеціалістом персонально для тебе.</p>
+            <div class="program-price-row">
+              <span class="program-price-old">$19.99</span>
+              <span class="program-price-new">$13.99</span>
+            </div>
+            <div class="program-discount" data-i18n="programDiscount">−30% для нових користувачів</div>
+            <button class="program-buy" type="button" data-i18n="programBuy">Купити програму</button>
+          </div>
+        </div>
+      </section>
+    </section>
+
     </div>
     </div>
 
@@ -1945,7 +2095,7 @@
   const STORAGE_KEY = 'calorie-tracker-v2';
   const translations = {
     uk: {
-      languageLabel: 'Мова', openSelect: 'Відкрити список', photoLabel: 'Додати фото', avatarLabel: 'Додати фото аватара', profile: 'Профіль', profileCaption: 'Твої особисті дані та показники', settings: 'Налаштування', darkTheme: 'Темна тема', nameLabel: 'Ім’я', namePlaceholder: 'Наприклад, Олена', ageLabel: 'Вік', agePlaceholder: 'Років', heightLabel: 'Зріст, см', heightPlaceholder: 'Наприклад, 170', weightLabel: 'Вага, кг', weightPlaceholder: 'Наприклад, 70', bmiLabel: 'ІМТ', bmiCategoryLabel: 'Категорія ваги', bmiAdviceLabel: 'Орієнтовна оцінка за ІМТ', bmiUnderweight: 'Недостатня вага', bmiNormal: 'Норма', bmiOverweight: 'Надлишкова вага', bmiObesity1: 'Ожиріння I ст.', bmiObesity2: 'Ожиріння II ст.', bmiObesity3: 'Ожиріння III ст.', bmiNoData: 'Вкажи зріст і вагу', saveProfile: 'Зберегти профіль', profileSaved: 'Профіль збережено', editField: 'Редагувати', periodFilter: 'Період', categoryFilter: 'Категорія', periodToday: 'Сьогодні', periodWeek: 'Останні 7 днів', allCategories: 'Усі категорії', dashboard: 'Дашборд', dashboardToday: 'Дані за сьогодні', dashboardWeek: 'Дані за останні 7 днів', nutritionChart: 'Калорії за період', unit: 'ккал', currentUser: 'Ти', olena: 'Олена', andrii: 'Андрій', sofia: 'Софія', nutrition: 'Харчування', last7Nutrition: 'за останні 7 днів', weeklyKcal: 'всього ккал', mealCount: 'прийомів їжі', favoriteMeal: 'найчастіше', categoryBreakdown: 'Розподіл за категоріями', noCategoryData: 'Немає даних за цей період', factsTitle: '10 фактів про харчування', faqTitle: 'Часті запитання', faqQ1: 'Де зберігаються мої дані?', faqA1: 'Усі записи харчування, тренувань і профіль зберігаються локально в браузері — без реєстрації та серверів.', faqQ2: 'Чи синхронізуються дані між пристроями?', faqA2: "Ні, дані прив'язані до цього браузера на цьому пристрої. Якщо очистити кеш або відкрити застосунок на іншому пристрої, історія буде порожньою.", faqQ3: 'Як змінити денну ціль калорій?', faqA3: 'На вкладці «Харчування» натисни на значення цілі поруч із написом «ціль» і введи нове число — воно збережеться автоматично.', faqQ4: 'Як рахується ІМТ?', faqA4: 'Індекс маси тіла — це вага в кілограмах, поділена на зріст у метрах у квадраті. Вкажи зріст і вагу в профілі, щоб побачити результат.', faqQ5: 'Чи можна додати фото до страви або аватара?', faqA5: 'Так, натисни на іконку камери біля форми додавання їжі або на аватар у профілі, щоб завантажити фото з пристрою.', faqQ6: 'Як перемкнути мову чи темну тему?', faqA6: 'Мова перемикається прапорцем у шапці застосунку, а темна тема — перемикачем у розділі «Профіль» → «Налаштування».', training: 'Тренування', trainingCaption: 'Плануй активність на тиждень', trainingType: 'Тип тренування', unitLabel: 'Одиниця', quantity: 'Кількість', daysLabel: 'Дні', exercisesPlaceholder: 'Вправи: присідання, планка, віджимання...', notesPlaceholder: "Нотатка (необов'язково)", addTraining: 'Додати тренування', strength: 'Силове', cardio: 'Кардіо', yoga: 'Йога', stretching: 'Розтяжка', minutes: 'хв', sets: 'підх.', sessions: 'разів', mon: 'Пн', tue: 'Вт', wed: 'Ср', thu: 'Чт', fri: 'Пт', sat: 'Сб', sun: 'Нд', noTraining: 'Ще немає запланованих тренувань', exercisesLabel: 'Вправи', noteLabel: 'Нотатка', deleteTraining: 'Видалити тренування', confirmTitle: 'Змінити тип тренування?', confirmIncomplete: 'Поточне тренування ще не заповнене. Перейти до іншого типу?', confirmComplete: 'Поточне тренування заповнене. Додайте його перед переходом або продовжуйте без збереження.', confirmStay: 'Залишитися', confirmContinue: 'Так, продовжити', validation: 'Заповніть тип, виберіть хоча б один день, вкажіть кількість і додайте вправи.', noData: '—', appName: 'TrackTime', pageTitle: 'TrackTime — облік калорій', tagline: 'Проста фіксація їжі на день', today: 'Сьогодні', week: 'Тиждень', goal: 'ціль', chatOpen: 'Чат з підтримкою', chatTitle: 'Підтримка', chatStatus: 'Зазвичай відповідаємо швидко', chatPlaceholder: 'Напиши повідомлення...', chatSend: 'Надіслати', chatWelcome: 'Доброго дня! 👋 Менеджер підтримки скоро приєднається до чату.',
+      languageLabel: 'Мова', openSelect: 'Відкрити список', photoLabel: 'Додати фото', avatarLabel: 'Додати фото аватара', profile: 'Профіль', profileCaption: 'Твої особисті дані та показники', settings: 'Налаштування', darkTheme: 'Темна тема', nameLabel: 'Ім’я', namePlaceholder: 'Наприклад, Олена', ageLabel: 'Вік', agePlaceholder: 'Років', heightLabel: 'Зріст, см', heightPlaceholder: 'Наприклад, 170', weightLabel: 'Вага, кг', weightPlaceholder: 'Наприклад, 70', bmiLabel: 'ІМТ', bmiCategoryLabel: 'Категорія ваги', bmiAdviceLabel: 'Орієнтовна оцінка за ІМТ', bmiUnderweight: 'Недостатня вага', bmiNormal: 'Норма', bmiOverweight: 'Надлишкова вага', bmiObesity1: 'Ожиріння I ст.', bmiObesity2: 'Ожиріння II ст.', bmiObesity3: 'Ожиріння III ст.', bmiNoData: 'Вкажи зріст і вагу', saveProfile: 'Зберегти профіль', profileSaved: 'Профіль збережено', editField: 'Редагувати', periodFilter: 'Період', categoryFilter: 'Категорія', periodToday: 'Сьогодні', periodWeek: 'Останні 7 днів', allCategories: 'Усі категорії', dashboard: 'Дашборд', dashboardToday: 'Дані за сьогодні', dashboardWeek: 'Дані за останні 7 днів', nutritionChart: 'Калорії за період', unit: 'ккал', currentUser: 'Ти', olena: 'Олена', andrii: 'Андрій', sofia: 'Софія', nutrition: 'Харчування', last7Nutrition: 'за останні 7 днів', weeklyKcal: 'всього ккал', mealCount: 'прийомів їжі', favoriteMeal: 'найчастіше', categoryBreakdown: 'Розподіл за категоріями', noCategoryData: 'Немає даних за цей період', factsTitle: '10 фактів про харчування', faqTitle: 'Часті запитання', faqQ1: 'Де зберігаються мої дані?', faqA1: 'Усі записи харчування, тренувань і профіль зберігаються локально в браузері — без реєстрації та серверів.', faqQ2: 'Чи синхронізуються дані між пристроями?', faqA2: "Ні, дані прив'язані до цього браузера на цьому пристрої. Якщо очистити кеш або відкрити застосунок на іншому пристрої, історія буде порожньою.", faqQ3: 'Як змінити денну ціль калорій?', faqA3: 'На вкладці «Харчування» натисни на значення цілі поруч із написом «ціль» і введи нове число — воно збережеться автоматично.', faqQ4: 'Як рахується ІМТ?', faqA4: 'Індекс маси тіла — це вага в кілограмах, поділена на зріст у метрах у квадраті. Вкажи зріст і вагу в профілі, щоб побачити результат.', faqQ5: 'Чи можна додати фото до страви або аватара?', faqA5: 'Так, натисни на іконку камери біля форми додавання їжі або на аватар у профілі, щоб завантажити фото з пристрою.', faqQ6: 'Як перемкнути мову чи темну тему?', faqA6: 'Мова перемикається прапорцем у шапці застосунку, а темна тема — перемикачем у розділі «Профіль» → «Налаштування».', training: 'Тренування', trainingCaption: 'Плануй активність на тиждень', trainingType: 'Тип тренування', unitLabel: 'Одиниця', quantity: 'Кількість', daysLabel: 'Дні', exercisesPlaceholder: 'Вправи: присідання, планка, віджимання...', notesPlaceholder: "Нотатка (необов'язково)", addTraining: 'Додати тренування', strength: 'Силове', cardio: 'Кардіо', yoga: 'Йога', stretching: 'Розтяжка', minutes: 'хв', sets: 'підх.', sessions: 'разів', mon: 'Пн', tue: 'Вт', wed: 'Ср', thu: 'Чт', fri: 'Пт', sat: 'Сб', sun: 'Нд', noTraining: 'Ще немає запланованих тренувань', exercisesLabel: 'Вправи', noteLabel: 'Нотатка', deleteTraining: 'Видалити тренування', confirmTitle: 'Змінити тип тренування?', confirmIncomplete: 'Поточне тренування ще не заповнене. Перейти до іншого типу?', confirmComplete: 'Поточне тренування заповнене. Додайте його перед переходом або продовжуйте без збереження.', confirmStay: 'Залишитися', confirmContinue: 'Так, продовжити', validation: 'Заповніть тип, виберіть хоча б один день, вкажіть кількість і додайте вправи.', noData: '—', appName: 'TrackTime', pageTitle: 'TrackTime — облік калорій', tagline: 'Проста фіксація їжі на день', today: 'Сьогодні', week: 'Тиждень', goal: 'ціль', chatOpen: 'Чат з підтримкою', chatTitle: 'Підтримка', chatStatus: 'Зазвичай відповідаємо швидко', chatPlaceholder: 'Напиши повідомлення...', chatSend: 'Надіслати', chatWelcome: 'Доброго дня! 👋 Менеджер підтримки скоро приєднається до чату.', programsNav: 'Програми', programsTitle: 'Програми тренувань від фахівців', programsCaption: 'Кожну програму індивідуально розписує сертифікований спеціаліст під твій рівень і ціль', programStrengthName: 'Силове тренування', programStrengthDesc: 'Персональний план силових тренувань з прогресією навантаження, розписаний тренером під твої цілі та обладнання.', programCardioName: 'Кардіо', programCardioDesc: 'Програма для витривалості та схуднення, яку спеціаліст адаптує під твій поточний рівень підготовки.', programYogaName: 'Йога', programYogaDesc: 'Індивідуальна послідовність асан і дихальних практик від інструктора з урахуванням твого рівня гнучкості.', programStretchingName: 'Розтяжка', programStretchingDesc: 'План розвитку гнучкості та мобільності суглобів, складений спеціалістом персонально для тебе.', programDiscount: '−30% для нових користувачів', programBuy: 'Купити програму', programBuyToast: 'Це демо-версія 🙂 Оплата поки не підключена — скоро можна буде купити програму тут.',
       foodPlaceholder: "Що з'їли?", chooseDish: 'Оберіть...', categoryLabel: 'Категорія прийому їжі', breakfast: 'Сніданок',
       lunch: 'Обід', dinner: 'Вечеря', snack: 'Перекус', record: 'Записати', todayEntries: 'Сьогоднішні записи',
       resetToday: 'Скинути сьогоднішній день', leaderboard: 'Лідерборд', thisWeek: 'цього тижня',
@@ -1956,7 +2106,7 @@
       otherProfile: 'Стабільний тиждень у межах особистої калорійної цілі', other: 'Інше', profileOpen: 'Відкрити профіль'
     },
     en: {
-      languageLabel: 'Language', openSelect: 'Open list', photoLabel: 'Add photo', avatarLabel: 'Add avatar photo', profile: 'Profile', profileCaption: 'Your personal details and metrics', settings: 'Settings', darkTheme: 'Dark theme', nameLabel: 'Name', namePlaceholder: 'For example, Olena', ageLabel: 'Age', agePlaceholder: 'Years', heightLabel: 'Height, cm', heightPlaceholder: 'For example, 170', weightLabel: 'Weight, kg', weightPlaceholder: 'For example, 70', bmiLabel: 'BMI', bmiCategoryLabel: 'Weight category', bmiAdviceLabel: 'Estimated BMI assessment', bmiUnderweight: 'Underweight', bmiNormal: 'Normal range', bmiOverweight: 'Overweight', bmiObesity1: 'Obesity class I', bmiObesity2: 'Obesity class II', bmiObesity3: 'Obesity class III', bmiNoData: 'Enter height and weight', saveProfile: 'Save profile', profileSaved: 'Profile saved', editField: 'Edit', periodFilter: 'Period', categoryFilter: 'Category', periodToday: 'Today', periodWeek: 'Last 7 days', allCategories: 'All categories', dashboard: 'Dashboard', dashboardToday: 'Data for today', dashboardWeek: 'Data for the last 7 days', nutritionChart: 'Calories for the period', unit: 'kcal', currentUser: 'You', olena: 'Olena', andrii: 'Andrii', sofia: 'Sofia', nutrition: 'Nutrition', last7Nutrition: 'over the last 7 days', weeklyKcal: 'total kcal', mealCount: 'meals logged', favoriteMeal: 'most frequent', categoryBreakdown: 'Breakdown by category', noCategoryData: 'No data for this period', factsTitle: '10 food facts', faqTitle: 'Frequently asked questions', faqQ1: 'Where is my data stored?', faqA1: 'All your food entries, workouts, and profile are stored locally in your browser — no sign-up or servers involved.', faqQ2: 'Does data sync between devices?', faqA2: "No, data is tied to this browser on this device. Clearing your cache or opening the app on another device will show an empty history.", faqQ3: 'How do I change my daily calorie goal?', faqA3: 'On the Nutrition tab, tap the goal value next to the "goal" label and enter a new number — it saves automatically.', faqQ4: 'How is BMI calculated?', faqA4: 'Body mass index is your weight in kilograms divided by your height in meters squared. Enter your height and weight in your profile to see the result.', faqQ5: 'Can I add a photo to a meal or my avatar?', faqA5: 'Yes, tap the camera icon next to the food entry form or your avatar in the profile to upload a photo from your device.', faqQ6: 'How do I switch the language or dark theme?', faqA6: 'Switch the language with the flag selector in the header, and toggle dark theme in the Profile tab under Settings.', training: 'Workouts', trainingCaption: 'Plan your weekly activity', trainingType: 'Workout type', unitLabel: 'Unit', quantity: 'Quantity', daysLabel: 'Days', exercisesPlaceholder: 'Exercises: squats, plank, push-ups...', notesPlaceholder: 'Note (optional)', addTraining: 'Add workout', strength: 'Strength', cardio: 'Cardio', yoga: 'Yoga', stretching: 'Stretching', minutes: 'min', sets: 'sets', sessions: 'times', mon: 'Mon', tue: 'Tue', wed: 'Wed', thu: 'Thu', fri: 'Fri', sat: 'Sat', sun: 'Sun', noTraining: 'No workouts planned yet', exercisesLabel: 'Exercises', noteLabel: 'Note', deleteTraining: 'Delete workout', confirmTitle: 'Change workout type?', confirmIncomplete: 'The current workout is incomplete. Switch to another type?', confirmComplete: 'The current workout is complete. Add it before switching or continue without saving.', confirmStay: 'Stay here', confirmContinue: 'Yes, continue', validation: 'Choose a day, enter a quantity, and add exercises before saving.', noData: '—', appName: 'TrackTime', pageTitle: 'TrackTime — calorie tracking', tagline: 'Simple daily food tracking', today: 'Today', week: 'Week', goal: 'goal', chatOpen: 'Chat with support', chatTitle: 'Support', chatStatus: 'We usually reply quickly', chatPlaceholder: 'Type a message...', chatSend: 'Send', chatWelcome: "Hi there! 👋 A support manager will join the chat shortly.",
+      languageLabel: 'Language', openSelect: 'Open list', photoLabel: 'Add photo', avatarLabel: 'Add avatar photo', profile: 'Profile', profileCaption: 'Your personal details and metrics', settings: 'Settings', darkTheme: 'Dark theme', nameLabel: 'Name', namePlaceholder: 'For example, Olena', ageLabel: 'Age', agePlaceholder: 'Years', heightLabel: 'Height, cm', heightPlaceholder: 'For example, 170', weightLabel: 'Weight, kg', weightPlaceholder: 'For example, 70', bmiLabel: 'BMI', bmiCategoryLabel: 'Weight category', bmiAdviceLabel: 'Estimated BMI assessment', bmiUnderweight: 'Underweight', bmiNormal: 'Normal range', bmiOverweight: 'Overweight', bmiObesity1: 'Obesity class I', bmiObesity2: 'Obesity class II', bmiObesity3: 'Obesity class III', bmiNoData: 'Enter height and weight', saveProfile: 'Save profile', profileSaved: 'Profile saved', editField: 'Edit', periodFilter: 'Period', categoryFilter: 'Category', periodToday: 'Today', periodWeek: 'Last 7 days', allCategories: 'All categories', dashboard: 'Dashboard', dashboardToday: 'Data for today', dashboardWeek: 'Data for the last 7 days', nutritionChart: 'Calories for the period', unit: 'kcal', currentUser: 'You', olena: 'Olena', andrii: 'Andrii', sofia: 'Sofia', nutrition: 'Nutrition', last7Nutrition: 'over the last 7 days', weeklyKcal: 'total kcal', mealCount: 'meals logged', favoriteMeal: 'most frequent', categoryBreakdown: 'Breakdown by category', noCategoryData: 'No data for this period', factsTitle: '10 food facts', faqTitle: 'Frequently asked questions', faqQ1: 'Where is my data stored?', faqA1: 'All your food entries, workouts, and profile are stored locally in your browser — no sign-up or servers involved.', faqQ2: 'Does data sync between devices?', faqA2: "No, data is tied to this browser on this device. Clearing your cache or opening the app on another device will show an empty history.", faqQ3: 'How do I change my daily calorie goal?', faqA3: 'On the Nutrition tab, tap the goal value next to the "goal" label and enter a new number — it saves automatically.', faqQ4: 'How is BMI calculated?', faqA4: 'Body mass index is your weight in kilograms divided by your height in meters squared. Enter your height and weight in your profile to see the result.', faqQ5: 'Can I add a photo to a meal or my avatar?', faqA5: 'Yes, tap the camera icon next to the food entry form or your avatar in the profile to upload a photo from your device.', faqQ6: 'How do I switch the language or dark theme?', faqA6: 'Switch the language with the flag selector in the header, and toggle dark theme in the Profile tab under Settings.', training: 'Workouts', trainingCaption: 'Plan your weekly activity', trainingType: 'Workout type', unitLabel: 'Unit', quantity: 'Quantity', daysLabel: 'Days', exercisesPlaceholder: 'Exercises: squats, plank, push-ups...', notesPlaceholder: 'Note (optional)', addTraining: 'Add workout', strength: 'Strength', cardio: 'Cardio', yoga: 'Yoga', stretching: 'Stretching', minutes: 'min', sets: 'sets', sessions: 'times', mon: 'Mon', tue: 'Tue', wed: 'Wed', thu: 'Thu', fri: 'Fri', sat: 'Sat', sun: 'Sun', noTraining: 'No workouts planned yet', exercisesLabel: 'Exercises', noteLabel: 'Note', deleteTraining: 'Delete workout', confirmTitle: 'Change workout type?', confirmIncomplete: 'The current workout is incomplete. Switch to another type?', confirmComplete: 'The current workout is complete. Add it before switching or continue without saving.', confirmStay: 'Stay here', confirmContinue: 'Yes, continue', validation: 'Choose a day, enter a quantity, and add exercises before saving.', noData: '—', appName: 'TrackTime', pageTitle: 'TrackTime — calorie tracking', tagline: 'Simple daily food tracking', today: 'Today', week: 'Week', goal: 'goal', chatOpen: 'Chat with support', chatTitle: 'Support', chatStatus: 'We usually reply quickly', chatPlaceholder: 'Type a message...', chatSend: 'Send', chatWelcome: "Hi there! 👋 A support manager will join the chat shortly.", programsNav: 'Programs', programsTitle: 'Training programs by specialists', programsCaption: 'Each program is individually written by a certified specialist for your level and goal', programStrengthName: 'Strength training', programStrengthDesc: 'A personal strength program with progressive overload, built by a coach around your goals and equipment.', programCardioName: 'Cardio', programCardioDesc: 'An endurance and weight-loss program that a specialist adapts to your current fitness level.', programYogaName: 'Yoga', programYogaDesc: 'An individual sequence of poses and breathing practices from an instructor, matched to your flexibility level.', programStretchingName: 'Stretching', programStretchingDesc: 'A mobility and flexibility plan built personally for you by a specialist.', programDiscount: '−30% for new users', programBuy: 'Buy program', programBuyToast: "This is a demo 🙂 Payments aren't connected yet — you'll be able to buy the program here soon.",
       foodPlaceholder: 'What did you eat?', chooseDish: 'Choose...', categoryLabel: 'Meal category', breakfast: 'Breakfast',
       lunch: 'Lunch', dinner: 'Dinner', snack: 'Snack', record: 'Log food', todayEntries: "Today's entries",
       resetToday: 'Reset today', leaderboard: 'Leaderboard', thisWeek: 'this week', average: 'daily average, kcal',
@@ -2154,7 +2304,8 @@
   const views = {
     nutrition: document.getElementById('view-nutrition'),
     training: document.getElementById('view-training'),
-    profile: document.getElementById('view-profile')
+    profile: document.getElementById('view-profile'),
+    programs: document.getElementById('view-programs')
   };
   const statAvg = document.getElementById('statAvg');
   const statStreak = document.getElementById('statStreak');
@@ -2676,6 +2827,10 @@
     if (!text) return;
     addChatMessage('user', text);
     chatInput.value = '';
+  });
+
+  document.querySelectorAll('.program-buy').forEach((btn) => {
+    btn.addEventListener('click', () => showToast(t('programBuyToast')));
   });
 
   function renderAll() {

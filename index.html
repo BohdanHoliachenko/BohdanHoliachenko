@@ -25,13 +25,26 @@
     padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
+  :root[data-theme="dark"] {
+    --bg: #2C211B;
+    --surface: #3A2B23;
+    --ink: #F4E9DC;
+    --ink-soft: #C4AD99;
+    --line: #624A3B;
+    --accent: #D08A5C;
+    --accent-soft: #533A2D;
+    --gold: #D9A94E;
+    --gold-soft: #51401F;
+    --warn: #E08068;
+    --warn-soft: #512F2A;
+  }
   html { scroll-padding-top: env(safe-area-inset-top, 0px); }
   * { box-sizing: border-box; }
   body {
     margin: 0;
     background:
       linear-gradient(90deg, rgba(166, 111, 73, 0.2), transparent 22%, transparent 78%, rgba(166, 111, 73, 0.2)),
-      linear-gradient(180deg, #D4B18E 0, var(--bg) 30%, var(--bg) 70%, #DCC09F 100%);
+      linear-gradient(180deg, var(--bg) 0, var(--bg) 30%, var(--bg) 70%, var(--bg) 100%);
     color: var(--ink);
     font-family: 'Inter', -apple-system, sans-serif;
     min-height: 100%;
@@ -287,6 +300,36 @@
   }
   .add-form .f-kcal { width: 84px; }
   .add-form .f-category { width: 100%; }
+  .photo-picker {
+    position: relative;
+    display: grid;
+    flex: 0 0 46px;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    overflow: hidden;
+    border: 1px dashed var(--line);
+    border-radius: 10px;
+    background: var(--surface);
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .photo-picker:hover { border-color: var(--accent); color: var(--accent); }
+  .photo-picker input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .photo-picker-icon { font-size: 19px; line-height: 1; }
+  .photo-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .photo-preview[hidden] { display: none; }
   .add-form button {
     border: none;
     background: var(--accent);
@@ -318,15 +361,6 @@
     color: var(--ink-soft);
     margin: 4px 2px 10px;
   }
-  .section-label::before {
-    content: '';
-    display: inline-block;
-    width: 7px;
-    height: 7px;
-    margin: 0 7px 1px 0;
-    border-radius: 50%;
-    background: var(--gold);
-  }
 
   ul.entries {
     list-style: none;
@@ -352,6 +386,14 @@
     min-width: 0;
   }
   .e-info .e-name { display: block; }
+  .e-photo {
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    border-radius: 9px;
+    object-fit: cover;
+    border: 1px solid var(--line);
+  }
   .e-category {
     display: block;
     color: var(--ink-soft);
@@ -400,8 +442,10 @@
 
   .leaderboard {
     margin-top: 42px;
-    padding-top: 22px;
-    border-top: 1px solid var(--line);
+    padding: 20px 18px 18px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
   }
   .leaderboard-heading {
     display: flex;
@@ -414,18 +458,6 @@
     font-family: 'Inter', sans-serif;
     font-size: 22px;
     font-weight: 600;
-  }
-  .leaderboard-title::before,
-  .nutrition-title::before,
-  .facts-title::before {
-    content: '';
-    display: inline-block;
-    width: 9px;
-    height: 9px;
-    margin: 0 9px 2px 0;
-    border: 2px solid var(--gold);
-    border-radius: 50%;
-    vertical-align: middle;
   }
   .leaderboard-caption {
     color: var(--ink-soft);
@@ -529,6 +561,10 @@
   }
   .nutrition {
     margin-top: 30px;
+    padding: 20px 18px 18px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
   }
   .nutrition-title {
     font-family: 'Inter', sans-serif;
@@ -589,6 +625,10 @@
   .dashboard-filters select:focus { outline: none; border-color: var(--accent); }
   .nutrition-dashboard {
     margin-top: 30px;
+    padding: 20px 18px 18px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
   }
   .facts {
     margin-top: 30px;
@@ -662,6 +702,14 @@
     color: var(--ink);
     font: 14px 'Inter', sans-serif;
   }
+  .training-form select {
+    appearance: none;
+    padding-right: 30px;
+    background-image: linear-gradient(45deg, transparent 50%, var(--ink-soft) 50%), linear-gradient(135deg, var(--ink-soft) 50%, transparent 50%);
+    background-position: calc(100% - 15px) 50%, calc(100% - 10px) 50%;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+  }
   .training-form select,
   .training-form input { height: 44px; }
   .training-form textarea {
@@ -711,6 +759,36 @@
     color: var(--ink);
     font-weight: 600;
   }
+  .training-draft-summary {
+    display: grid;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .training-draft-group {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    color: var(--ink-soft);
+    font-size: 12px;
+  }
+  .training-draft-group strong { margin-right: 3px; color: var(--ink); }
+  .training-draft-group.type-strength { --draft-color: #315B8D; --draft-soft: #DCE8F5; }
+  .training-draft-group.type-cardio { --draft-color: #91472D; --draft-soft: #F3DFD5; }
+  .training-draft-group.type-yoga { --draft-color: #8E681C; --draft-soft: #F6E9C8; }
+  .training-draft-group.type-stretching { --draft-color: #456B4B; --draft-soft: #E1ECE1; }
+  .training-draft-day {
+    padding: 3px 7px;
+    border: 1px solid var(--draft-color);
+    border-radius: 999px;
+    background: var(--draft-soft);
+    color: var(--draft-color);
+    font-weight: 600;
+  }
+  .training-form.type-strength .training-day input:checked + span { border-color: #4F78A8; background: #DCE8F5; color: #315B8D; }
+  .training-form.type-cardio .training-day input:checked + span { border-color: #B66A4B; background: #F3DFD5; color: #91472D; }
+  .training-form.type-yoga .training-day input:checked + span { border-color: #C49338; background: #F6E9C8; color: #8E681C; }
+  .training-form.type-stretching .training-day input:checked + span { border-color: #6C8F72; background: #E1ECE1; color: #456B4B; }
   .training-submit {
     border: none;
     border-radius: 10px;
@@ -737,6 +815,10 @@
     border-radius: 10px;
     background: var(--bg);
   }
+  .training-item.type-strength { --plan-color: #4F78A8; --plan-soft: #DCE8F5; }
+  .training-item.type-cardio { --plan-color: #B66A4B; --plan-soft: #F3DFD5; }
+  .training-item.type-yoga { --plan-color: #C49338; --plan-soft: #F6E9C8; }
+  .training-item.type-stretching { --plan-color: #6C8F72; --plan-soft: #E1ECE1; }
   .training-item-title { font-weight: 600; }
   .training-item-meta,
   .training-item-exercises {
@@ -744,6 +826,21 @@
     font-size: 12px;
     line-height: 1.4;
     margin-top: 4px;
+  }
+  .training-item-days {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 8px;
+  }
+  .training-item-day {
+    padding: 4px 7px;
+    border: 1px solid color-mix(in srgb, var(--plan-color) 45%, var(--line));
+    border-radius: 999px;
+    background: var(--plan-soft);
+    color: var(--plan-color);
+    font-size: 11px;
+    font-weight: 600;
   }
   .training-delete {
     align-self: start;
@@ -754,6 +851,238 @@
     cursor: pointer;
   }
   .training-delete:hover { color: var(--warn); }
+  .training-confirm-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 12;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: rgba(59, 45, 36, 0.28);
+  }
+  .training-confirm-modal[hidden] { display: none; }
+  .training-confirm-dialog {
+    width: min(100%, 360px);
+    padding: 22px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: 0 18px 50px rgba(59, 45, 36, 0.16);
+  }
+  .training-confirm-dialog h2 {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.25;
+  }
+  .training-confirm-dialog p {
+    margin: 10px 0 18px;
+    color: var(--ink-soft);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .training-confirm-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .training-confirm-actions button {
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    padding: 10px 12px;
+    background: var(--surface);
+    color: var(--ink);
+    font: 500 13px 'Inter', sans-serif;
+    cursor: pointer;
+  }
+  .training-confirm-actions .confirm-continue {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--surface);
+  }
+  .training-validation {
+    display: none;
+    margin: 0;
+    color: var(--warn);
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .training-validation.visible { display: block; }
+  .profile-settings {
+    padding: 20px 18px 18px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  .profile-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .profile-avatar {
+    display: grid;
+    flex: 0 0 46px;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .profile-avatar-picker {
+    position: relative;
+    display: block;
+    flex: 0 0 46px;
+    width: 46px;
+    height: 46px;
+    cursor: pointer;
+  }
+  .profile-avatar-picker input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .profile-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .profile-avatar-picker:hover .profile-avatar { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .profile-title {
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .profile-caption {
+    margin-top: 3px;
+    color: var(--ink-soft);
+    font-size: 12px;
+  }
+  .profile-form {
+    display: grid;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .profile-form label {
+    color: var(--ink-soft);
+    font-size: 12px;
+  }
+  .profile-form input {
+    width: 100%;
+    margin-top: 5px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 11px 12px;
+    background: var(--bg);
+    color: var(--ink);
+    font: 14px 'Inter', sans-serif;
+  }
+  .profile-form input:focus { outline: none; border-color: var(--accent); }
+  .profile-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 18px;
+  }
+  .profile-metric {
+    padding: 13px 12px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--bg);
+  }
+  .profile-metric-value {
+    font-size: 21px;
+    font-weight: 600;
+  }
+  .profile-metric-label {
+    margin-top: 4px;
+    color: var(--ink-soft);
+    font-size: 11px;
+  }
+  .bmi-status {
+    grid-column: 1 / -1;
+    border-color: var(--gold);
+    background: var(--gold-soft);
+  }
+  .bmi-status .profile-metric-value { color: var(--gold); }
+  .profile-save {
+    border: none;
+    border-radius: 10px;
+    padding: 12px 16px;
+    background: var(--accent);
+    color: var(--surface);
+    font: 500 14px 'Inter', sans-serif;
+    cursor: pointer;
+  }
+  .settings-card {
+    margin-top: 14px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+  .settings-title {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 12px;
+    color: var(--ink-soft);
+    font-size: 13px;
+  }
+  .theme-switch {
+    position: relative;
+    display: block;
+    flex: 0 0 48px;
+    width: 48px;
+    height: 26px;
+  }
+  .theme-switch input {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .theme-switch-track {
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--line);
+    transition: background 0.35s ease, border-color 0.35s ease;
+  }
+  .theme-switch-track::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--surface);
+    box-shadow: 0 2px 5px rgba(59, 45, 36, 0.22);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), background 0.35s ease;
+  }
+  .theme-switch input:checked + .theme-switch-track {
+    border-color: var(--accent);
+    background: var(--accent);
+  }
+  .theme-switch input:checked + .theme-switch-track::before {
+    transform: translateX(22px);
+  }
+  .theme-switch input:focus-visible + .theme-switch-track {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
 
   /* dashboard view */
   .stat-grid {
@@ -862,6 +1191,7 @@
     <div class="tabs">
       <button class="tab-btn active" data-tab="nutrition" data-i18n="nutrition">Харчування</button>
       <button class="tab-btn" data-tab="training" data-i18n="training">Тренування</button>
+      <button class="tab-btn" data-tab="profile" data-i18n="profile">Профіль</button>
     </div>
 
     <!-- TODAY VIEW -->
@@ -917,6 +1247,11 @@
           <button class="select-open" type="button" data-select-target="foodCategory" data-i18n-aria="openSelect" aria-label="Відкрити список">⌄</button>
         </div>
         <input class="f-kcal" id="foodKcal" type="number" inputmode="numeric" data-i18n-placeholder="unit" placeholder="ккал" min="0" step="1" required>
+        <label class="photo-picker" data-i18n-aria="photoLabel" aria-label="Додати фото">
+          <span class="photo-picker-icon" aria-hidden="true">📷</span>
+          <img class="photo-preview" id="foodPhotoPreview" alt="" hidden>
+          <input id="foodPhoto" type="file" accept="image/*">
+        </label>
         <button type="submit" data-i18n="record">Записати</button>
       </form>
 
@@ -1028,11 +1363,70 @@
             <label class="training-day"><input type="checkbox" name="trainingDay" value="sat"><span data-i18n="sat">Сб</span></label>
             <label class="training-day"><input type="checkbox" name="trainingDay" value="sun"><span data-i18n="sun">Нд</span></label>
           </div>
+          <div class="training-draft-summary" id="trainingDraftSummary"></div>
           <textarea id="trainingExercises" data-i18n-placeholder="exercisesPlaceholder" placeholder="Вправи: присідання, планка, віджимання..." required></textarea>
           <textarea id="trainingNotes" data-i18n-placeholder="notesPlaceholder" placeholder="Нотатка (необов'язково)"></textarea>
+          <p class="training-validation" id="trainingValidation" role="alert"></p>
           <button class="training-submit" type="submit" data-i18n="addTraining">Додати тренування</button>
         </form>
         <ul class="training-list" id="trainingList"></ul>
+      </section>
+    </section>
+
+    <div class="training-confirm-modal" id="trainingConfirmModal" hidden>
+      <div class="training-confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="trainingConfirmTitle">
+        <h2 id="trainingConfirmTitle"></h2>
+        <p id="trainingConfirmText"></p>
+        <div class="training-confirm-actions">
+          <button type="button" id="trainingConfirmStay"></button>
+          <button class="confirm-continue" type="button" id="trainingConfirmContinue"></button>
+        </div>
+      </div>
+    </div>
+
+    <section class="view" id="view-profile">
+      <section class="profile-settings" aria-labelledby="profileTitlePage">
+        <div class="profile-heading">
+          <label class="profile-avatar-picker" data-i18n-aria="avatarLabel" aria-label="Додати фото аватара">
+            <div class="profile-avatar" id="profileAvatar">?</div>
+            <input id="profileAvatarInput" type="file" accept="image/*">
+          </label>
+          <div>
+            <div class="profile-title" id="profileTitlePage" data-i18n="profile">Профіль</div>
+            <div class="profile-caption" data-i18n="profileCaption">Твої особисті дані та показники</div>
+          </div>
+        </div>
+        <form class="profile-form" id="profileForm">
+          <label><span data-i18n="nameLabel">Ім’я</span><input id="profileName" type="text" data-i18n-placeholder="namePlaceholder" placeholder="Наприклад, Олена" autocomplete="name"></label>
+          <label><span data-i18n="ageLabel">Вік</span><input id="profileAge" type="number" min="1" max="120" data-i18n-placeholder="agePlaceholder" placeholder="Років" inputmode="numeric"></label>
+          <label><span data-i18n="heightLabel">Зріст, см</span><input id="profileHeight" type="number" min="50" max="250" data-i18n-placeholder="heightPlaceholder" placeholder="Наприклад, 170" inputmode="numeric"></label>
+          <label><span data-i18n="weightLabel">Вага, кг</span><input id="profileWeight" type="number" min="20" max="400" step="0.1" data-i18n-placeholder="weightPlaceholder" placeholder="Наприклад, 70" inputmode="decimal"></label>
+          <div class="profile-metrics">
+            <div class="profile-metric">
+              <div class="profile-metric-value" id="bmiValue">—</div>
+              <div class="profile-metric-label" data-i18n="bmiLabel">ІМТ</div>
+            </div>
+            <div class="profile-metric">
+              <div class="profile-metric-value" id="bmiCategory">—</div>
+              <div class="profile-metric-label" data-i18n="bmiCategoryLabel">Категорія ваги</div>
+            </div>
+            <div class="profile-metric bmi-status">
+              <div class="profile-metric-value" id="bmiAdvice">—</div>
+              <div class="profile-metric-label" data-i18n="bmiAdviceLabel">Орієнтовна оцінка за ІМТ</div>
+            </div>
+          </div>
+          <button class="profile-save" type="submit" data-i18n="saveProfile">Зберегти профіль</button>
+        </form>
+        <div class="settings-card">
+          <div class="settings-title" data-i18n="settings">Налаштування</div>
+          <label class="theme-toggle">
+            <span data-i18n="darkTheme">Темна тема</span>
+            <span class="theme-switch">
+              <input id="themeToggle" type="checkbox" data-i18n-aria="darkTheme" aria-label="Темна тема">
+              <span class="theme-switch-track" aria-hidden="true"></span>
+            </span>
+          </label>
+        </div>
       </section>
     </section>
 
@@ -1043,7 +1437,7 @@
   const STORAGE_KEY = 'calorie-tracker-v2';
   const translations = {
     uk: {
-      languageLabel: 'Мова', openSelect: 'Відкрити список', periodFilter: 'Період', categoryFilter: 'Категорія', periodToday: 'Сьогодні', periodWeek: 'Останні 7 днів', allCategories: 'Усі категорії', dashboard: 'Дашборд', dashboardToday: 'Дані за сьогодні', dashboardWeek: 'Дані за останні 7 днів', nutritionChart: 'Калорії за період', unit: 'ккал', currentUser: 'Ти', olena: 'Олена', andrii: 'Андрій', sofia: 'Софія', nutrition: 'Харчування', last7Nutrition: 'за останні 7 днів', weeklyKcal: 'всього ккал', mealCount: 'прийомів їжі', favoriteMeal: 'найчастіше', factsTitle: '10 фактів про харчування', training: 'Тренування', trainingCaption: 'Плануй активність на тиждень', trainingType: 'Тип тренування', unitLabel: 'Одиниця', quantity: 'Кількість', daysLabel: 'Дні', exercisesPlaceholder: 'Вправи: присідання, планка, віджимання...', notesPlaceholder: "Нотатка (необов'язково)", addTraining: 'Додати тренування', strength: 'Силове', cardio: 'Кардіо', yoga: 'Йога', stretching: 'Розтяжка', minutes: 'хв', sets: 'підх.', sessions: 'разів', mon: 'Пн', tue: 'Вт', wed: 'Ср', thu: 'Чт', fri: 'Пт', sat: 'Сб', sun: 'Нд', noTraining: 'Ще немає запланованих тренувань', exercisesLabel: 'Вправи', noteLabel: 'Нотатка', deleteTraining: 'Видалити тренування', noData: '—', tagline: 'Проста фіксація їжі на день', today: 'Сьогодні', week: 'Тиждень', goal: 'ціль',
+      languageLabel: 'Мова', openSelect: 'Відкрити список', photoLabel: 'Додати фото', avatarLabel: 'Додати фото аватара', profile: 'Профіль', profileCaption: 'Твої особисті дані та показники', settings: 'Налаштування', darkTheme: 'Темна тема', nameLabel: 'Ім’я', namePlaceholder: 'Наприклад, Олена', ageLabel: 'Вік', agePlaceholder: 'Років', heightLabel: 'Зріст, см', heightPlaceholder: 'Наприклад, 170', weightLabel: 'Вага, кг', weightPlaceholder: 'Наприклад, 70', bmiLabel: 'ІМТ', bmiCategoryLabel: 'Категорія ваги', bmiAdviceLabel: 'Орієнтовна оцінка за ІМТ', bmiUnderweight: 'Недостатня вага', bmiNormal: 'Норма', bmiOverweight: 'Надлишкова вага', bmiObesity1: 'Ожиріння I ст.', bmiObesity2: 'Ожиріння II ст.', bmiObesity3: 'Ожиріння III ст.', bmiNoData: 'Вкажи зріст і вагу', saveProfile: 'Зберегти профіль', profileSaved: 'Профіль збережено', periodFilter: 'Період', categoryFilter: 'Категорія', periodToday: 'Сьогодні', periodWeek: 'Останні 7 днів', allCategories: 'Усі категорії', dashboard: 'Дашборд', dashboardToday: 'Дані за сьогодні', dashboardWeek: 'Дані за останні 7 днів', nutritionChart: 'Калорії за період', unit: 'ккал', currentUser: 'Ти', olena: 'Олена', andrii: 'Андрій', sofia: 'Софія', nutrition: 'Харчування', last7Nutrition: 'за останні 7 днів', weeklyKcal: 'всього ккал', mealCount: 'прийомів їжі', favoriteMeal: 'найчастіше', factsTitle: '10 фактів про харчування', training: 'Тренування', trainingCaption: 'Плануй активність на тиждень', trainingType: 'Тип тренування', unitLabel: 'Одиниця', quantity: 'Кількість', daysLabel: 'Дні', exercisesPlaceholder: 'Вправи: присідання, планка, віджимання...', notesPlaceholder: "Нотатка (необов'язково)", addTraining: 'Додати тренування', strength: 'Силове', cardio: 'Кардіо', yoga: 'Йога', stretching: 'Розтяжка', minutes: 'хв', sets: 'підх.', sessions: 'разів', mon: 'Пн', tue: 'Вт', wed: 'Ср', thu: 'Чт', fri: 'Пт', sat: 'Сб', sun: 'Нд', noTraining: 'Ще немає запланованих тренувань', exercisesLabel: 'Вправи', noteLabel: 'Нотатка', deleteTraining: 'Видалити тренування', confirmTitle: 'Змінити тип тренування?', confirmIncomplete: 'Поточне тренування ще не заповнене. Перейти до іншого типу?', confirmComplete: 'Поточне тренування заповнене. Додайте його перед переходом або продовжуйте без збереження.', confirmStay: 'Залишитися', confirmContinue: 'Так, продовжити', validation: 'Заповніть тип, виберіть хоча б один день, вкажіть кількість і додайте вправи.', noData: '—', tagline: 'Проста фіксація їжі на день', today: 'Сьогодні', week: 'Тиждень', goal: 'ціль',
       foodPlaceholder: "Що з'їли?", chooseDish: 'Оберіть...', categoryLabel: 'Категорія прийому їжі', breakfast: 'Сніданок',
       lunch: 'Обід', dinner: 'Вечеря', snack: 'Перекус', record: 'Записати', todayEntries: 'Сьогоднішні записи',
       resetToday: 'Скинути сьогоднішній день', leaderboard: 'Лідерборд', thisWeek: 'цього тижня',
@@ -1054,7 +1448,7 @@
       otherProfile: 'Стабільний тиждень у межах особистої калорійної цілі', other: 'Інше', profileOpen: 'Відкрити профіль'
     },
     en: {
-      languageLabel: 'Language', openSelect: 'Open list', periodFilter: 'Period', categoryFilter: 'Category', periodToday: 'Today', periodWeek: 'Last 7 days', allCategories: 'All categories', dashboard: 'Dashboard', dashboardToday: 'Data for today', dashboardWeek: 'Data for the last 7 days', nutritionChart: 'Calories for the period', unit: 'kcal', currentUser: 'You', olena: 'Olena', andrii: 'Andrii', sofia: 'Sofia', nutrition: 'Nutrition', last7Nutrition: 'over the last 7 days', weeklyKcal: 'total kcal', mealCount: 'meals logged', favoriteMeal: 'most frequent', factsTitle: '10 food facts', training: 'Workouts', trainingCaption: 'Plan your weekly activity', trainingType: 'Workout type', unitLabel: 'Unit', quantity: 'Quantity', daysLabel: 'Days', exercisesPlaceholder: 'Exercises: squats, plank, push-ups...', notesPlaceholder: 'Note (optional)', addTraining: 'Add workout', strength: 'Strength', cardio: 'Cardio', yoga: 'Yoga', stretching: 'Stretching', minutes: 'min', sets: 'sets', sessions: 'times', mon: 'Mon', tue: 'Tue', wed: 'Wed', thu: 'Thu', fri: 'Fri', sat: 'Sat', sun: 'Sun', noTraining: 'No workouts planned yet', exercisesLabel: 'Exercises', noteLabel: 'Note', deleteTraining: 'Delete workout', noData: '—', tagline: 'Simple daily food tracking', today: 'Today', week: 'Week', goal: 'goal',
+      languageLabel: 'Language', openSelect: 'Open list', photoLabel: 'Add photo', avatarLabel: 'Add avatar photo', profile: 'Profile', profileCaption: 'Your personal details and metrics', settings: 'Settings', darkTheme: 'Dark theme', nameLabel: 'Name', namePlaceholder: 'For example, Olena', ageLabel: 'Age', agePlaceholder: 'Years', heightLabel: 'Height, cm', heightPlaceholder: 'For example, 170', weightLabel: 'Weight, kg', weightPlaceholder: 'For example, 70', bmiLabel: 'BMI', bmiCategoryLabel: 'Weight category', bmiAdviceLabel: 'Estimated BMI assessment', bmiUnderweight: 'Underweight', bmiNormal: 'Normal range', bmiOverweight: 'Overweight', bmiObesity1: 'Obesity class I', bmiObesity2: 'Obesity class II', bmiObesity3: 'Obesity class III', bmiNoData: 'Enter height and weight', saveProfile: 'Save profile', profileSaved: 'Profile saved', periodFilter: 'Period', categoryFilter: 'Category', periodToday: 'Today', periodWeek: 'Last 7 days', allCategories: 'All categories', dashboard: 'Dashboard', dashboardToday: 'Data for today', dashboardWeek: 'Data for the last 7 days', nutritionChart: 'Calories for the period', unit: 'kcal', currentUser: 'You', olena: 'Olena', andrii: 'Andrii', sofia: 'Sofia', nutrition: 'Nutrition', last7Nutrition: 'over the last 7 days', weeklyKcal: 'total kcal', mealCount: 'meals logged', favoriteMeal: 'most frequent', factsTitle: '10 food facts', training: 'Workouts', trainingCaption: 'Plan your weekly activity', trainingType: 'Workout type', unitLabel: 'Unit', quantity: 'Quantity', daysLabel: 'Days', exercisesPlaceholder: 'Exercises: squats, plank, push-ups...', notesPlaceholder: 'Note (optional)', addTraining: 'Add workout', strength: 'Strength', cardio: 'Cardio', yoga: 'Yoga', stretching: 'Stretching', minutes: 'min', sets: 'sets', sessions: 'times', mon: 'Mon', tue: 'Tue', wed: 'Wed', thu: 'Thu', fri: 'Fri', sat: 'Sat', sun: 'Sun', noTraining: 'No workouts planned yet', exercisesLabel: 'Exercises', noteLabel: 'Note', deleteTraining: 'Delete workout', confirmTitle: 'Change workout type?', confirmIncomplete: 'The current workout is incomplete. Switch to another type?', confirmComplete: 'The current workout is complete. Add it before switching or continue without saving.', confirmStay: 'Stay here', confirmContinue: 'Yes, continue', validation: 'Choose a day, enter a quantity, and add exercises before saving.', noData: '—', tagline: 'Simple daily food tracking', today: 'Today', week: 'Week', goal: 'goal',
       foodPlaceholder: 'What did you eat?', chooseDish: 'Choose...', categoryLabel: 'Meal category', breakfast: 'Breakfast',
       lunch: 'Lunch', dinner: 'Dinner', snack: 'Snack', record: 'Log food', todayEntries: "Today's entries",
       resetToday: 'Reset today', leaderboard: 'Leaderboard', thisWeek: 'this week', average: 'daily average, kcal',
@@ -1082,13 +1476,15 @@
           goal: typeof parsed.goal === 'number' ? parsed.goal : 2000,
           history: parsed.history && typeof parsed.history === 'object' ? parsed.history : {},
           language: parsed.language === 'en' ? 'en' : 'uk',
-          training: Array.isArray(parsed.training) ? parsed.training : []
+          training: Array.isArray(parsed.training) ? parsed.training : [],
+          profile: parsed.profile && typeof parsed.profile === 'object' ? parsed.profile : {},
+          theme: parsed.theme === 'dark' ? 'dark' : 'light'
         };
       }
     } catch (e) {
       console.warn('Storage read failed', e);
     }
-    return { goal: 2000, history: {}, language: 'uk', training: [] };
+    return { goal: 2000, history: {}, language: 'uk', training: [], profile: {}, theme: 'light' };
   }
 
   function saveState(state) {
@@ -1100,6 +1496,11 @@
   }
 
   let state = loadState();
+  const trainingDraftDays = {};
+  const trainingDraftFields = {};
+  let activeTrainingType = 'strength';
+  let pendingTrainingType = null;
+  let pendingAvatarUrl = '';
 
   function t(key) {
     return translations[state.language][key] || translations.uk[key] || key;
@@ -1146,6 +1547,8 @@
   const foodName = document.getElementById('foodName');
   const foodCategory = document.getElementById('foodCategory');
   const foodKcal = document.getElementById('foodKcal');
+  const foodPhoto = document.getElementById('foodPhoto');
+  const foodPhotoPreview = document.getElementById('foodPhotoPreview');
   const resetBtn = document.getElementById('resetBtn');
   const leaderboardList = document.getElementById('leaderboardList');
   const profileModal = document.getElementById('profileModal');
@@ -1167,10 +1570,29 @@
   const trainingExercises = document.getElementById('trainingExercises');
   const trainingNotes = document.getElementById('trainingNotes');
   const trainingList = document.getElementById('trainingList');
+  const trainingDraftSummary = document.getElementById('trainingDraftSummary');
+  const trainingConfirmModal = document.getElementById('trainingConfirmModal');
+  const trainingConfirmTitle = document.getElementById('trainingConfirmTitle');
+  const trainingConfirmText = document.getElementById('trainingConfirmText');
+  const trainingConfirmStay = document.getElementById('trainingConfirmStay');
+  const trainingConfirmContinue = document.getElementById('trainingConfirmContinue');
+  const trainingValidation = document.getElementById('trainingValidation');
+  const profileForm = document.getElementById('profileForm');
+  const profileAvatarInput = document.getElementById('profileAvatarInput');
+  const themeToggle = document.getElementById('themeToggle');
+  const profileName = document.getElementById('profileName');
+  const profileAge = document.getElementById('profileAge');
+  const profileHeight = document.getElementById('profileHeight');
+  const profileWeight = document.getElementById('profileWeight');
+  const profileAvatar = document.getElementById('profileAvatar');
+  const bmiValue = document.getElementById('bmiValue');
+  const bmiCategory = document.getElementById('bmiCategory');
+  const bmiAdvice = document.getElementById('bmiAdvice');
   const tabBtns = document.querySelectorAll('.tab-btn');
   const views = {
     nutrition: document.getElementById('view-nutrition'),
-    training: document.getElementById('view-training')
+    training: document.getElementById('view-training'),
+    profile: document.getElementById('view-profile')
   };
   const statAvg = document.getElementById('statAvg');
   const statStreak = document.getElementById('statStreak');
@@ -1178,6 +1600,11 @@
   const chartBars = document.getElementById('chartBars');
 
   const weekdayFmt = new Intl.DateTimeFormat('uk-UA', { weekday: 'short' });
+
+  function applyTheme() {
+    document.documentElement.dataset.theme = state.theme === 'dark' ? 'dark' : 'light';
+    themeToggle.checked = state.theme === 'dark';
+  }
 
   function renderToday() {
     const key = todayKey();
@@ -1214,6 +1641,14 @@
 
       const info = document.createElement('div');
       info.className = 'e-info';
+
+      if (entry.photo) {
+        const photo = document.createElement('img');
+        photo.className = 'e-photo';
+        photo.src = entry.photo;
+        photo.alt = entry.name;
+        li.appendChild(photo);
+      }
 
       const name = document.createElement('span');
       name.className = 'e-name';
@@ -1416,18 +1851,38 @@
       return;
     }
 
+    const trainingColors = {
+      strength: ['#4F78A8', '#DCE8F5'],
+      cardio: ['#B66A4B', '#F3DFD5'],
+      yoga: ['#C49338', '#F6E9C8'],
+      stretching: ['#6C8F72', '#E1ECE1']
+    };
+
     state.training.forEach((plan) => {
+      const planType = plan.color || plan.type || 'strength';
+      const colors = trainingColors[planType] || trainingColors.strength;
       const item = document.createElement('li');
-      item.className = 'training-item';
+      item.className = `training-item type-${planType}`;
+      item.style.setProperty('--plan-color', colors[0]);
+      item.style.setProperty('--plan-soft', colors[1]);
 
       const info = document.createElement('div');
       const title = document.createElement('div');
       title.className = 'training-item-title';
-      title.textContent = `${t(plan.type)} · ${plan.quantity} ${t(plan.unit)}`;
+      title.textContent = `${t(planType)} · ${plan.quantity} ${t(plan.unit)}`;
 
       const meta = document.createElement('div');
       meta.className = 'training-item-meta';
-      meta.textContent = `${t('daysLabel')}: ${plan.days.map((day) => t(day)).join(', ')}`;
+      meta.textContent = `${plan.quantity} ${t(plan.unit)}`;
+
+      const days = document.createElement('div');
+      days.className = 'training-item-days';
+      plan.days.forEach((day) => {
+        const dayChip = document.createElement('span');
+        dayChip.className = 'training-item-day';
+        dayChip.textContent = t(day);
+        days.appendChild(dayChip);
+      });
 
       const exercises = document.createElement('div');
       exercises.className = 'training-item-exercises';
@@ -1435,6 +1890,7 @@
 
       info.appendChild(title);
       info.appendChild(meta);
+      info.appendChild(days);
       info.appendChild(exercises);
 
       const del = document.createElement('button');
@@ -1454,6 +1910,45 @@
     });
   }
 
+  function bmiCategoryKey(bmi) {
+    if (bmi < 18.5) return 'bmiUnderweight';
+    if (bmi < 25) return 'bmiNormal';
+    if (bmi < 30) return 'bmiOverweight';
+    if (bmi < 35) return 'bmiObesity1';
+    if (bmi < 40) return 'bmiObesity2';
+    return 'bmiObesity3';
+  }
+
+  function renderProfile() {
+    const profile = state.profile || {};
+    profileName.value = profile.name || '';
+    profileAge.value = profile.age || '';
+    profileHeight.value = profile.height || '';
+    profileWeight.value = profile.weight || '';
+    const avatar = profile.avatar || pendingAvatarUrl;
+    profileAvatar.innerHTML = avatar
+      ? `<img src="${avatar}" alt="">`
+      : '?';
+    updateProfileMetrics();
+  }
+
+  function updateProfileMetrics() {
+    const height = Number(profileHeight.value);
+    const weight = Number(profileWeight.value);
+    if (!height || !weight || height <= 0 || weight <= 0) {
+      bmiValue.textContent = '—';
+      bmiCategory.textContent = '—';
+      bmiAdvice.textContent = t('bmiNoData');
+      return;
+    }
+
+    const bmi = weight / ((height / 100) ** 2);
+    const categoryKey = bmiCategoryKey(bmi);
+    bmiValue.textContent = bmi.toFixed(1);
+    bmiCategory.textContent = t(categoryKey);
+    bmiAdvice.textContent = t(categoryKey);
+  }
+
   profileClose.addEventListener('click', closeProfile);
   profileModal.addEventListener('click', (event) => {
     if (event.target === profileModal) closeProfile();
@@ -1463,6 +1958,7 @@
   });
 
   function renderAll() {
+    applyTheme();
     applyTranslations();
     languageSelect.value = state.language;
     renderToday();
@@ -1470,9 +1966,10 @@
     renderLeaderboard();
     renderNutrition();
     renderTraining();
+    renderProfile();
   }
 
-  addForm.addEventListener('submit', function (ev) {
+  addForm.addEventListener('submit', async function (ev) {
     ev.preventDefault();
     const selectedFood = foodName.options[foodName.selectedIndex];
     const name = selectedFood ? (state.language === 'en' ? selectedFood.dataset.foodEn : selectedFood.dataset.foodUk) : '';
@@ -1480,28 +1977,63 @@
     const kcal = parseInt(foodKcal.value, 10);
     if (!name || !Number.isFinite(kcal) || kcal < 0) return;
 
+    let photo = '';
+    if (foodPhoto.files[0]) {
+      photo = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => resolve('');
+        reader.readAsDataURL(foodPhoto.files[0]);
+      });
+    }
+
     const key = todayKey();
     const list = dayEntries(key);
-    list.push({ id: Date.now() + '-' + Math.random().toString(36).slice(2, 7), name, category, kcal });
+    list.push({ id: Date.now() + '-' + Math.random().toString(36).slice(2, 7), name, category, kcal, photo });
     state.history[key] = { entries: list };
     saveState(state);
     renderAll();
 
     foodName.value = '';
     foodKcal.value = '';
+    foodPhoto.value = '';
+    foodPhotoPreview.hidden = true;
+    foodPhotoPreview.removeAttribute('src');
     foodName.focus();
+  });
+
+  foodPhoto.addEventListener('change', function () {
+    const file = foodPhoto.files[0];
+    if (!file) {
+      foodPhotoPreview.hidden = true;
+      return;
+    }
+    if (!file.type.startsWith('image/') || file.size > 2 * 1024 * 1024) {
+      foodPhoto.value = '';
+      foodPhotoPreview.hidden = true;
+      return;
+    }
+    foodPhotoPreview.src = URL.createObjectURL(file);
+    foodPhotoPreview.hidden = false;
   });
 
   trainingForm.addEventListener('submit', function (ev) {
     ev.preventDefault();
+    const submittedType = trainingType.value;
     const days = Array.from(document.querySelectorAll('input[name="trainingDay"]:checked')).map((input) => input.value);
     const quantity = parseInt(trainingQuantity.value, 10);
     const exercises = trainingExercises.value.trim();
-    if (!days.length || !Number.isFinite(quantity) || quantity < 1 || !exercises) return;
+    if (!days.length || !Number.isFinite(quantity) || quantity < 1 || !exercises) {
+      trainingValidation.textContent = t('validation');
+      trainingValidation.classList.add('visible');
+      return;
+    }
+    trainingValidation.classList.remove('visible');
 
     state.training.push({
       id: Date.now() + '-' + Math.random().toString(36).slice(2, 7),
       type: trainingType.value,
+      color: trainingType.value,
       quantity,
       unit: trainingUnit.value,
       days,
@@ -1510,7 +2042,120 @@
     });
     saveState(state);
     trainingForm.reset();
+    delete trainingDraftDays[submittedType];
+    delete trainingDraftFields[submittedType];
+    activeTrainingType = trainingType.value;
+    trainingForm.className = `training-form type-${activeTrainingType}`;
+    restoreTrainingDays();
+    renderTrainingDraftSummary();
     renderTraining();
+  });
+
+  const trainingDayInputs = Array.from(document.querySelectorAll('input[name="trainingDay"]'));
+
+  function rememberTrainingDays() {
+    trainingDraftDays[activeTrainingType] = trainingDayInputs
+      .filter((input) => input.checked)
+      .map((input) => input.value);
+    trainingDraftFields[activeTrainingType] = {
+      quantity: trainingQuantity.value,
+      unit: trainingUnit.value,
+      exercises: trainingExercises.value,
+      notes: trainingNotes.value
+    };
+  }
+
+  function restoreTrainingDays() {
+    const selectedDays = trainingDraftDays[activeTrainingType] || [];
+    trainingDayInputs.forEach((input) => {
+      input.checked = selectedDays.includes(input.value);
+    });
+    const fields = trainingDraftFields[activeTrainingType] || {};
+    trainingQuantity.value = fields.quantity || '';
+    trainingUnit.value = fields.unit || 'minutes';
+    trainingExercises.value = fields.exercises || '';
+    trainingNotes.value = fields.notes || '';
+  }
+
+  function hasTrainingInput() {
+    return trainingDayInputs.some((input) => input.checked)
+      || trainingQuantity.value.trim() !== ''
+      || trainingExercises.value.trim() !== ''
+      || trainingNotes.value.trim() !== '';
+  }
+
+  function switchTrainingType(type) {
+    activeTrainingType = type;
+    trainingType.value = type;
+    trainingForm.className = `training-form type-${activeTrainingType}`;
+    restoreTrainingDays();
+    renderTrainingDraftSummary();
+  }
+
+  function closeTrainingConfirm() {
+    trainingConfirmModal.hidden = true;
+    pendingTrainingType = null;
+  }
+
+  function renderTrainingDraftSummary() {
+    trainingDraftSummary.innerHTML = '';
+    Object.entries(trainingDraftDays).forEach(([type, days]) => {
+      if (!days.length) return;
+      const group = document.createElement('div');
+      group.className = `training-draft-group type-${type}`;
+
+      const title = document.createElement('strong');
+      title.textContent = `${t(type)}:`;
+      group.appendChild(title);
+
+      days.forEach((day) => {
+        const chip = document.createElement('span');
+        chip.className = 'training-draft-day';
+        chip.textContent = t(day);
+        group.appendChild(chip);
+      });
+      trainingDraftSummary.appendChild(group);
+    });
+  }
+
+  trainingDayInputs.forEach((input) => {
+    input.addEventListener('change', () => {
+      rememberTrainingDays();
+      renderTrainingDraftSummary();
+    });
+  });
+
+  trainingType.addEventListener('change', function () {
+    const nextType = trainingType.value;
+    if (nextType === activeTrainingType) return;
+    if (!hasTrainingInput()) {
+      switchTrainingType(nextType);
+      return;
+    }
+
+    rememberTrainingDays();
+    pendingTrainingType = nextType;
+    trainingType.value = activeTrainingType;
+    trainingConfirmTitle.textContent = t('confirmTitle');
+    trainingConfirmText.textContent = trainingQuantity.value && trainingExercises.value.trim()
+      ? t('confirmComplete')
+      : t('confirmIncomplete');
+    trainingConfirmStay.textContent = t('confirmStay');
+    trainingConfirmContinue.textContent = t('confirmContinue');
+    trainingConfirmModal.hidden = false;
+    trainingConfirmContinue.focus();
+  });
+  trainingForm.className = `training-form type-${activeTrainingType}`;
+  renderTrainingDraftSummary();
+
+  trainingConfirmStay.addEventListener('click', closeTrainingConfirm);
+  trainingConfirmContinue.addEventListener('click', () => {
+    const nextType = pendingTrainingType;
+    closeTrainingConfirm();
+    if (nextType) switchTrainingType(nextType);
+  });
+  trainingConfirmModal.addEventListener('click', (event) => {
+    if (event.target === trainingConfirmModal) closeTrainingConfirm();
   });
 
   foodName.addEventListener('change', function () {
@@ -1549,8 +2194,52 @@
     renderAll();
   });
 
+  themeToggle.addEventListener('change', function () {
+    state.theme = themeToggle.checked ? 'dark' : 'light';
+    saveState(state);
+    applyTheme();
+  });
+
   nutritionPeriod.addEventListener('change', renderAll);
   nutritionCategory.addEventListener('change', renderAll);
+
+  [profileName, profileAge, profileHeight, profileWeight].forEach((input) => {
+    input.addEventListener('input', updateProfileMetrics);
+  });
+  profileAvatarInput.addEventListener('change', function () {
+    const file = profileAvatarInput.files[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/') || file.size > 2 * 1024 * 1024) {
+      profileAvatarInput.value = '';
+      pendingAvatarUrl = '';
+      renderProfile();
+      return;
+    }
+    pendingAvatarUrl = URL.createObjectURL(file);
+    renderProfile();
+  });
+  profileForm.addEventListener('submit', async function (event) {
+    event.preventDefault();
+    let avatar = state.profile.avatar || '';
+    if (profileAvatarInput.files[0]) {
+      avatar = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => resolve(avatar);
+        reader.readAsDataURL(profileAvatarInput.files[0]);
+      });
+    }
+    state.profile = {
+      name: profileName.value.trim(),
+      age: parseInt(profileAge.value, 10) || '',
+      height: parseFloat(profileHeight.value) || '',
+      weight: parseFloat(profileWeight.value) || '',
+      avatar
+    };
+    saveState(state);
+    pendingAvatarUrl = '';
+    renderProfile();
+  });
 
   tabBtns.forEach((btn) => {
     btn.addEventListener('click', () => {

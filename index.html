@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Тарілка — облік калорій</title>
+<title>TrackTime — облік калорій</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -20,6 +20,8 @@
     --gold-soft: #F4E5C9;
     --warn: #B6533C;
     --warn-soft: #F4DDD5;
+    --cat-dinner: #7C4B6B;
+    --cat-snack: #4F7A5B;
     --radius: 14px;
     box-sizing: border-box;
     padding-top: env(safe-area-inset-top, 0px);
@@ -37,6 +39,8 @@
     --gold-soft: #51401F;
     --warn: #E08068;
     --warn-soft: #512F2A;
+    --cat-dinner: #C98FB0;
+    --cat-snack: #8FBF9B;
   }
   html { scroll-padding-top: env(safe-area-inset-top, 0px); }
   * { box-sizing: border-box; }
@@ -601,6 +605,58 @@
     line-height: 1.3;
     margin-top: 5px;
   }
+  .category-chart-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    margin: 18px 2px 10px;
+  }
+  .category-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .category-chart-empty {
+    color: var(--ink-soft);
+    font-size: 13px;
+    padding: 2px 0 4px;
+  }
+  .category-row-top {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12.5px;
+    margin-bottom: 5px;
+  }
+  .category-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex: none;
+  }
+  .category-name {
+    flex: 1;
+    color: var(--ink);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .category-kcal {
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .category-track {
+    height: 8px;
+    border-radius: 5px;
+    background: var(--accent-soft);
+    overflow: hidden;
+  }
+  .category-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+  }
   .dashboard-filters {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -668,6 +724,61 @@
     color: var(--accent);
     font-variant-numeric: tabular-nums;
     font-weight: 600;
+  }
+  .faq {
+    margin-top: 30px;
+    padding: 20px 18px 18px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  .faq-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .faq-list {
+    display: grid;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .faq-item {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--bg);
+    padding: 0 14px;
+  }
+  .faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 13px 26px 13px 0;
+    position: relative;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: '+';
+    position: absolute;
+    right: 2px;
+    top: 50%;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    transform: translateY(-50%);
+    color: var(--accent);
+    font-size: 18px;
+    font-weight: 400;
+    transition: transform 0.2s ease;
+  }
+  .faq-item[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+  .faq-item p {
+    margin: 0 0 14px;
+    color: var(--ink-soft);
+    font-size: 13px;
+    line-height: 1.5;
   }
   .training {
     margin-top: 30px;
@@ -928,6 +1039,7 @@
     background: var(--accent-soft);
     color: var(--accent);
     font-weight: 700;
+    overflow: hidden;
   }
   .profile-avatar-picker {
     position: relative;
@@ -946,8 +1058,11 @@
     cursor: pointer;
   }
   .profile-avatar img {
+    display: block;
     width: 100%;
     height: 100%;
+    min-width: 100%;
+    min-height: 100%;
     border-radius: 50%;
     object-fit: cover;
   }
@@ -972,7 +1087,6 @@
   }
   .profile-form input {
     width: 100%;
-    margin-top: 5px;
     border: 1px solid var(--line);
     border-radius: 10px;
     padding: 11px 12px;
@@ -981,6 +1095,58 @@
     font: 14px 'Inter', sans-serif;
   }
   .profile-form input:focus { outline: none; border-color: var(--accent); }
+  .profile-field {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    width: 100%;
+    margin-top: 5px;
+  }
+  .profile-field input { flex: 1; min-width: 0; }
+  .profile-form input[readonly] {
+    border-color: transparent;
+    background: transparent;
+    border-radius: 0;
+    padding: 2px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .profile-form input[readonly]:focus { border-bottom-color: var(--line); }
+  .field-edit-btn {
+    display: none;
+    flex: none;
+    border: none;
+    background: none;
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 8px;
+  }
+  .field-edit-btn:hover { color: var(--accent); }
+  .profile-field.is-locked .field-edit-btn { display: inline-flex; }
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--ink);
+    color: var(--surface);
+    padding: 12px 20px;
+    border-radius: 10px;
+    font: 500 13px 'Inter', sans-serif;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    z-index: 50;
+    max-width: calc(100% - 40px);
+    text-align: center;
+  }
+  .toast.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
   .profile-metrics {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1008,6 +1174,7 @@
     background: var(--gold-soft);
   }
   .bmi-status .profile-metric-value { color: var(--gold); }
+  .profile-save[hidden] { display: none; }
   .profile-save {
     border: none;
     border-radius: 10px;
@@ -1160,27 +1327,27 @@
   }
   .chart-day.today { color: var(--ink); font-weight: 600; }
 
-  @media (max-width: 380px) {
+  @media (max-width: 480px) {
     body::before,
     body::after { display: none; }
     form.add-form { flex-wrap: wrap; }
-    .add-form .f-name { flex: 1 1 calc(100% - 120px); }
+    .select-control.f-name-control { flex: 1 1 100%; }
     .select-control.f-category-control { flex: 1 1 112px; }
     .add-form .f-kcal { flex: 1 1 84px; }
-    .add-form button { flex: 1 1 90px; }
+    .add-form button { flex: 1 1 100%; }
     .training-row { grid-template-columns: 1fr 1fr; }
     .training-row select:last-child { grid-column: 1 / -1; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .bar-fill, .chart-bar-fill { transition: none; }
+    .bar-fill, .chart-bar-fill, .category-fill, .toast { transition: none; }
   }
 </style>
 </head>
 <body>
   <div class="wrap">
     <header class="top">
-      <div class="brand">Тарілка</div>
+      <div class="brand" data-i18n="appName">TrackTime</div>
       <div class="tagline" data-i18n="tagline">Проста фіксація їжі на день</div>
       <select class="language-select" id="languageSelect" data-i18n-aria="languageLabel" aria-label="Мова">
         <option value="uk">🇺🇦 UA</option>
@@ -1287,6 +1454,8 @@
             <div class="nutrition-label" data-i18n="favoriteMeal">найчастіше</div>
           </div>
         </div>
+        <div class="category-chart-title" data-i18n="categoryBreakdown">Розподіл за категоріями</div>
+        <div class="category-chart" id="categoryChart" aria-label="Розподіл калорій за категоріями"></div>
       </section>
 
       <section class="nutrition-dashboard" aria-labelledby="dashboardTitle">
@@ -1317,6 +1486,36 @@
           <li data-fact-uk="Калорії — це лише один показник: склад їжі та поживна цінність теж мають значення." data-fact-en="Calories are only one measure: food composition and nutritional value matter too.">Калорії — це лише один показник: склад їжі та поживна цінність теж мають значення.</li>
           <li data-fact-uk="Регулярність і різноманітність раціону часто важливіші за ідеальність одного прийому їжі." data-fact-en="Consistency and variety often matter more than making one meal perfect.">Регулярність і різноманітність раціону часто важливіші за ідеальність одного прийому їжі.</li>
         </ol>
+      </section>
+
+      <section class="faq" aria-labelledby="faqTitle">
+        <div class="faq-title" id="faqTitle" data-i18n="faqTitle">Часті запитання</div>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary data-i18n="faqQ1">Де зберігаються мої дані?</summary>
+            <p data-i18n="faqA1">Усі записи харчування, тренувань і профіль зберігаються локально в браузері — без реєстрації та серверів.</p>
+          </details>
+          <details class="faq-item">
+            <summary data-i18n="faqQ2">Чи синхронізуються дані між пристроями?</summary>
+            <p data-i18n="faqA2">Ні, дані прив'язані до цього браузера на цьому пристрої. Якщо очистити кеш або відкрити застосунок на іншому пристрої, історія буде порожньою.</p>
+          </details>
+          <details class="faq-item">
+            <summary data-i18n="faqQ3">Як змінити денну ціль калорій?</summary>
+            <p data-i18n="faqA3">На вкладці «Харчування» натисни на значення цілі поруч із написом «ціль» і введи нове число — воно збережеться автоматично.</p>
+          </details>
+          <details class="faq-item">
+            <summary data-i18n="faqQ4">Як рахується ІМТ?</summary>
+            <p data-i18n="faqA4">Індекс маси тіла — це вага в кілограмах, поділена на зріст у метрах у квадраті. Вкажи зріст і вагу в профілі, щоб побачити результат.</p>
+          </details>
+          <details class="faq-item">
+            <summary data-i18n="faqQ5">Чи можна додати фото до страви або аватара?</summary>
+            <p data-i18n="faqA5">Так, натисни на іконку камери біля форми додавання їжі або на аватар у профілі, щоб завантажити фото з пристрою.</p>
+          </details>
+          <details class="faq-item">
+            <summary data-i18n="faqQ6">Як перемкнути мову чи темну тему?</summary>
+            <p data-i18n="faqA6">Мова перемикається прапорцем у шапці застосунку, а темна тема — перемикачем у розділі «Профіль» → «Налаштування».</p>
+          </details>
+        </div>
       </section>
 
       <div class="profile-modal" id="profileModal" hidden>
@@ -1397,10 +1596,30 @@
           </div>
         </div>
         <form class="profile-form" id="profileForm">
-          <label><span data-i18n="nameLabel">Ім’я</span><input id="profileName" type="text" data-i18n-placeholder="namePlaceholder" placeholder="Наприклад, Олена" autocomplete="name"></label>
-          <label><span data-i18n="ageLabel">Вік</span><input id="profileAge" type="number" min="1" max="120" data-i18n-placeholder="agePlaceholder" placeholder="Років" inputmode="numeric"></label>
-          <label><span data-i18n="heightLabel">Зріст, см</span><input id="profileHeight" type="number" min="50" max="250" data-i18n-placeholder="heightPlaceholder" placeholder="Наприклад, 170" inputmode="numeric"></label>
-          <label><span data-i18n="weightLabel">Вага, кг</span><input id="profileWeight" type="number" min="20" max="400" step="0.1" data-i18n-placeholder="weightPlaceholder" placeholder="Наприклад, 70" inputmode="decimal"></label>
+          <label><span data-i18n="nameLabel">Ім’я</span>
+            <span class="profile-field" data-field-row="profileName">
+              <input id="profileName" type="text" data-i18n-placeholder="namePlaceholder" placeholder="Наприклад, Олена" autocomplete="name">
+              <button type="button" class="field-edit-btn" data-field="profileName" data-i18n-aria="editField" aria-label="Редагувати">✎</button>
+            </span>
+          </label>
+          <label><span data-i18n="ageLabel">Вік</span>
+            <span class="profile-field" data-field-row="profileAge">
+              <input id="profileAge" type="number" min="1" max="120" data-i18n-placeholder="agePlaceholder" placeholder="Років" inputmode="numeric">
+              <button type="button" class="field-edit-btn" data-field="profileAge" data-i18n-aria="editField" aria-label="Редагувати">✎</button>
+            </span>
+          </label>
+          <label><span data-i18n="heightLabel">Зріст, см</span>
+            <span class="profile-field" data-field-row="profileHeight">
+              <input id="profileHeight" type="number" min="50" max="250" data-i18n-placeholder="heightPlaceholder" placeholder="Наприклад, 170" inputmode="numeric">
+              <button type="button" class="field-edit-btn" data-field="profileHeight" data-i18n-aria="editField" aria-label="Редагувати">✎</button>
+            </span>
+          </label>
+          <label><span data-i18n="weightLabel">Вага, кг</span>
+            <span class="profile-field" data-field-row="profileWeight">
+              <input id="profileWeight" type="number" min="20" max="400" step="0.1" data-i18n-placeholder="weightPlaceholder" placeholder="Наприклад, 70" inputmode="decimal">
+              <button type="button" class="field-edit-btn" data-field="profileWeight" data-i18n-aria="editField" aria-label="Редагувати">✎</button>
+            </span>
+          </label>
           <div class="profile-metrics">
             <div class="profile-metric">
               <div class="profile-metric-value" id="bmiValue">—</div>
@@ -1415,7 +1634,7 @@
               <div class="profile-metric-label" data-i18n="bmiAdviceLabel">Орієнтовна оцінка за ІМТ</div>
             </div>
           </div>
-          <button class="profile-save" type="submit" data-i18n="saveProfile">Зберегти профіль</button>
+          <button class="profile-save" id="profileSaveBtn" type="submit" data-i18n="saveProfile">Зберегти профіль</button>
         </form>
         <div class="settings-card">
           <div class="settings-title" data-i18n="settings">Налаштування</div>
@@ -1432,12 +1651,14 @@
 
   </div>
 
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
 <script>
 (function () {
   const STORAGE_KEY = 'calorie-tracker-v2';
   const translations = {
     uk: {
-      languageLabel: 'Мова', openSelect: 'Відкрити список', photoLabel: 'Додати фото', avatarLabel: 'Додати фото аватара', profile: 'Профіль', profileCaption: 'Твої особисті дані та показники', settings: 'Налаштування', darkTheme: 'Темна тема', nameLabel: 'Ім’я', namePlaceholder: 'Наприклад, Олена', ageLabel: 'Вік', agePlaceholder: 'Років', heightLabel: 'Зріст, см', heightPlaceholder: 'Наприклад, 170', weightLabel: 'Вага, кг', weightPlaceholder: 'Наприклад, 70', bmiLabel: 'ІМТ', bmiCategoryLabel: 'Категорія ваги', bmiAdviceLabel: 'Орієнтовна оцінка за ІМТ', bmiUnderweight: 'Недостатня вага', bmiNormal: 'Норма', bmiOverweight: 'Надлишкова вага', bmiObesity1: 'Ожиріння I ст.', bmiObesity2: 'Ожиріння II ст.', bmiObesity3: 'Ожиріння III ст.', bmiNoData: 'Вкажи зріст і вагу', saveProfile: 'Зберегти профіль', profileSaved: 'Профіль збережено', periodFilter: 'Період', categoryFilter: 'Категорія', periodToday: 'Сьогодні', periodWeek: 'Останні 7 днів', allCategories: 'Усі категорії', dashboard: 'Дашборд', dashboardToday: 'Дані за сьогодні', dashboardWeek: 'Дані за останні 7 днів', nutritionChart: 'Калорії за період', unit: 'ккал', currentUser: 'Ти', olena: 'Олена', andrii: 'Андрій', sofia: 'Софія', nutrition: 'Харчування', last7Nutrition: 'за останні 7 днів', weeklyKcal: 'всього ккал', mealCount: 'прийомів їжі', favoriteMeal: 'найчастіше', factsTitle: '10 фактів про харчування', training: 'Тренування', trainingCaption: 'Плануй активність на тиждень', trainingType: 'Тип тренування', unitLabel: 'Одиниця', quantity: 'Кількість', daysLabel: 'Дні', exercisesPlaceholder: 'Вправи: присідання, планка, віджимання...', notesPlaceholder: "Нотатка (необов'язково)", addTraining: 'Додати тренування', strength: 'Силове', cardio: 'Кардіо', yoga: 'Йога', stretching: 'Розтяжка', minutes: 'хв', sets: 'підх.', sessions: 'разів', mon: 'Пн', tue: 'Вт', wed: 'Ср', thu: 'Чт', fri: 'Пт', sat: 'Сб', sun: 'Нд', noTraining: 'Ще немає запланованих тренувань', exercisesLabel: 'Вправи', noteLabel: 'Нотатка', deleteTraining: 'Видалити тренування', confirmTitle: 'Змінити тип тренування?', confirmIncomplete: 'Поточне тренування ще не заповнене. Перейти до іншого типу?', confirmComplete: 'Поточне тренування заповнене. Додайте його перед переходом або продовжуйте без збереження.', confirmStay: 'Залишитися', confirmContinue: 'Так, продовжити', validation: 'Заповніть тип, виберіть хоча б один день, вкажіть кількість і додайте вправи.', noData: '—', tagline: 'Проста фіксація їжі на день', today: 'Сьогодні', week: 'Тиждень', goal: 'ціль',
+      languageLabel: 'Мова', openSelect: 'Відкрити список', photoLabel: 'Додати фото', avatarLabel: 'Додати фото аватара', profile: 'Профіль', profileCaption: 'Твої особисті дані та показники', settings: 'Налаштування', darkTheme: 'Темна тема', nameLabel: 'Ім’я', namePlaceholder: 'Наприклад, Олена', ageLabel: 'Вік', agePlaceholder: 'Років', heightLabel: 'Зріст, см', heightPlaceholder: 'Наприклад, 170', weightLabel: 'Вага, кг', weightPlaceholder: 'Наприклад, 70', bmiLabel: 'ІМТ', bmiCategoryLabel: 'Категорія ваги', bmiAdviceLabel: 'Орієнтовна оцінка за ІМТ', bmiUnderweight: 'Недостатня вага', bmiNormal: 'Норма', bmiOverweight: 'Надлишкова вага', bmiObesity1: 'Ожиріння I ст.', bmiObesity2: 'Ожиріння II ст.', bmiObesity3: 'Ожиріння III ст.', bmiNoData: 'Вкажи зріст і вагу', saveProfile: 'Зберегти профіль', profileSaved: 'Профіль збережено', editField: 'Редагувати', periodFilter: 'Період', categoryFilter: 'Категорія', periodToday: 'Сьогодні', periodWeek: 'Останні 7 днів', allCategories: 'Усі категорії', dashboard: 'Дашборд', dashboardToday: 'Дані за сьогодні', dashboardWeek: 'Дані за останні 7 днів', nutritionChart: 'Калорії за період', unit: 'ккал', currentUser: 'Ти', olena: 'Олена', andrii: 'Андрій', sofia: 'Софія', nutrition: 'Харчування', last7Nutrition: 'за останні 7 днів', weeklyKcal: 'всього ккал', mealCount: 'прийомів їжі', favoriteMeal: 'найчастіше', categoryBreakdown: 'Розподіл за категоріями', noCategoryData: 'Немає даних за цей період', factsTitle: '10 фактів про харчування', faqTitle: 'Часті запитання', faqQ1: 'Де зберігаються мої дані?', faqA1: 'Усі записи харчування, тренувань і профіль зберігаються локально в браузері — без реєстрації та серверів.', faqQ2: 'Чи синхронізуються дані між пристроями?', faqA2: "Ні, дані прив'язані до цього браузера на цьому пристрої. Якщо очистити кеш або відкрити застосунок на іншому пристрої, історія буде порожньою.", faqQ3: 'Як змінити денну ціль калорій?', faqA3: 'На вкладці «Харчування» натисни на значення цілі поруч із написом «ціль» і введи нове число — воно збережеться автоматично.', faqQ4: 'Як рахується ІМТ?', faqA4: 'Індекс маси тіла — це вага в кілограмах, поділена на зріст у метрах у квадраті. Вкажи зріст і вагу в профілі, щоб побачити результат.', faqQ5: 'Чи можна додати фото до страви або аватара?', faqA5: 'Так, натисни на іконку камери біля форми додавання їжі або на аватар у профілі, щоб завантажити фото з пристрою.', faqQ6: 'Як перемкнути мову чи темну тему?', faqA6: 'Мова перемикається прапорцем у шапці застосунку, а темна тема — перемикачем у розділі «Профіль» → «Налаштування».', training: 'Тренування', trainingCaption: 'Плануй активність на тиждень', trainingType: 'Тип тренування', unitLabel: 'Одиниця', quantity: 'Кількість', daysLabel: 'Дні', exercisesPlaceholder: 'Вправи: присідання, планка, віджимання...', notesPlaceholder: "Нотатка (необов'язково)", addTraining: 'Додати тренування', strength: 'Силове', cardio: 'Кардіо', yoga: 'Йога', stretching: 'Розтяжка', minutes: 'хв', sets: 'підх.', sessions: 'разів', mon: 'Пн', tue: 'Вт', wed: 'Ср', thu: 'Чт', fri: 'Пт', sat: 'Сб', sun: 'Нд', noTraining: 'Ще немає запланованих тренувань', exercisesLabel: 'Вправи', noteLabel: 'Нотатка', deleteTraining: 'Видалити тренування', confirmTitle: 'Змінити тип тренування?', confirmIncomplete: 'Поточне тренування ще не заповнене. Перейти до іншого типу?', confirmComplete: 'Поточне тренування заповнене. Додайте його перед переходом або продовжуйте без збереження.', confirmStay: 'Залишитися', confirmContinue: 'Так, продовжити', validation: 'Заповніть тип, виберіть хоча б один день, вкажіть кількість і додайте вправи.', noData: '—', appName: 'TrackTime', pageTitle: 'TrackTime — облік калорій', tagline: 'Проста фіксація їжі на день', today: 'Сьогодні', week: 'Тиждень', goal: 'ціль',
       foodPlaceholder: "Що з'їли?", chooseDish: 'Оберіть...', categoryLabel: 'Категорія прийому їжі', breakfast: 'Сніданок',
       lunch: 'Обід', dinner: 'Вечеря', snack: 'Перекус', record: 'Записати', todayEntries: 'Сьогоднішні записи',
       resetToday: 'Скинути сьогоднішній день', leaderboard: 'Лідерборд', thisWeek: 'цього тижня',
@@ -1448,7 +1669,7 @@
       otherProfile: 'Стабільний тиждень у межах особистої калорійної цілі', other: 'Інше', profileOpen: 'Відкрити профіль'
     },
     en: {
-      languageLabel: 'Language', openSelect: 'Open list', photoLabel: 'Add photo', avatarLabel: 'Add avatar photo', profile: 'Profile', profileCaption: 'Your personal details and metrics', settings: 'Settings', darkTheme: 'Dark theme', nameLabel: 'Name', namePlaceholder: 'For example, Olena', ageLabel: 'Age', agePlaceholder: 'Years', heightLabel: 'Height, cm', heightPlaceholder: 'For example, 170', weightLabel: 'Weight, kg', weightPlaceholder: 'For example, 70', bmiLabel: 'BMI', bmiCategoryLabel: 'Weight category', bmiAdviceLabel: 'Estimated BMI assessment', bmiUnderweight: 'Underweight', bmiNormal: 'Normal range', bmiOverweight: 'Overweight', bmiObesity1: 'Obesity class I', bmiObesity2: 'Obesity class II', bmiObesity3: 'Obesity class III', bmiNoData: 'Enter height and weight', saveProfile: 'Save profile', profileSaved: 'Profile saved', periodFilter: 'Period', categoryFilter: 'Category', periodToday: 'Today', periodWeek: 'Last 7 days', allCategories: 'All categories', dashboard: 'Dashboard', dashboardToday: 'Data for today', dashboardWeek: 'Data for the last 7 days', nutritionChart: 'Calories for the period', unit: 'kcal', currentUser: 'You', olena: 'Olena', andrii: 'Andrii', sofia: 'Sofia', nutrition: 'Nutrition', last7Nutrition: 'over the last 7 days', weeklyKcal: 'total kcal', mealCount: 'meals logged', favoriteMeal: 'most frequent', factsTitle: '10 food facts', training: 'Workouts', trainingCaption: 'Plan your weekly activity', trainingType: 'Workout type', unitLabel: 'Unit', quantity: 'Quantity', daysLabel: 'Days', exercisesPlaceholder: 'Exercises: squats, plank, push-ups...', notesPlaceholder: 'Note (optional)', addTraining: 'Add workout', strength: 'Strength', cardio: 'Cardio', yoga: 'Yoga', stretching: 'Stretching', minutes: 'min', sets: 'sets', sessions: 'times', mon: 'Mon', tue: 'Tue', wed: 'Wed', thu: 'Thu', fri: 'Fri', sat: 'Sat', sun: 'Sun', noTraining: 'No workouts planned yet', exercisesLabel: 'Exercises', noteLabel: 'Note', deleteTraining: 'Delete workout', confirmTitle: 'Change workout type?', confirmIncomplete: 'The current workout is incomplete. Switch to another type?', confirmComplete: 'The current workout is complete. Add it before switching or continue without saving.', confirmStay: 'Stay here', confirmContinue: 'Yes, continue', validation: 'Choose a day, enter a quantity, and add exercises before saving.', noData: '—', tagline: 'Simple daily food tracking', today: 'Today', week: 'Week', goal: 'goal',
+      languageLabel: 'Language', openSelect: 'Open list', photoLabel: 'Add photo', avatarLabel: 'Add avatar photo', profile: 'Profile', profileCaption: 'Your personal details and metrics', settings: 'Settings', darkTheme: 'Dark theme', nameLabel: 'Name', namePlaceholder: 'For example, Olena', ageLabel: 'Age', agePlaceholder: 'Years', heightLabel: 'Height, cm', heightPlaceholder: 'For example, 170', weightLabel: 'Weight, kg', weightPlaceholder: 'For example, 70', bmiLabel: 'BMI', bmiCategoryLabel: 'Weight category', bmiAdviceLabel: 'Estimated BMI assessment', bmiUnderweight: 'Underweight', bmiNormal: 'Normal range', bmiOverweight: 'Overweight', bmiObesity1: 'Obesity class I', bmiObesity2: 'Obesity class II', bmiObesity3: 'Obesity class III', bmiNoData: 'Enter height and weight', saveProfile: 'Save profile', profileSaved: 'Profile saved', editField: 'Edit', periodFilter: 'Period', categoryFilter: 'Category', periodToday: 'Today', periodWeek: 'Last 7 days', allCategories: 'All categories', dashboard: 'Dashboard', dashboardToday: 'Data for today', dashboardWeek: 'Data for the last 7 days', nutritionChart: 'Calories for the period', unit: 'kcal', currentUser: 'You', olena: 'Olena', andrii: 'Andrii', sofia: 'Sofia', nutrition: 'Nutrition', last7Nutrition: 'over the last 7 days', weeklyKcal: 'total kcal', mealCount: 'meals logged', favoriteMeal: 'most frequent', categoryBreakdown: 'Breakdown by category', noCategoryData: 'No data for this period', factsTitle: '10 food facts', faqTitle: 'Frequently asked questions', faqQ1: 'Where is my data stored?', faqA1: 'All your food entries, workouts, and profile are stored locally in your browser — no sign-up or servers involved.', faqQ2: 'Does data sync between devices?', faqA2: "No, data is tied to this browser on this device. Clearing your cache or opening the app on another device will show an empty history.", faqQ3: 'How do I change my daily calorie goal?', faqA3: 'On the Nutrition tab, tap the goal value next to the "goal" label and enter a new number — it saves automatically.', faqQ4: 'How is BMI calculated?', faqA4: 'Body mass index is your weight in kilograms divided by your height in meters squared. Enter your height and weight in your profile to see the result.', faqQ5: 'Can I add a photo to a meal or my avatar?', faqA5: 'Yes, tap the camera icon next to the food entry form or your avatar in the profile to upload a photo from your device.', faqQ6: 'How do I switch the language or dark theme?', faqA6: 'Switch the language with the flag selector in the header, and toggle dark theme in the Profile tab under Settings.', training: 'Workouts', trainingCaption: 'Plan your weekly activity', trainingType: 'Workout type', unitLabel: 'Unit', quantity: 'Quantity', daysLabel: 'Days', exercisesPlaceholder: 'Exercises: squats, plank, push-ups...', notesPlaceholder: 'Note (optional)', addTraining: 'Add workout', strength: 'Strength', cardio: 'Cardio', yoga: 'Yoga', stretching: 'Stretching', minutes: 'min', sets: 'sets', sessions: 'times', mon: 'Mon', tue: 'Tue', wed: 'Wed', thu: 'Thu', fri: 'Fri', sat: 'Sat', sun: 'Sun', noTraining: 'No workouts planned yet', exercisesLabel: 'Exercises', noteLabel: 'Note', deleteTraining: 'Delete workout', confirmTitle: 'Change workout type?', confirmIncomplete: 'The current workout is incomplete. Switch to another type?', confirmComplete: 'The current workout is complete. Add it before switching or continue without saving.', confirmStay: 'Stay here', confirmContinue: 'Yes, continue', validation: 'Choose a day, enter a quantity, and add exercises before saving.', noData: '—', appName: 'TrackTime', pageTitle: 'TrackTime — calorie tracking', tagline: 'Simple daily food tracking', today: 'Today', week: 'Week', goal: 'goal',
       foodPlaceholder: 'What did you eat?', chooseDish: 'Choose...', categoryLabel: 'Meal category', breakfast: 'Breakfast',
       lunch: 'Lunch', dinner: 'Dinner', snack: 'Snack', record: 'Log food', todayEntries: "Today's entries",
       resetToday: 'Reset today', leaderboard: 'Leaderboard', thisWeek: 'this week', average: 'daily average, kcal',
@@ -1496,11 +1717,54 @@
   }
 
   let state = loadState();
+
+  function seedDemoNutritionData() {
+    const demoMeals = {
+      oatmeal: { uk: 'Вівсянка з фруктами', en: 'Oatmeal with fruit', kcal: 320 },
+      omelet: { uk: 'Омлет з овочами', en: 'Vegetable omelet', kcal: 280 },
+      chicken: { uk: 'Курка з рисом', en: 'Chicken with rice', kcal: 540 },
+      pasta: { uk: 'Паста з томатами', en: 'Tomato pasta', kcal: 460 },
+      salad: { uk: 'Салат з тунцем', en: 'Tuna salad', kcal: 260 },
+      yogurt: { uk: 'Йогурт з горіхами', en: 'Yogurt with nuts', kcal: 230 }
+    };
+    const lang = state.language === 'en' ? 'en' : 'uk';
+    const plan = [
+      { offset: 6, meals: [['oatmeal', 'Сніданок'], ['chicken', 'Обід'], ['salad', 'Вечеря']] },
+      { offset: 5, meals: [['omelet', 'Сніданок'], ['pasta', 'Обід'], ['yogurt', 'Перекус'], ['chicken', 'Вечеря']] },
+      { offset: 4, meals: [['oatmeal', 'Сніданок'], ['salad', 'Обід'], ['pasta', 'Вечеря']] },
+      { offset: 3, meals: [['omelet', 'Сніданок'], ['chicken', 'Обід'], ['yogurt', 'Перекус'], ['salad', 'Вечеря']] },
+      { offset: 2, meals: [['oatmeal', 'Сніданок'], ['pasta', 'Обід'], ['chicken', 'Вечеря']] },
+      { offset: 1, meals: [['omelet', 'Сніданок'], ['salad', 'Обід'], ['yogurt', 'Перекус'], ['pasta', 'Вечеря']] },
+      { offset: 0, meals: [['oatmeal', 'Сніданок'], ['chicken', 'Обід']] }
+    ];
+    plan.forEach(({ offset, meals }) => {
+      const d = new Date();
+      d.setDate(d.getDate() - offset);
+      const key = dateKey(d);
+      state.history[key] = {
+        entries: meals.map(([id, category], i) => ({
+          id: key + '-demo-' + id + '-' + i,
+          name: demoMeals[id][lang],
+          category,
+          kcal: demoMeals[id].kcal,
+          photo: ''
+        }))
+      };
+    });
+  }
+
+  if (Object.keys(state.history).length === 0) {
+    seedDemoNutritionData();
+    saveState(state);
+  }
+
   const trainingDraftDays = {};
   const trainingDraftFields = {};
   let activeTrainingType = 'strength';
   let pendingTrainingType = null;
   let pendingAvatarUrl = '';
+  let profileFormDirty = false;
+  const unlockedProfileFields = new Set();
 
   function t(key) {
     return translations[state.language][key] || translations.uk[key] || key;
@@ -1512,6 +1776,7 @@
   }
 
   function applyTranslations() {
+    document.title = t('pageTitle');
     document.querySelectorAll('[data-i18n]').forEach((element) => {
       element.textContent = t(element.dataset.i18n);
     });
@@ -1560,6 +1825,7 @@
   const nutritionKcal = document.getElementById('nutritionKcal');
   const nutritionMeals = document.getElementById('nutritionMeals');
   const nutritionFavorite = document.getElementById('nutritionFavorite');
+  const categoryChart = document.getElementById('categoryChart');
   const nutritionPeriod = document.getElementById('nutritionPeriod');
   const nutritionCategory = document.getElementById('nutritionCategory');
   const dashboardCaption = document.getElementById('dashboardCaption');
@@ -1578,6 +1844,7 @@
   const trainingConfirmContinue = document.getElementById('trainingConfirmContinue');
   const trainingValidation = document.getElementById('trainingValidation');
   const profileForm = document.getElementById('profileForm');
+  const profileSaveBtn = document.getElementById('profileSaveBtn');
   const profileAvatarInput = document.getElementById('profileAvatarInput');
   const themeToggle = document.getElementById('themeToggle');
   const profileName = document.getElementById('profileName');
@@ -1585,6 +1852,7 @@
   const profileHeight = document.getElementById('profileHeight');
   const profileWeight = document.getElementById('profileWeight');
   const profileAvatar = document.getElementById('profileAvatar');
+  const toastEl = document.getElementById('toast');
   const bmiValue = document.getElementById('bmiValue');
   const bmiCategory = document.getElementById('bmiCategory');
   const bmiAdvice = document.getElementById('bmiAdvice');
@@ -1823,6 +2091,65 @@
     profileModal.hidden = true;
   }
 
+  const CATEGORY_ORDER = ['Сніданок', 'Обід', 'Вечеря', 'Перекус'];
+  const CATEGORY_COLOR_VAR = { 'Сніданок': '--gold', 'Обід': '--accent', 'Вечеря': '--cat-dinner', 'Перекус': '--cat-snack' };
+
+  function renderCategoryChart(entries) {
+    const filterCategory = nutritionCategory.value;
+    const cats = filterCategory === 'all' ? CATEGORY_ORDER : [filterCategory];
+    const totals = cats.map((cat) => entries.filter((e) => e.category === cat).reduce((sum, e) => sum + e.kcal, 0));
+    const maxVal = Math.max(...totals, 1);
+    const locale = state.language === 'uk' ? 'uk-UA' : 'en-US';
+
+    categoryChart.innerHTML = '';
+    if (totals.every((value) => value === 0)) {
+      const empty = document.createElement('div');
+      empty.className = 'category-chart-empty';
+      empty.textContent = t('noCategoryData');
+      categoryChart.appendChild(empty);
+      return;
+    }
+
+    cats.forEach((cat, i) => {
+      const value = totals[i];
+      const colorVar = `var(${CATEGORY_COLOR_VAR[cat] || '--accent'})`;
+
+      const row = document.createElement('div');
+      row.className = 'category-row';
+
+      const top = document.createElement('div');
+      top.className = 'category-row-top';
+
+      const dot = document.createElement('span');
+      dot.className = 'category-dot';
+      dot.style.background = colorVar;
+
+      const name = document.createElement('span');
+      name.className = 'category-name';
+      name.textContent = categoryLabel(cat);
+
+      const kcal = document.createElement('span');
+      kcal.className = 'category-kcal';
+      kcal.textContent = value.toLocaleString(locale) + ' ' + t('unit');
+
+      top.appendChild(dot);
+      top.appendChild(name);
+      top.appendChild(kcal);
+
+      const track = document.createElement('div');
+      track.className = 'category-track';
+      const fill = document.createElement('div');
+      fill.className = 'category-fill';
+      fill.style.width = (value > 0 ? Math.max((value / maxVal) * 100, 4) : 0) + '%';
+      fill.style.background = colorVar;
+      track.appendChild(fill);
+
+      row.appendChild(top);
+      row.appendChild(track);
+      categoryChart.appendChild(row);
+    });
+  }
+
   function renderNutrition() {
     const days = nutritionPeriod.value === 'today' ? [todayKey()] : last7Days();
     const filterCategory = nutritionCategory.value;
@@ -1839,6 +2166,7 @@
     nutritionKcal.textContent = total.toLocaleString(locale) + ' ' + t('unit');
     nutritionMeals.textContent = entries.length.toLocaleString(locale);
     nutritionFavorite.textContent = favorite ? categoryLabel(favorite) : t('noData');
+    renderCategoryChart(entries);
   }
 
   function renderTraining() {
@@ -1919,17 +2247,55 @@
     return 'bmiObesity3';
   }
 
-  function renderProfile() {
-    const profile = state.profile || {};
-    profileName.value = profile.name || '';
-    profileAge.value = profile.age || '';
-    profileHeight.value = profile.height || '';
-    profileWeight.value = profile.weight || '';
-    const avatar = profile.avatar || pendingAvatarUrl;
+  function renderAvatarPreview() {
+    const avatar = (state.profile && state.profile.avatar) || pendingAvatarUrl;
     profileAvatar.innerHTML = avatar
       ? `<img src="${avatar}" alt="">`
       : '?';
+  }
+
+  let toastTimer = null;
+  function showToast(message) {
+    toastEl.textContent = message;
+    toastEl.hidden = false;
+    requestAnimationFrame(() => toastEl.classList.add('visible'));
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toastEl.classList.remove('visible');
+      setTimeout(() => { toastEl.hidden = true; }, 250);
+    }, 2200);
+  }
+
+  function applyProfileFieldLocks() {
+    const profile = state.profile || {};
+    const hasData = !!(profile.name || profile.age || profile.height || profile.weight);
+    [profileName, profileAge, profileHeight, profileWeight].forEach((input) => {
+      const row = input.closest('.profile-field');
+      const locked = hasData && !unlockedProfileFields.has(input.id);
+      input.readOnly = locked;
+      row.classList.toggle('is-locked', locked);
+    });
+  }
+
+  function renderProfile() {
+    const profile = state.profile || {};
+    if (!profileFormDirty) {
+      profileName.value = profile.name || '';
+      profileAge.value = profile.age || '';
+      profileHeight.value = profile.height || '';
+      profileWeight.value = profile.weight || '';
+    }
+    renderAvatarPreview();
     updateProfileMetrics();
+    applyProfileFieldLocks();
+    updateProfileSaveVisibility();
+  }
+
+  function updateProfileSaveVisibility() {
+    const profile = state.profile || {};
+    const hasSavedProfile = !!(profile.name || profile.age || profile.height || profile.weight);
+    const hasPendingChanges = profileFormDirty || unlockedProfileFields.size > 0 || !!pendingAvatarUrl;
+    profileSaveBtn.hidden = hasSavedProfile && !hasPendingChanges;
   }
 
   function updateProfileMetrics() {
@@ -2204,7 +2570,21 @@
   nutritionCategory.addEventListener('change', renderAll);
 
   [profileName, profileAge, profileHeight, profileWeight].forEach((input) => {
-    input.addEventListener('input', updateProfileMetrics);
+    input.addEventListener('input', function () {
+      profileFormDirty = true;
+      updateProfileMetrics();
+      updateProfileSaveVisibility();
+    });
+  });
+  document.querySelectorAll('.field-edit-btn').forEach((btn) => {
+    btn.addEventListener('click', function () {
+      const input = document.getElementById(btn.dataset.field);
+      unlockedProfileFields.add(btn.dataset.field);
+      applyProfileFieldLocks();
+      updateProfileSaveVisibility();
+      input.focus();
+      if (input.select) input.select();
+    });
   });
   profileAvatarInput.addEventListener('change', function () {
     const file = profileAvatarInput.files[0];
@@ -2212,11 +2592,13 @@
     if (!file.type.startsWith('image/') || file.size > 2 * 1024 * 1024) {
       profileAvatarInput.value = '';
       pendingAvatarUrl = '';
-      renderProfile();
+      renderAvatarPreview();
+      updateProfileSaveVisibility();
       return;
     }
     pendingAvatarUrl = URL.createObjectURL(file);
-    renderProfile();
+    renderAvatarPreview();
+    updateProfileSaveVisibility();
   });
   profileForm.addEventListener('submit', async function (event) {
     event.preventDefault();
@@ -2238,7 +2620,10 @@
     };
     saveState(state);
     pendingAvatarUrl = '';
+    profileFormDirty = false;
+    unlockedProfileFields.clear();
     renderProfile();
+    showToast(t('profileSaved'));
   });
 
   tabBtns.forEach((btn) => {

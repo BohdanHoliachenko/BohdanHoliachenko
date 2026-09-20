@@ -9,13 +9,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #E8D2B8;
-    --surface: #FFFDF8;
-    --ink: #3B2D24;
-    --ink-soft: #806F60;
-    --line: #E1D1BE;
-    --accent: #A5653E;
-    --accent-soft: #F0DED0;
+    --bg: #EAF7EE;
+    --surface: #FFFFFF;
+    --ink: #7A5233;
+    --ink-soft: #A6836A;
+    --line: #DCEEE0;
+    --accent: #99632F;
+    --accent-soft: #E4F5E8;
     --gold: #B47D38;
     --gold-soft: #F4E5C9;
     --warn: #B6533C;
@@ -28,13 +28,13 @@
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   :root[data-theme="dark"] {
-    --bg: #2C211B;
-    --surface: #3A2B23;
-    --ink: #F4E9DC;
-    --ink-soft: #C4AD99;
-    --line: #624A3B;
-    --accent: #D08A5C;
-    --accent-soft: #533A2D;
+    --bg: #1C2A20;
+    --surface: #263A2C;
+    --ink: #F1E6D8;
+    --ink-soft: #B9AC9A;
+    --line: #3D5747;
+    --accent: #D6996B;
+    --accent-soft: #35513F;
     --gold: #D9A94E;
     --gold-soft: #51401F;
     --warn: #E08068;
@@ -47,7 +47,7 @@
   body {
     margin: 0;
     background:
-      linear-gradient(90deg, rgba(166, 111, 73, 0.2), transparent 22%, transparent 78%, rgba(166, 111, 73, 0.2)),
+      linear-gradient(90deg, rgba(151, 189, 163, 0.25), transparent 22%, transparent 78%, rgba(151, 189, 163, 0.25)),
       linear-gradient(180deg, var(--bg) 0, var(--bg) 30%, var(--bg) 70%, var(--bg) 100%);
     color: var(--ink);
     font-family: 'Inter', -apple-system, sans-serif;
@@ -84,7 +84,7 @@
       linear-gradient(315deg, transparent 48%, var(--gold) 49% 51%, transparent 52%) 0 112px / 28px 28px no-repeat;
   }
   .wrap {
-    max-width: 480px;
+    max-width: 640px;
     margin: 0 auto;
     padding: 32px 20px 60px;
     position: relative;
@@ -165,6 +165,115 @@
     background: var(--surface);
     color: var(--ink);
     box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  }
+
+  .shell {
+    display: flex;
+    flex-direction: column;
+  }
+  .content { min-width: 0; }
+
+  .sidebar-deco {
+    display: none;
+    position: relative;
+    flex: 1;
+    min-height: 180px;
+    margin-top: 14px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: linear-gradient(165deg, var(--accent-soft), transparent 75%);
+  }
+  .sidebar-deco::before,
+  .sidebar-deco::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(16px);
+    opacity: 0.6;
+  }
+  .sidebar-deco::before {
+    width: 86px;
+    height: 86px;
+    left: -18px;
+    bottom: 6px;
+    background: var(--accent);
+    animation: deco-float-a 8s ease-in-out infinite;
+  }
+  .sidebar-deco::after {
+    width: 64px;
+    height: 64px;
+    right: -8px;
+    top: 18px;
+    background: var(--gold);
+    animation: deco-float-b 6.5s ease-in-out infinite;
+  }
+  .sidebar-deco-dots {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .sidebar-deco-dots span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.35;
+    animation: deco-pulse 1.8s ease-in-out infinite;
+  }
+  .sidebar-deco-dots span:nth-child(2) { background: var(--gold); animation-delay: 0.2s; }
+  .sidebar-deco-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes deco-float-a {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(16px, -14px) scale(1.18); }
+  }
+  @keyframes deco-float-b {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-14px, 14px) scale(0.85); }
+  }
+  @keyframes deco-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.35; }
+    50% { transform: scale(1.9); opacity: 0.9; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sidebar-deco::before,
+    .sidebar-deco::after,
+    .sidebar-deco-dots span { animation: none; }
+  }
+
+  @media (min-width: 860px) {
+    .wrap { max-width: 920px; }
+    body::before,
+    body::after { display: none; }
+    .shell {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 28px;
+    }
+    .tabs {
+      flex: 0 0 190px;
+      flex-direction: column;
+      gap: 4px;
+      margin: 22px 0 0;
+      padding: 10px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      position: sticky;
+      top: 24px;
+    }
+    .tab-btn {
+      flex: none;
+      width: 100%;
+      text-align: left;
+      padding: 11px 14px;
+      border-radius: 10px;
+    }
+    .tab-btn.active { background: var(--accent-soft); }
+    .content { flex: 1; margin-top: 22px; }
+    .sidebar-deco { display: flex; }
   }
 
   .view { display: none; }
@@ -787,11 +896,6 @@
     border-radius: var(--radius);
     background: var(--surface);
   }
-  .training-title {
-    font-family: 'Inter', sans-serif;
-    font-size: 22px;
-    font-weight: 600;
-  }
   .training-caption {
     color: var(--ink-soft);
     font-size: 12px;
@@ -1067,14 +1171,9 @@
     object-fit: cover;
   }
   .profile-avatar-picker:hover .profile-avatar { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .profile-title {
-    font-size: 22px;
-    font-weight: 600;
-  }
   .profile-caption {
-    margin-top: 3px;
     color: var(--ink-soft);
-    font-size: 12px;
+    font-size: 13px;
   }
   .profile-form {
     display: grid;
@@ -1355,11 +1454,16 @@
       </select>
     </header>
 
-    <div class="tabs">
+    <div class="shell">
+    <nav class="tabs">
       <button class="tab-btn active" data-tab="nutrition" data-i18n="nutrition">Харчування</button>
       <button class="tab-btn" data-tab="training" data-i18n="training">Тренування</button>
       <button class="tab-btn" data-tab="profile" data-i18n="profile">Профіль</button>
-    </div>
+      <div class="sidebar-deco" aria-hidden="true">
+        <div class="sidebar-deco-dots"><span></span><span></span><span></span></div>
+      </div>
+    </nav>
+    <div class="content">
 
     <!-- TODAY VIEW -->
     <section class="view active" id="view-nutrition">
@@ -1534,8 +1638,7 @@
 
     <!-- TRAINING VIEW -->
     <section class="view" id="view-training">
-      <section class="training" aria-labelledby="trainingTitle">
-        <div class="training-title" id="trainingTitle" data-i18n="training">Тренування</div>
+      <section class="training" aria-label="Тренування">
         <div class="training-caption" data-i18n="trainingCaption">Плануй активність на тиждень</div>
         <form class="training-form" id="trainingForm">
           <div class="training-row">
@@ -1584,16 +1687,13 @@
     </div>
 
     <section class="view" id="view-profile">
-      <section class="profile-settings" aria-labelledby="profileTitlePage">
+      <section class="profile-settings" aria-label="Профіль">
         <div class="profile-heading">
           <label class="profile-avatar-picker" data-i18n-aria="avatarLabel" aria-label="Додати фото аватара">
             <div class="profile-avatar" id="profileAvatar">?</div>
             <input id="profileAvatarInput" type="file" accept="image/*">
           </label>
-          <div>
-            <div class="profile-title" id="profileTitlePage" data-i18n="profile">Профіль</div>
-            <div class="profile-caption" data-i18n="profileCaption">Твої особисті дані та показники</div>
-          </div>
+          <div class="profile-caption" data-i18n="profileCaption">Твої особисті дані та показники</div>
         </div>
         <form class="profile-form" id="profileForm">
           <label><span data-i18n="nameLabel">Ім’я</span>
@@ -1648,6 +1748,9 @@
         </div>
       </section>
     </section>
+
+    </div>
+    </div>
 
   </div>
 
